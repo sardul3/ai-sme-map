@@ -1,5 +1,6 @@
 const $ = (id) => document.getElementById(id);
 const EVAL_KEY = "atlas_eval_log";
+const PAGE = document.body.dataset.page || "home";
 
 function atlasRoot(pathname = location.pathname) {
   const pageStems = new Set(["index", "commute"]);
@@ -243,6 +244,31 @@ function renderDrawer(node, byId, progress) {
   const el = $("drawer");
   if (!el || !node) return;
   el.hidden = false;
+  if (PAGE === "commute") {
+    const rows = commutePlaylist(state.graph, state.resources).filter((r) => r.station_id === node.id);
+    const cards = rows
+      .map((r) => {
+        const on = state.nowPlaying && state.nowPlaying.id === r.id;
+        return `<article class="card ${on ? "playing" : ""}">
+          <div>
+            <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
+            <div class="ev">${r.evidence || ""}</div>
+            <div class="prov">${showName(r)} · ${r.kind}${sittingMark(r.sitting)}</div>
+          </div>
+          <div class="status">
+            ${playButton(r)}
+            ${statusButtons(r.id, progress[r.id] || "todo", ["doing", "done"])}
+          </div>
+        </article>`;
+      })
+      .join("");
+    el.innerHTML = `
+      <p class="kicker">T${node.stage} · ${node.rail} · eyes-off</p>
+      <h3>${node.title}</h3>
+      <p class="why">${node.why}</p>
+      ${cards || `<p class="why">No commute episode on this station yet. Pick a neighbor with a count.</p>`}`;
+    return;
+  }
   const primary = byId[node.do[0]];
   const skip = primary
     ? `<p><button type="button" class="skip" data-skip="${primary.id}" aria-label="Skip this station, I already know it">I already know this station</button></p>`
@@ -260,9 +286,18 @@ function renderDrawer(node, byId, progress) {
 }
 
 function stationButton(n, progress, activeId, byId) {
+  const live = state.nowPlaying && state.nowPlaying.station_id === n.id ? " live" : "";
+  if (PAGE === "commute") {
+    const eps = commutePlaylist(state.graph, state.resources).filter((r) => r.station_id === n.id);
+    const nDone = eps.filter((r) => isComplete(progress, r.id, byId)).length;
+    return `<button class="station ${n.rail} ${n.id === activeId ? "active" : ""}${live}" data-node="${n.id}">
+      ${n.title}
+      <span class="meta">${n.branch} · ${eps.length ? `${nDone}/${eps.length} eps` : "quiet"}</span>
+    </button>`;
+  }
   const nDo = n.do.length;
   const nDone = n.do.filter((id) => isComplete(progress, id, byId)).length;
-  return `<button class="station ${n.rail} ${n.id === activeId ? "active" : ""}" data-node="${n.id}">
+  return `<button class="station ${n.rail} ${n.id === activeId ? "active" : ""}${live}" data-node="${n.id}">
     ${n.title}
     <span class="meta">${n.branch} · ${nDone}/${nDo} do</span>
   </button>`;
@@ -271,7 +306,8 @@ function stationButton(n, progress, activeId, byId) {
 function renderMap(graph, progress, activeId, expanded, byId) {
   const map = $("map");
   if (!map) return;
-  map.innerHTML = graph.stages
+  const stages = PAGE === "commute" ? graph.stages.filter((s) => s.id <= 5) : graph.stages;
+  map.innerHTML = stages
     .map((stage) => {
       const nodes = graph.nodes.filter((n) => n.stage === stage.id);
       const theory = nodes.filter((n) => n.rail === "theory");
@@ -371,6 +407,18 @@ function commutePlaylist(graph, resources) {
     .sort((a, b) => order.get(a.station_id) - order.get(b.station_id) || a.title.localeCompare(b.title));
 }
 
+function showName(r) {
+  if (r.provider === "ocdevel") return "Machine Learning Guide";
+  if (r.provider === "linear-digressions") return "Linear Digressions";
+  return "Learning Machines 101";
+}
+
+function formatClock(sec) {
+  if (!Number.isFinite(sec)) return "0:00";
+  const s = Math.max(0, Math.floor(sec));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
 function renderCommute() {
   const el = $("commute");
   if (!el) return;
@@ -380,27 +428,24 @@ function renderCommute() {
       <p class="why">Eyes-off teaching enclosures only — not news or YouTube.</p>`;
     return;
   }
-  const cards = rows
+  const next = rows.filter((r) => !isComplete(state.progress, r.id, state.byId)).slice(0, 3);
+  const pick = next.length ? next : rows.slice(0, 3);
+  const cards = pick
     .map((r) => {
       const st = stationById(r.station_id);
-      const status = state.progress[r.id] || "todo";
-      const stage = st ? `T${st.stage} · ${st.title}` : "";
-      return `<article class="card">
+      const on = state.nowPlaying && state.nowPlaying.id === r.id;
+      return `<article class="card ${on ? "playing" : ""}">
         <div>
           <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
-          <div class="ev">${r.evidence || ""}</div>
-          <div class="prov">${stage} · ${r.kind}${sittingMark(r.sitting)}</div>
+          <div class="prov">${showName(r)} · ${st ? `T${st.stage} · ${st.title}` : ""}${sittingMark(r.sitting)}</div>
         </div>
-        <div class="status">
-          ${playButton(r)}
-          ${statusButtons(r.id, status, ["doing", "done"])}
-        </div>
+        <div class="status">${playButton(r)}</div>
       </article>`;
     })
     .join("");
-  el.innerHTML = `<p class="kicker">Commute · eyes-off</p>
-    <h2>Listen in the atlas</h2>
-    <p class="why">Play streams here. Titles open show notes. Ticks do not count as Do.</p>
+  el.innerHTML = `<p class="kicker">Next on the walk</p>
+    <h2>${rows.length} teaching episodes on the map</h2>
+    <p class="why">Open a station. Play stays in the atlas. Harvest lists are below the map.</p>
     ${cards}`;
 }
 
@@ -450,6 +495,10 @@ function bindPlayer() {
     if (seek && audio.duration) seek.value = String((audio.currentTime / audio.duration) * 100);
     const toggle = $("player-toggle");
     if (toggle) toggle.textContent = audio.paused ? "Play" : "Pause";
+    const elapsed = $("player-elapsed");
+    const remain = $("player-remain");
+    if (elapsed) elapsed.textContent = formatClock(audio.currentTime);
+    if (remain) remain.textContent = formatClock((audio.duration || 0) - (audio.currentTime || 0));
   });
   audio.addEventListener("loadedmetadata", () => {
     const store = commuteStore();
@@ -460,6 +509,7 @@ function bindPlayer() {
   });
   audio.addEventListener("play", syncMediaSession);
   audio.addEventListener("pause", syncMediaSession);
+  audio.addEventListener("ended", () => playCommuteRelative(1));
 }
 
 function markSpeed(rate) {
@@ -485,6 +535,8 @@ function setupMediaSession(rec) {
   navigator.mediaSession.setActionHandler("seekbackward", () => {
     audio.currentTime = Math.max(0, audio.currentTime - 10);
   });
+  navigator.mediaSession.setActionHandler("previoustrack", () => playCommuteRelative(-1));
+  navigator.mediaSession.setActionHandler("nexttrack", () => playCommuteRelative(1));
 }
 
 function syncMediaSession() {
@@ -509,8 +561,27 @@ function playCommute(id) {
   audio.playbackRate = store.speed || 1;
   markSpeed(audio.playbackRate);
   if (title) title.textContent = rec.title;
+  const show = $("player-show");
+  const stLine = $("player-station");
+  const art = $("player-art");
+  const station = stationById(rec.station_id);
+  if (show) show.textContent = showName(rec);
+  if (stLine) stLine.textContent = station ? `T${station.stage} · ${station.title}` : "Commute";
+  if (art) {
+    art.className = `player-art ${station ? station.rail : "theory"}`;
+    art.textContent = station ? `T${station.stage}` : "▶";
+  }
   setupMediaSession(rec);
   audio.play().catch(() => {});
+  if (PAGE === "commute") redraw();
+}
+
+function playCommuteRelative(delta) {
+  const rows = commutePlaylist(state.graph, state.resources);
+  if (!rows.length) return;
+  const i = state.nowPlaying ? rows.findIndex((r) => r.id === state.nowPlaying.id) : -1;
+  const next = rows[(Math.max(i, 0) + delta + rows.length) % rows.length];
+  if (next) playCommute(next.id);
 }
 
 function renderFocus(focus) {
@@ -557,7 +628,9 @@ function paintCounts(graph, progress, focus, meta) {
 }
 
 const state = await load();
-const expanded = new Set(state.graph.stages.filter((s) => s.id < 2).map((s) => s.id));
+const expanded = new Set(
+  state.graph.stages.filter((s) => (PAGE === "commute" ? s.id <= 5 : s.id < 2)).map((s) => s.id)
+);
 const history = [];
 const firstFocus = nextFocus(state.graph, state.resources, state.progress);
 let active = stationById(firstFocus.stationId) || state.graph.nodes[0];
@@ -631,6 +704,21 @@ document.body.addEventListener("click", async (ev) => {
     if (!audio || !audio.src) return;
     if (audio.paused) audio.play().catch(() => {});
     else audio.pause();
+    return;
+  }
+  if (ev.target.id === "player-next") {
+    playCommuteRelative(1);
+    return;
+  }
+  if (ev.target.id === "player-prev") {
+    playCommuteRelative(-1);
+    return;
+  }
+  const skipBtn = ev.target.closest("[data-skip]");
+  if (skipBtn && skipBtn.dataset.skip) {
+    const audio = $("player-audio");
+    if (!audio) return;
+    audio.currentTime = Math.max(0, (audio.currentTime || 0) + Number(skipBtn.dataset.skip));
     return;
   }
   const speedBtn = ev.target.closest("[data-speed]");

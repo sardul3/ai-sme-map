@@ -7526,6 +7526,28 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-8e13104c9f",
+    "title": "Attention in Neural Nets",
+    "url": "https://soundcloud.com/linear-digressions/attention-in-neural-nets",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "Katie Malone & Ben Jaffe: attention in 26 minutes. Linear Digressions.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~26 min",
+    "sitting_min": 26,
+    "audio_url": "https://feeds.soundcloud.com/stream/637701588-linear-digressions-attention-in-neural-nets.mp3",
+    "station_id": "s-attn"
+  },
+  {
     "id": "r-1cc3fc1298",
     "title": "Automated Machine Learning in Action",
     "url": "https://manning.com/books/automated-machine-learning-in-action",
@@ -8961,6 +8983,28 @@
     "source": "awesome-ml.md"
   },
   {
+    "id": "r-de76216cdd",
+    "title": "Clustering with DBSCAN",
+    "url": "https://soundcloud.com/linear-digressions/clustering-with-dbscan",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "Density clustering without picking k. Linear Digressions.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~16 min",
+    "sitting_min": 16,
+    "audio_url": "https://feeds.soundcloud.com/stream/358247057-linear-digressions-clustering-with-dbscan.mp3",
+    "station_id": "s-unsupervised"
+  },
+  {
     "id": "r-a4da94d231",
     "title": "CMU 10-701 / 10-715 Machine Learning",
     "url": "https://cs.cmu.edu/~nihars/teaching/10715-fa20",
@@ -9624,6 +9668,28 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-508c80458c",
+    "title": "Convex (and non-convex) Optimization",
+    "url": "https://soundcloud.com/linear-digressions/convex-and-non-convex-optimization",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "calculus"
+    ],
+    "evidence": "Why gradient descent works when the bowl is convex.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~20 min",
+    "sitting_min": 20,
+    "audio_url": "https://feeds.soundcloud.com/stream/546033813-linear-digressions-convex-and-non-convex-optimization.mp3",
+    "station_id": "s-calc"
+  },
+  {
     "id": "r-447c087600",
     "title": "Convex Optimization",
     "url": "https://class.stanford.edu/courses/Engineering/CVX101/Winter2014/about",
@@ -9758,6 +9824,28 @@
     "evidence": "Harvested from graph-dl.md",
     "featured": false,
     "source": "graph-dl.md"
+  },
+  {
+    "id": "r-95a2e32716",
+    "title": "Convolutional Neural Networks",
+    "url": "https://soundcloud.com/linear-digressions/convolutional-neural-networks",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "computer-vision"
+    ],
+    "evidence": "Punchy CNN intuition from the Udacity-era teaching show.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~21 min",
+    "sitting_min": 21,
+    "audio_url": "https://feeds.soundcloud.com/stream/831843865-linear-digressions-convolutional-neural-networks.mp3",
+    "station_id": "s-cv"
   },
   {
     "id": "r-84f7632738",
@@ -10957,6 +11045,28 @@
     "source": "awesome-rl.md"
   },
   {
+    "id": "r-b736b6fa1c",
+    "title": "Deep RL from Human Preferences",
+    "url": "https://soundcloud.com/linear-digressions/deep_rl_from_human_preferences",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "rl"
+    ],
+    "evidence": "The alignment sitting that still explains RLHF.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~19 min",
+    "sitting_min": 19,
+    "audio_url": "https://feeds.soundcloud.com/stream/2266737452-linear-digressions-deep_rl_from_human_preferences.mp3",
+    "station_id": "s-drl"
+  },
+  {
     "id": "r-97742cb3ce",
     "title": "DeepLearning.AI Machine Learning Specialization (site)",
     "url": "https://deeplearning.ai/courses/machine-learning-specialization",
@@ -11545,6 +11655,28 @@
     "evidence": "Harvested from awesome-ml.md",
     "featured": false,
     "source": "awesome-ml.md"
+  },
+  {
+    "id": "r-59af7f233d",
+    "title": "Empirical Bayes",
+    "url": "https://soundcloud.com/linear-digressions/empirical-bayes",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "probability"
+    ],
+    "evidence": "Priors you can actually use. Probability station, eyes-off.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~18 min",
+    "sitting_min": 18,
+    "audio_url": "https://feeds.soundcloud.com/stream/308598786-linear-digressions-empirical-bayes.mp3",
+    "station_id": "s-prob"
   },
   {
     "id": "r-a81858e7d7",
@@ -18438,6 +18570,226 @@
     "source": "awesome-ml.md"
   },
   {
+    "id": "r-17d6627e51",
+    "title": "MLG 004 Algorithms \u2014 Intuition",
+    "url": "https://ocdevel.com/mlg/4",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "What an algorithm even is before sklearn. ML Guide, Apple 4.9 teaching series.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~23 min",
+    "sitting_min": 23,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-4.20250516.mp3",
+    "station_id": "s-ml-intuit"
+  },
+  {
+    "id": "r-27bfeab18b",
+    "title": "MLG 005 Linear Regression",
+    "url": "https://ocdevel.com/mlg/5",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "First supervised sitting you can hear, then run. ML Guide syllabus.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~35 min",
+    "sitting_min": 35,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-5.20260128.mp3",
+    "station_id": "s-ml-do"
+  },
+  {
+    "id": "r-c4609273c1",
+    "title": "MLG 007 Logistic Regression",
+    "url": "https://ocdevel.com/mlg/7",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "Classification after linear regression. Same voice, next lesson.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~35 min",
+    "sitting_min": 35,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-7.20250516.mp3",
+    "station_id": "s-ml-do"
+  },
+  {
+    "id": "r-6fdf0bd3bc",
+    "title": "MLG 008 Math for Machine Learning",
+    "url": "https://ocdevel.com/mlg/8",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "linear-algebra"
+    ],
+    "evidence": "LA/calc/prob as forest, not a textbook. Machine Learning Guide audio course.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~28 min",
+    "sitting_min": 28,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-8.20250516.mp3",
+    "station_id": "s-la-see"
+  },
+  {
+    "id": "r-e91707b2bb",
+    "title": "MLG 015 Performance",
+    "url": "https://ocdevel.com/mlg/15",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Bias, variance, metrics \u2014 why a number can lie. ML Guide.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~42 min",
+    "sitting_min": 42,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.015.20250126.mp3",
+    "station_id": "s-eval"
+  },
+  {
+    "id": "r-71c3fa9619",
+    "title": "MLG 025 Convolutional Neural Networks",
+    "url": "https://ocdevel.com/mlg/25",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "computer-vision"
+    ],
+    "evidence": "Convnets as the vision sitting. ML Guide deep-models arc.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~44 min",
+    "sitting_min": 44,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.025.20250126.mp3",
+    "station_id": "s-cv"
+  },
+  {
+    "id": "r-ab1d83f2e8",
+    "title": "MLG 029 Reinforcement Learning Intro",
+    "url": "https://ocdevel.com/mlg/29",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "rl"
+    ],
+    "evidence": "Decisions, not labels. The RL on-ramp in the ML Guide syllabus.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~43 min",
+    "sitting_min": 43,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.029.20250126.mp3",
+    "station_id": "s-rl"
+  },
+  {
+    "id": "r-a3208c858d",
+    "title": "MLG 032 Cartesian Similarity Metrics",
+    "url": "https://ocdevel.com/mlg/32",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "Distance in vector space before you wrap a vector DB.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~41 min",
+    "sitting_min": 41,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.032.20250126.mp3",
+    "station_id": "s-ir"
+  },
+  {
+    "id": "r-8d30815a0a",
+    "title": "MLG 033 Transformers",
+    "url": "https://ocdevel.com/mlg/33",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "Attention \u2192 transformers without a paper slog. 2025 ML Guide refresh.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~43 min",
+    "sitting_min": 43,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-33.20250414.mp3",
+    "station_id": "s-attn"
+  },
+  {
+    "id": "r-d00b2c5d24",
+    "title": "MLG 035 Large Language Models 2",
+    "url": "https://ocdevel.com/mlg/35",
+    "kind": "podcast",
+    "provider": "ocdevel",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "RAG, agents, eval benches after the transformer sitting.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~45 min",
+    "sitting_min": 45,
+    "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-35.20250507.mp3",
+    "station_id": "s-llm-tools"
+  },
+  {
     "id": "r-5421899524",
     "title": "MLOps Engineering at Scale",
     "url": "https://manning.com/books/mlops-engineering-at-scale",
@@ -20876,6 +21228,28 @@
     "source": "awesome-cv.md"
   },
   {
+    "id": "r-75ca379655",
+    "title": "Regularization",
+    "url": "https://soundcloud.com/linear-digressions/regularization",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Why the model memorizes. Seventeen-minute eval sitting.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~17 min",
+    "sitting_min": 17,
+    "audio_url": "https://feeds.soundcloud.com/stream/285783592-linear-digressions-regularization.mp3",
+    "station_id": "s-eval"
+  },
+  {
     "id": "r-b8da716a4b",
     "title": "Regularization in Deep Learning",
     "url": "https://manning.com/books/regularization-in-deep-learning",
@@ -20922,6 +21296,28 @@
     "evidence": "Harvested from awesome-rl.md",
     "featured": false,
     "source": "awesome-rl.md"
+  },
+  {
+    "id": "r-438198fae3",
+    "title": "Reinforcement Learning for Artificial Intelligence",
+    "url": "https://soundcloud.com/linear-digressions/reinforcement-learning-for-artificial-intelligence",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "rl"
+    ],
+    "evidence": "Short RL picture before Sutton & Barto.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~18 min",
+    "sitting_min": 18,
+    "audio_url": "https://feeds.soundcloud.com/stream/272013221-linear-digressions-reinforcement-learning-for-artificial-intelligence.m4a",
+    "station_id": "s-rl"
   },
   {
     "id": "r-cfdf1e45c6",
@@ -22788,6 +23184,28 @@
     "source": "awesome-nlp.md"
   },
   {
+    "id": "r-ab65dc80fb",
+    "title": "The Kernel Trick and Support Vector Machines",
+    "url": "https://soundcloud.com/linear-digressions/the-kernel-trick-and-support-vector-machines",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "The geometry that still explains SVMs. Teaching, not an interview.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~17 min",
+    "sitting_min": 17,
+    "audio_url": "https://feeds.soundcloud.com/stream/367800293-linear-digressions-the-kernel-trick-and-support-vector-machines.mp3",
+    "station_id": "s-ml-do"
+  },
+  {
     "id": "r-f296e10f24",
     "title": "The MIT-CSAIL Database of Objects and Scenes",
     "url": "https://web.mit.edu/torralba/www/database.html",
@@ -23428,6 +23846,28 @@
     "evidence": "Harvested from awesome-nlp.md",
     "featured": false,
     "source": "awesome-nlp.md"
+  },
+  {
+    "id": "r-21b3c0b4e3",
+    "title": "UMAP vs t-SNE",
+    "url": "https://soundcloud.com/linear-digressions/unsupervised-dimensionality-reduction-umap-vs-t-sne",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "Which projection to trust. Unsupervised sitting.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~29 min",
+    "sitting_min": 29,
+    "audio_url": "https://feeds.soundcloud.com/stream/742527037-linear-digressions-unsupervised-dimensionality-reduction-umap-vs-t-sne.mp3",
+    "station_id": "s-unsupervised"
   },
   {
     "id": "r-94899023b3",
@@ -24115,6 +24555,28 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-e1571b0819",
+    "title": "Word2Vec",
+    "url": "https://soundcloud.com/linear-digressions/re-release-word2vec",
+    "kind": "podcast",
+    "provider": "linear-digressions",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "Embeddings before transformers made them invisible.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~17 min",
+    "sitting_min": 17,
+    "audio_url": "https://feeds.soundcloud.com/stream/552052683-linear-digressions-re-release-word2vec.mp3",
+    "station_id": "s-ir"
   },
   {
     "id": "r-ec213abff9",

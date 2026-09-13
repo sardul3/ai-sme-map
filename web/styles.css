@@ -179,27 +179,52 @@ h1 {
   position: sticky;
   bottom: 0;
   z-index: 4;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(12rem, 1fr) minmax(18rem, 2fr);
   gap: 16px;
   align-items: center;
-  flex-wrap: wrap;
   background: var(--ink);
   color: var(--ticket);
-  padding: 12px 18px;
+  padding: 12px 18px 16px;
   margin: 28px -32px -80px;
+  box-shadow: 0 -12px 32px rgba(28, 42, 74, 0.28);
 }
+.player-art {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 18px;
+  background: #152038;
+  border: 2px solid var(--practice);
+}
+.player-art.theory { border-color: var(--theory); color: var(--theory); }
+.player-art.practice { border-color: var(--practice); color: #9ec9dc; }
 .player .kicker { color: #c5d0d8; }
-.player-copy p:last-child {
+.player-copy p:last-child,
+.player-copy #player-title {
   font-family: "Fraunces", serif;
   margin: 0;
   font-size: 16px;
 }
+.player-station {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: #c5d0d8;
+  margin: 4px 0 0;
+}
 .player-controls {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+}
+.player-transport {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  flex: 1;
 }
 .player-controls button,
 .speeds button {
@@ -213,12 +238,36 @@ h1 {
   padding: 6px 10px;
   cursor: pointer;
 }
+.player-play {
+  background: var(--ticket);
+  color: var(--ink);
+  min-width: 4.5rem;
+  border-radius: 999px;
+}
+.speeds { display: flex; gap: 4px; justify-content: center; }
 .speeds button.on {
   background: var(--ticket);
   color: var(--ink);
 }
-.player-seek-label { flex: 1; min-width: 140px; }
-#player-seek { width: 100%; }
+.player-seek-label {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr 3.2rem;
+  gap: 8px;
+  align-items: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: #c5d0d8;
+}
+#player-seek { width: 100%; accent-color: var(--practice); }
+.card.playing { background: #e8f1f6; }
+.station.live { outline: 2px solid var(--practice); outline-offset: 2px; }
+
+@media (max-width: 800px) {
+  .player {
+    grid-template-columns: auto 1fr;
+  }
+  .player-controls { grid-column: 1 / -1; }
+}
 .visually-hidden {
   position: absolute;
   width: 1px;

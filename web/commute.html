@@ -22,14 +22,17 @@
   </header>
 
   <p class="rule">
-    Play streams the original enclosure here. Titles open show notes.
-    Ticks do not count as Do. Space play/pauses when the player is open.
+    Same dual rail as Tonight — stations hold walk-time lessons, not homework.
+    Play streams the original enclosure. Titles open show notes. Ticks do not count as Do.
   </p>
 
   <section class="commute" id="commute"></section>
   <p class="focus-tools">
     <button type="button" id="undo" hidden>Undo last tick</button>
   </p>
+
+  <main id="map" class="map"></main>
+  <aside id="drawer" class="drawer" hidden></aside>
 
   <form class="find" id="find" autocomplete="off">
     <label for="q">Search every harvested list</label>
@@ -38,17 +41,27 @@
   <section id="hits" class="hits" hidden></section>
   <section class="harvest" id="harvest"></section>
 
-  <aside class="player" id="player" hidden>
+  <aside class="player player-deck" id="player" hidden>
+    <div class="player-art" id="player-art" aria-hidden="true"></div>
     <div class="player-copy">
-      <p class="kicker">Now playing</p>
+      <p class="kicker" id="player-show">Now playing</p>
       <p id="player-title"></p>
+      <p class="player-station" id="player-station"></p>
     </div>
     <audio id="player-audio"></audio>
     <div class="player-controls">
-      <button type="button" id="player-toggle" aria-label="Play or pause">Play</button>
+      <div class="player-transport">
+        <button type="button" data-skip="-15" aria-label="Back 15 seconds">−15</button>
+        <button type="button" id="player-prev" aria-label="Previous episode">Prev</button>
+        <button type="button" id="player-toggle" class="player-play" aria-label="Play or pause">Play</button>
+        <button type="button" id="player-next" aria-label="Next episode">Next</button>
+        <button type="button" data-skip="15" aria-label="Forward 15 seconds">+15</button>
+      </div>
       <label class="player-seek-label">
+        <span id="player-elapsed">0:00</span>
         <span class="visually-hidden">Seek</span>
         <input id="player-seek" type="range" min="0" max="100" value="0" step="0.1" />
+        <span id="player-remain">0:00</span>
       </label>
       <div class="speeds" role="group" aria-label="Playback speed">
         <button type="button" data-speed="1">1×</button>

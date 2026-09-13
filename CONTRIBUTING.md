@@ -14,7 +14,7 @@ This atlas is opinionated. **Do-rail changes are a product decision.** Skim may 
 1. Run `make harvest-diff` after editing `harvest/*.md`.
 2. New URLs default to **Skim**, not Do.
 3. Changing `scripts/graph_spec.py` station `do:` lists requires scorecard evidence in the PR (intuition, exercises, modern stack, SME depth).
-4. Commute rows live in `scripts/commute.py`. Human-gated: teaching enclosures only (15–45 min, T0–T5 `station_id`, direct `audio_url`). No news, interviews, YouTube-only, or harvest auto-add.
+4. Commute rows live in `scripts/commute.py`. Human-gated: teaching enclosures only (12–55 min, T0–T5 `station_id`, direct `audio_url`). No news, interviews, YouTube-only, or harvest auto-add.
 
 ## Pull requests
 

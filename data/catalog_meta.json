@@ -1,11 +1,11 @@
 {
-  "compiled_at": "2026-09-13T02:56:00Z",
-  "git_sha": "uncommitted",
+  "compiled_at": "2026-09-13T03:13:28Z",
+  "git_sha": "ed06ff0",
   "ranking_pass": "2026-09-12",
-  "resource_count": 1356,
+  "resource_count": 1377,
   "featured_count": 187,
   "station_count": 59,
   "do_rail_human_gate": true,
   "harvest_files": 11,
-  "commute_count": 16
+  "commute_count": 37
 }

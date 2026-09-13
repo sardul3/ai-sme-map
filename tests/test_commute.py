@@ -44,9 +44,12 @@ class TestCommuteEpisodeRules(unittest.TestCase):
     def test_given_valid_enclosure_when_checked_then_no_errors(self):
         self.assertEqual(episode_errors(_ep(), {"s-la-work"}), [])
 
-    def test_given_sitting_outside_15_45_when_checked_then_error(self):
-        errs = episode_errors(_ep(sitting_min=50), {"s-la-work"})
+    def test_given_sitting_outside_12_55_when_checked_then_error(self):
+        errs = episode_errors(_ep(sitting_min=70), {"s-la-work"})
         self.assertTrue(any("sitting" in e for e in errs))
+
+    def test_given_sitting_50_when_checked_then_ok_for_long_lesson(self):
+        self.assertEqual(episode_errors(_ep(sitting_min=50), {"s-la-work"}), [])
 
     def test_given_youtube_only_when_checked_then_error(self):
         errs = episode_errors(
@@ -192,7 +195,14 @@ class TestCompiledCommute(unittest.TestCase):
         graph = __import__("json").loads((root / "data" / "graph.json").read_text())
         feed = root / "data" / "feed.xml"
         commute = [r for r in resources if r.get("kind") == "podcast" and r.get("audio_url")]
-        self.assertGreaterEqual(len(commute), 1)
+        self.assertGreaterEqual(len(commute), 24)
+        providers = {r.get("provider") for r in commute}
+        self.assertGreaterEqual(len(providers), 3)
+        stations = {r.get("station_id") for r in commute}
+        self.assertGreaterEqual(len(stations), 12)
+        blob = " ".join(f'{r.get("provider","")} {r.get("url","")}' for r in commute).lower()
+        self.assertTrue("ocdevel" in blob or "machine-learning-guide" in blob or "machinelearningguide" in blob)
+        self.assertTrue("linear-digressions" in blob or "lineardigressions" in blob)
         for rec in commute:
             self.assertIn(rec.get("station_id"), {n["id"] for n in graph["nodes"] if n["stage"] <= 5})
             self.assertTrue(rec["audio_url"].lower().endswith((".mp3", ".m4a")))
@@ -211,13 +221,16 @@ class TestCommuteUIContract(unittest.TestCase):
         self.assertNotIn('id="commute"', html)
         self.assertIn('id="player"', html)
 
-    def test_given_commute_page_when_read_then_playlist_player_and_harvest_exist(self):
+    def test_given_commute_page_when_read_then_map_drawer_player_deck(self):
         root = Path(__file__).resolve().parents[1]
         html = (root / "web" / "commute.html").read_text()
-        self.assertIn('id="commute"', html)
+        self.assertIn('id="map"', html)
+        self.assertIn('id="drawer"', html)
         self.assertIn('id="player"', html)
+        self.assertIn('id="player-next"', html)
+        self.assertIn('id="player-elapsed"', html)
+        self.assertIn("data-skip", html)
         self.assertIn('id="harvest"', html)
-        self.assertIn('id="q"', html)
         self.assertIn('href="index.html"', html)
 
     def test_given_app_js_when_read_then_in_atlas_play_and_media_session(self):
@@ -229,6 +242,8 @@ class TestCommuteUIContract(unittest.TestCase):
         self.assertRegex(js, r'key === ["\'] ["\']|key === ["\']Space["\']|ev.code === ["\']Space["\']')
         self.assertIn("keyboard_done", js)
         self.assertIn("renderHarvest", js)
+        self.assertIn("playCommuteRelative", js)
+        self.assertIn("formatClock", js)
 
 
 class TestCommuteFeed(unittest.TestCase):

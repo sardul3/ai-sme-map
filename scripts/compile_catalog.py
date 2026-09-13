@@ -1640,8 +1640,10 @@ def main() -> None:
             rec["sitting_min"] = item["sitting_min"]
         if item.get("audio_url"):
             rec["audio_url"] = item["audio_url"]
-        if item.get("station_id"):
-            rec["station_id"] = item["station_id"]
+        if item.get("purpose"):
+            rec["purpose"] = item["purpose"]
+        if item.get("rank") is not None:
+            rec["rank"] = item["rank"]
         if item.get("scores"):
             rec["scores"] = item["scores"]
         if existing:

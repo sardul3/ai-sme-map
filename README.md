@@ -35,7 +35,7 @@ Local eval log (opt-in, no PII sent anywhere): in the browser console, `localSto
 
 Keyboard: `d` marks the current Focus lesson done. Space play/pauses the commute player when it is open.
 
-**Commute · eyes-off** (`commute.html`) is the same dual-rail map as Tonight, but stations hold walk-time teaching audio (Machine Learning Guide, Linear Digressions, Learning Machines 101). The deck player has prev/next, ±15s, a scrubber with times, and speed. Playback position lives in `localStorage` (`atlas_commute_pos`). Ticks do not count as Do.
+**Commute · eyes-off** (`commute.html`) ranks walk-time audio by purpose — Learn, Hear people, Ship, Stay current — not by Tonight’s lesson stations. Talking Machines, Data Skeptic, Practical AI, TWIML, and Latent Space sit on those rails with the teaching shows. The deck player has prev/next, ±15s, a scrubber with times, and speed. Playback position lives in `localStorage` (`atlas_commute_pos`). Ticks do not count as Do.
 
 `data/feed.xml` is a **personal, unpublished** playlist of those original enclosures. Do not submit it to Apple Podcasts or treat it as a public SME Atlas show.
 

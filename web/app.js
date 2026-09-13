@@ -245,15 +245,19 @@ function renderDrawer(node, byId, progress) {
   if (!el || !node) return;
   el.hidden = false;
   if (PAGE === "commute") {
-    const rows = commutePlaylist(state.graph, state.resources).filter((r) => r.station_id === node.id);
+    const purpose = typeof node === "string" ? node : node && node.purpose;
+    const meta = PURPOSES[purpose];
+    if (!meta) return;
+    const rows = commutePlaylist(state.graph, state.resources).filter((r) => r.purpose === purpose);
     const cards = rows
-      .map((r) => {
+      .map((r, i) => {
         const on = state.nowPlaying && state.nowPlaying.id === r.id;
+        const start = (r.rank ?? i) === 0 ? `<span class="badge start">start here</span>` : "";
         return `<article class="card ${on ? "playing" : ""}">
           <div>
             <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
             <div class="ev">${r.evidence || ""}</div>
-            <div class="prov">${showName(r)} · ${r.kind}${sittingMark(r.sitting)}</div>
+            <div class="prov">${start}${showName(r)} · ${r.kind}${sittingMark(r.sitting)}</div>
           </div>
           <div class="status">
             ${playButton(r)}
@@ -263,10 +267,10 @@ function renderDrawer(node, byId, progress) {
       })
       .join("");
     el.innerHTML = `
-      <p class="kicker">T${node.stage} · ${node.rail} · eyes-off</p>
-      <h3>${node.title}</h3>
-      <p class="why">${node.why}</p>
-      ${cards || `<p class="why">No commute episode on this station yet. Pick a neighbor with a count.</p>`}`;
+      <p class="kicker">${meta.title} · ${meta.rail} · eyes-off</p>
+      <h3>${meta.title}</h3>
+      <p class="why">${meta.why}</p>
+      ${cards || `<p class="why">No episodes on this rail yet.</p>`}`;
     return;
   }
   const primary = byId[node.do[0]];
@@ -287,14 +291,6 @@ function renderDrawer(node, byId, progress) {
 
 function stationButton(n, progress, activeId, byId) {
   const live = state.nowPlaying && state.nowPlaying.station_id === n.id ? " live" : "";
-  if (PAGE === "commute") {
-    const eps = commutePlaylist(state.graph, state.resources).filter((r) => r.station_id === n.id);
-    const nDone = eps.filter((r) => isComplete(progress, r.id, byId)).length;
-    return `<button class="station ${n.rail} ${n.id === activeId ? "active" : ""}${live}" data-node="${n.id}">
-      ${n.title}
-      <span class="meta">${n.branch} · ${eps.length ? `${nDone}/${eps.length} eps` : "quiet"}</span>
-    </button>`;
-  }
   const nDo = n.do.length;
   const nDone = n.do.filter((id) => isComplete(progress, id, byId)).length;
   return `<button class="station ${n.rail} ${n.id === activeId ? "active" : ""}${live}" data-node="${n.id}">
@@ -303,10 +299,32 @@ function stationButton(n, progress, activeId, byId) {
   </button>`;
 }
 
+function renderPurposeMap(progress, activePurpose, byId) {
+  const map = $("map");
+  if (!map) return;
+  map.classList.add("purpose-map");
+  const rows = commutePlaylist(state.graph, state.resources);
+  map.innerHTML = PURPOSE_ORDER.map((name) => {
+    const meta = PURPOSES[name];
+    const eps = rows.filter((r) => r.purpose === name);
+    const nDone = eps.filter((r) => isComplete(progress, r.id, byId)).length;
+    const live = state.nowPlaying && state.nowPlaying.purpose === name ? " live" : "";
+    const start = eps[0];
+    return `<section class="stage purpose ${meta.rail}">
+      <button type="button" class="station ${meta.rail} ${name === activePurpose ? "active" : ""}${live}" data-purpose="${name}">
+        ${meta.title}
+        <span class="meta">${eps.length} eps · ${nDone} done${start ? ` · start: ${start.title}` : ""}</span>
+      </button>
+      <p class="why">${meta.why}</p>
+    </section>`;
+  }).join("");
+}
+
 function renderMap(graph, progress, activeId, expanded, byId) {
   const map = $("map");
   if (!map) return;
-  const stages = PAGE === "commute" ? graph.stages.filter((s) => s.id <= 5) : graph.stages;
+  map.classList.remove("purpose-map");
+  const stages = graph.stages;
   map.innerHTML = stages
     .map((stage) => {
       const nodes = graph.nodes.filter((n) => n.stage === stage.id);
@@ -400,16 +418,38 @@ function saveCommutePos(id, time, speed) {
   localStorage.setItem(COMMUTE_POS_KEY, JSON.stringify(store));
 }
 
+const PURPOSES = {
+  learn: { title: "Learn", why: "A concept you can finish on a walk. Teaching shows, not chat.", rail: "theory", mark: "L" },
+  interview: { title: "Hear people", why: "Researchers and practitioners, in their own voice.", rail: "theory", mark: "H" },
+  apply: { title: "Ship", why: "How teams put models, agents, and infra into production.", rail: "practice", mark: "S" },
+  pulse: { title: "Stay current", why: "What moved this year — indexes, recsys, agent news.", rail: "practice", mark: "C" },
+};
+const PURPOSE_ORDER = ["learn", "interview", "apply", "pulse"];
+
 function commutePlaylist(graph, resources) {
-  const order = new Map((graph.nodes || []).filter((n) => n.stage <= 5).map((n, i) => [n.id, i]));
+  const order = new Map(PURPOSE_ORDER.map((name, i) => [name, i]));
   return resources
-    .filter((r) => r.audio_url && order.has(r.station_id))
-    .sort((a, b) => order.get(a.station_id) - order.get(b.station_id) || a.title.localeCompare(b.title));
+    .filter((r) => r.audio_url && order.has(r.purpose))
+    .sort(
+      (a, b) =>
+        order.get(a.purpose) - order.get(b.purpose) ||
+        (a.rank ?? 99) - (b.rank ?? 99) ||
+        a.title.localeCompare(b.title)
+    );
+}
+
+function purposeOf(r) {
+  return PURPOSES[r && r.purpose] || null;
 }
 
 function showName(r) {
   if (r.provider === "ocdevel") return "Machine Learning Guide";
   if (r.provider === "linear-digressions") return "Linear Digressions";
+  if (r.provider === "talking-machines") return "Talking Machines";
+  if (r.provider === "dataskeptic") return "Data Skeptic";
+  if (r.provider === "practical-ai") return "Practical AI";
+  if (r.provider === "twiml") return "TWIML";
+  if (r.provider === "latent-space") return "Latent Space";
   return "Learning Machines 101";
 }
 
@@ -425,27 +465,27 @@ function renderCommute() {
   const rows = commutePlaylist(state.graph, state.resources);
   if (!rows.length) {
     el.innerHTML = `<p class="kicker">Commute</p><h2>No episodes yet</h2>
-      <p class="why">Eyes-off teaching enclosures only — not news or YouTube.</p>`;
+      <p class="why">Eyes-off original enclosures only — not YouTube.</p>`;
     return;
   }
   const next = rows.filter((r) => !isComplete(state.progress, r.id, state.byId)).slice(0, 3);
   const pick = next.length ? next : rows.slice(0, 3);
   const cards = pick
     .map((r) => {
-      const st = stationById(r.station_id);
+      const meta = purposeOf(r);
       const on = state.nowPlaying && state.nowPlaying.id === r.id;
       return `<article class="card ${on ? "playing" : ""}">
         <div>
           <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
-          <div class="prov">${showName(r)} · ${st ? `T${st.stage} · ${st.title}` : ""}${sittingMark(r.sitting)}</div>
+          <div class="prov">${showName(r)} · ${meta ? meta.title : ""}${sittingMark(r.sitting)}</div>
         </div>
         <div class="status">${playButton(r)}</div>
       </article>`;
     })
     .join("");
   el.innerHTML = `<p class="kicker">Next on the walk</p>
-    <h2>${rows.length} teaching episodes on the map</h2>
-    <p class="why">Open a station. Play stays in the atlas. Harvest lists are below the map.</p>
+    <h2>${rows.length} episodes across four purposes</h2>
+    <p class="why">Open a rail. Next/prev stays on that purpose. Harvest lists are below the map.</p>
     ${cards}`;
 }
 
@@ -521,11 +561,11 @@ function markSpeed(rate) {
 function setupMediaSession(rec) {
   if (!navigator.mediaSession) return;
   const audio = $("player-audio");
-  const station = stationById(rec.station_id);
+  const meta = purposeOf(rec);
   navigator.mediaSession.metadata = new MediaMetadata({
     title: rec.title,
     artist: "SME Atlas commute",
-    album: station ? station.title : "Commute",
+    album: meta ? meta.title : "Commute",
   });
   navigator.mediaSession.setActionHandler("play", () => audio.play());
   navigator.mediaSession.setActionHandler("pause", () => audio.pause());
@@ -552,6 +592,7 @@ function playCommute(id) {
   const title = $("player-title");
   if (!audio || !box) return;
   state.nowPlaying = rec;
+  if (rec.purpose) activePurpose = rec.purpose;
   box.hidden = false;
   bindPlayer();
   if (audio.getAttribute("src") !== rec.audio_url) {
@@ -564,12 +605,12 @@ function playCommute(id) {
   const show = $("player-show");
   const stLine = $("player-station");
   const art = $("player-art");
-  const station = stationById(rec.station_id);
+  const meta = purposeOf(rec);
   if (show) show.textContent = showName(rec);
-  if (stLine) stLine.textContent = station ? `T${station.stage} · ${station.title}` : "Commute";
+  if (stLine) stLine.textContent = meta ? `${meta.title} · ${meta.why}` : "Commute";
   if (art) {
-    art.className = `player-art ${station ? station.rail : "theory"}`;
-    art.textContent = station ? `T${station.stage}` : "▶";
+    art.className = `player-art ${meta ? meta.rail : "theory"}`;
+    art.textContent = meta ? meta.mark : "▶";
   }
   setupMediaSession(rec);
   audio.play().catch(() => {});
@@ -577,7 +618,9 @@ function playCommute(id) {
 }
 
 function playCommuteRelative(delta) {
-  const rows = commutePlaylist(state.graph, state.resources);
+  const all = commutePlaylist(state.graph, state.resources);
+  const purpose = state.nowPlaying && state.nowPlaying.purpose;
+  const rows = purpose ? all.filter((r) => r.purpose === purpose) : all;
   if (!rows.length) return;
   const i = state.nowPlaying ? rows.findIndex((r) => r.id === state.nowPlaying.id) : -1;
   const next = rows[(Math.max(i, 0) + delta + rows.length) % rows.length];
@@ -628,12 +671,11 @@ function paintCounts(graph, progress, focus, meta) {
 }
 
 const state = await load();
-const expanded = new Set(
-  state.graph.stages.filter((s) => (PAGE === "commute" ? s.id <= 5 : s.id < 2)).map((s) => s.id)
-);
+const expanded = new Set(state.graph.stages.filter((s) => s.id < 2).map((s) => s.id));
 const history = [];
 const firstFocus = nextFocus(state.graph, state.resources, state.progress);
 let active = stationById(firstFocus.stationId) || state.graph.nodes[0];
+let activePurpose = "learn";
 evalLog("load", { focus: firstFocus.label || "done" });
 
 function ensureStageOpen(station) {
@@ -684,8 +726,13 @@ function redraw() {
   renderFocus(focus);
   renderCommute();
   renderHarvest();
-  renderMap(state.graph, state.progress, active && active.id, expanded, state.byId);
-  renderDrawer(active, state.byId, state.progress);
+  if (PAGE === "commute") {
+    renderPurposeMap(state.progress, activePurpose, state.byId);
+    renderDrawer(activePurpose, state.byId, state.progress);
+  } else {
+    renderMap(state.graph, state.progress, active && active.id, expanded, state.byId);
+    renderDrawer(active, state.byId, state.progress);
+  }
   renderPlacement();
   const undo = $("undo");
   if (undo) undo.hidden = history.length === 0;
@@ -796,6 +843,12 @@ document.body.addEventListener("click", async (ev) => {
   if (stBtn) {
     setProgressToggle(stBtn.dataset.id, stBtn.dataset.st);
     await persistAndRedraw();
+    return;
+  }
+  const purposeBtn = ev.target.closest("[data-purpose]");
+  if (purposeBtn) {
+    activePurpose = purposeBtn.dataset.purpose;
+    redraw();
     return;
   }
   const station = ev.target.closest("[data-node]");

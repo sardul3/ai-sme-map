@@ -320,6 +320,17 @@ h1 {
   overflow-x: auto;
   border-top: 1px solid var(--rule);
 }
+.map.purpose-map {
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+}
+.map.purpose-map .stage {
+  min-width: 0;
+}
+.map.purpose-map .why {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
 .stage {
   min-width: 160px;
   padding: 16px 12px 24px;
@@ -511,6 +522,7 @@ button.skip {
 
 @media (max-width: 900px) {
   .map { grid-template-columns: repeat(4, minmax(160px, 1fr)); }
+  .map.purpose-map { grid-template-columns: 1fr; }
   .mast { flex-direction: column; align-items: start; }
 }
 @media (prefers-reduced-motion: reduce) {

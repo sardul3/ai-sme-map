@@ -6404,6 +6404,29 @@
     "source": "graph-dl.md"
   },
   {
+    "id": "r-516b0af030",
+    "title": "2025 was the year of agents, what's coming in 2026?",
+    "url": "https://share.transistor.fm/s/e7fda8ce",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "The agent year in review. Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~51 min",
+    "sitting_min": 51,
+    "audio_url": "https://media.transistor.fm/e7fda8ce/c218cdfa.mp3",
+    "purpose": "pulse",
+    "rank": 2
+  },
+  {
     "id": "r-71d26396f9",
     "title": "2026",
     "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_icml26/README.md",
@@ -7026,6 +7049,29 @@
     "source": "awesome-cv.md"
   },
   {
+    "id": "r-97e829978b",
+    "title": "AI at the Edge is a different operating environment",
+    "url": "https://share.transistor.fm/s/ea7694a9",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Edge constraints as architecture, not a smaller model.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~47 min",
+    "sitting_min": 47,
+    "audio_url": "https://media.transistor.fm/ea7694a9/378817af.mp3",
+    "purpose": "apply",
+    "rank": 17
+  },
+  {
     "id": "r-756ec04cc1",
     "title": "AI for Everyone",
     "url": "https://deeplearning.ai/ai-for-everyone",
@@ -7072,6 +7118,52 @@
     "evidence": "Harvested from books.md",
     "featured": false,
     "source": "books.md"
+  },
+  {
+    "id": "r-764cd4482f",
+    "title": "AI Proficiency: From Users to Builders",
+    "url": "https://share.transistor.fm/s/0f57c0bc",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Who is actually becoming a builder this year.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~56 min",
+    "sitting_min": 56,
+    "audio_url": "https://media.transistor.fm/0f57c0bc/34496de8.mp3",
+    "purpose": "pulse",
+    "rank": 12
+  },
+  {
+    "id": "r-906b79d257",
+    "title": "AI Safety and The Legacy of Bletchley Park",
+    "url": "https://omny.fm/shows/talking-machines/ai-safety-and-the-legacy-of-bletchley-park",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Safety talk before the slogan era. Talking Machines.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~48 min",
+    "sitting_min": 48,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/54a56ccbe4b0ab38fed9fc81%3A54a57bffe4b0fe1194167e61%3A56d06e4a45bf211cff51e652/media.mp3",
+    "purpose": "interview",
+    "rank": 14
   },
   {
     "id": "r-d170217f11",
@@ -7315,6 +7407,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-6e61f6ba31",
+    "title": "ANGLICAN and Probabilistic Programming",
+    "url": "https://omny.fm/shows/talking-machines/anglican-and-probabilistic-programming",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "probability"
+    ],
+    "evidence": "Probabilistic programming from the people who built it.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~44 min",
+    "sitting_min": 44,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/54a56ccbe4b0ab38fed9fc81%3A54a57bffe4b0fe1194167e61%3A581372ae5016e1262b70ff82/media.mp3",
+    "purpose": "interview",
+    "rank": 13
+  },
+  {
     "id": "r-3cab8e66e4",
     "title": "ANN: A Library for Approximate Nearest Neighbor Searching",
     "url": "https://cs.umd.edu/~mount/ANN",
@@ -7459,6 +7574,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-f4938eb6a1",
+    "title": "Are we in an AI bubble?",
+    "url": "https://share.transistor.fm/s/533b0b3f",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "The bubble argument, dated. Pulse.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~49 min",
+    "sitting_min": 49,
+    "audio_url": "https://media.transistor.fm/533b0b3f/ebbf2629.mp3",
+    "purpose": "pulse",
+    "rank": 10
+  },
+  {
     "id": "r-73b50ef317",
     "title": "Are we there yet?",
     "url": "https://rodrigob.github.io/are_we_there_yet/build",
@@ -7545,7 +7683,31 @@
     "sitting": "~26 min",
     "sitting_min": 26,
     "audio_url": "https://feeds.soundcloud.com/stream/637701588-linear-digressions-attention-in-neural-nets.mp3",
-    "station_id": "s-attn"
+    "purpose": "learn",
+    "rank": 26
+  },
+  {
+    "id": "r-bde768039f",
+    "title": "AutoLike",
+    "url": "https://dataskeptic.com/blog/episodes/2026/autolike",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Implicit feedback interview. Current Data Skeptic.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~35 min",
+    "sitting_min": 35,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Hieu_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 17
   },
   {
     "id": "r-1cc3fc1298",
@@ -8055,6 +8217,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-6ddf99d3c2",
+    "title": "Beyond chatbots: Agents that tackle your SOPs",
+    "url": "https://share.transistor.fm/s/49afc59f",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "SOPs, not chat. Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~45 min",
+    "sitting_min": 45,
+    "audio_url": "https://media.transistor.fm/49afc59f/0704690c.mp3",
+    "purpose": "apply",
+    "rank": 14
+  },
+  {
     "id": "r-5324c6de1d",
     "title": "Beyond stochastic gradient descent for large-scale machine learning",
     "url": "https://videolectures.net/sahd2014_bach_stochastic_gradient",
@@ -8205,6 +8390,29 @@
     "source": "awesome-rl.md"
   },
   {
+    "id": "r-0bd0169b96",
+    "title": "Book Ratings and Recommendations",
+    "url": "https://dataskeptic.com/blog/episodes/2026/book-ratings-and-recomendations",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Ratings as a social object. Data Skeptic.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~39 min",
+    "sitting_min": 39,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Hannes_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 15
+  },
+  {
     "id": "r-f5d3ebc526",
     "title": "BOOK, VIDEOLECTURES, AND COURSE MATERIAL, 2019",
     "url": "https://web.mit.edu/dimitrib/www/RLbook.html",
@@ -8271,6 +8479,29 @@
     "source": "have-fun-ml.md"
   },
   {
+    "id": "r-989c79393b",
+    "title": "Breaking down the 2026 Stanford AI Index Report",
+    "url": "https://share.transistor.fm/s/302b36f8",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Start here: the yearly scoreboard, narrated. Pulse, not a lesson.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~47 min",
+    "sitting_min": 47,
+    "audio_url": "https://media.transistor.fm/302b36f8/d474795e.mp3",
+    "purpose": "pulse",
+    "rank": 0
+  },
+  {
     "id": "r-582098774a",
     "title": "Breeze",
     "url": "https://github.com/scalanlp/breeze",
@@ -8317,6 +8548,52 @@
     "evidence": "Harvested from awesome-rl.md",
     "featured": false,
     "source": "awesome-rl.md"
+  },
+  {
+    "id": "r-77116e3faf",
+    "title": "Building Durable AI Agents",
+    "url": "https://share.transistor.fm/s/facb92e2",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Agents that survive restarts. Changelog Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~46 min",
+    "sitting_min": 46,
+    "audio_url": "https://media.transistor.fm/facb92e2/33d1bc96.mp3",
+    "purpose": "apply",
+    "rank": 2
+  },
+  {
+    "id": "r-4e68028f52",
+    "title": "Building the Foundation for the Agentic AI Era",
+    "url": "https://share.transistor.fm/s/123da941",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "What has to exist before the agent demo ships.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~45 min",
+    "sitting_min": 45,
+    "audio_url": "https://media.transistor.fm/123da941/719ab12d.mp3",
+    "purpose": "apply",
+    "rank": 12
   },
   {
     "id": "r-3f3782673e",
@@ -9002,7 +9279,8 @@
     "sitting": "~16 min",
     "sitting_min": 16,
     "audio_url": "https://feeds.soundcloud.com/stream/358247057-linear-digressions-clustering-with-dbscan.mp3",
-    "station_id": "s-unsupervised"
+    "purpose": "learn",
+    "rank": 30
   },
   {
     "id": "r-a4da94d231",
@@ -9151,6 +9429,29 @@
     "evidence": "Harvested from awesome-ml.md",
     "featured": false,
     "source": "awesome-ml.md"
+  },
+  {
+    "id": "r-fd575efcd4",
+    "title": "Collective Altruism in Recommender Systems",
+    "url": "https://dataskeptic.com/blog/episodes/2026/collective-altruism-in-recommender-systems",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "When the objective is not just clicks.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~54 min",
+    "sitting_min": 54,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Ekatrina_No_With_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 16
   },
   {
     "id": "r-147a9d4aa4",
@@ -9571,6 +9872,29 @@
     "source": "awesome-cv.md"
   },
   {
+    "id": "r-e2a6a9a9d5",
+    "title": "Computer-Use Agents and the Future of the Agentic Internet",
+    "url": "https://share.transistor.fm/s/72586f97",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "What just changed in computer-use agents.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~56 min",
+    "sitting_min": 56,
+    "audio_url": "https://media.transistor.fm/72586f97/42471284.mp3",
+    "purpose": "pulse",
+    "rank": 7
+  },
+  {
     "id": "r-50ab245b6a",
     "title": "computer-vision-in-action",
     "url": "https://github.com/Charmve/computer-vision-in-action",
@@ -9601,6 +9925,29 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-2326094899",
+    "title": "Context Engineering for Productive AI Agents with Filip Kozera",
+    "url": "https://twimlai.com/podcast/twimlai/context-engineering-for-productive-ai-agents",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Context as the production surface. TWIML.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~46 min",
+    "sitting_min": 46,
+    "audio_url": "https://traffic.megaphone.fm/MLN9863568954.mp3",
+    "purpose": "apply",
+    "rank": 8
   },
   {
     "id": "r-0a63eb10c6",
@@ -9687,7 +10034,8 @@
     "sitting": "~20 min",
     "sitting_min": 20,
     "audio_url": "https://feeds.soundcloud.com/stream/546033813-linear-digressions-convex-and-non-convex-optimization.mp3",
-    "station_id": "s-calc"
+    "purpose": "learn",
+    "rank": 34
   },
   {
     "id": "r-447c087600",
@@ -9845,7 +10193,8 @@
     "sitting": "~21 min",
     "sitting_min": 21,
     "audio_url": "https://feeds.soundcloud.com/stream/831843865-linear-digressions-convolutional-neural-networks.mp3",
-    "station_id": "s-cv"
+    "purpose": "learn",
+    "rank": 27
   },
   {
     "id": "r-84f7632738",
@@ -9998,6 +10347,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-1306aaddd0",
+    "title": "Cracking the Cold Start Problem",
+    "url": "https://dataskeptic.com/blog/episodes/2025/cracking-the-cold-start-problem",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Cold start as a research interview, not a blog post.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~40 min",
+    "sitting_min": 40,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Boya_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 10
   },
   {
     "id": "r-3b0575a34c",
@@ -10344,6 +10716,29 @@
     "evidence": "Harvested from awesome-ml.md",
     "featured": false,
     "source": "awesome-ml.md"
+  },
+  {
+    "id": "r-5f298d6375",
+    "title": "Dealing with increasingly complicated agents",
+    "url": "https://share.transistor.fm/s/e60866e6",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "When the graph of tools becomes the product.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~54 min",
+    "sitting_min": 54,
+    "audio_url": "https://media.transistor.fm/e60866e6/972751fe.mp3",
+    "purpose": "apply",
+    "rank": 13
   },
   {
     "id": "r-f12ea0f1a7",
@@ -11064,7 +11459,8 @@
     "sitting": "~19 min",
     "sitting_min": 19,
     "audio_url": "https://feeds.soundcloud.com/stream/2266737452-linear-digressions-deep_rl_from_human_preferences.mp3",
-    "station_id": "s-drl"
+    "purpose": "learn",
+    "rank": 36
   },
   {
     "id": "r-97742cb3ce",
@@ -11326,6 +11722,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-a0772db9f7",
+    "title": "Disentanglement and Interpretability in Recommender Systems",
+    "url": "https://dataskeptic.com/blog/episodes/2026/disentanglement-and-interpretability-in-recommender-systems",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Data Skeptic interview on making recs inspectable.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~30 min",
+    "sitting_min": 30,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Ervin_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 5
   },
   {
     "id": "r-0b7f45ccb6",
@@ -11676,7 +12095,8 @@
     "sitting": "~18 min",
     "sitting_min": 18,
     "audio_url": "https://feeds.soundcloud.com/stream/308598786-linear-digressions-empirical-bayes.mp3",
-    "station_id": "s-prob"
+    "purpose": "learn",
+    "rank": 32
   },
   {
     "id": "r-a81858e7d7",
@@ -12506,6 +12926,29 @@
     "source": "awesome-nlp.md"
   },
   {
+    "id": "r-254dcc28f3",
+    "title": "Give Users the Wheel",
+    "url": "https://dataskeptic.com/blog/episodes/2026/give-users-the-wheel",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "User control over the ranker, not another black box.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~35 min",
+    "sitting_min": 35,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Fuyuan_Lyu_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 7
+  },
+  {
     "id": "r-51f0676db4",
     "title": "Giving a Research Talk",
     "url": "https://people.csail.mit.edu/fredo/TalkAdvice.pdf",
@@ -12520,6 +12963,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-f65c7b8d40",
+    "title": "Giving Agents Computers",
+    "url": "https://latent.space/p/daytona",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Sandboxes the agent can actually use. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~70 min",
+    "sitting_min": 70,
+    "audio_url": "https://api.substack.com/feed/podcast/198688585/e48f923a6fb4c7f822f1f5013a97c41d.mp3",
+    "purpose": "apply",
+    "rank": 11
   },
   {
     "id": "r-811f50666d",
@@ -12552,6 +13018,29 @@
     "evidence": "Harvested from awesome-nlp.md",
     "featured": false,
     "source": "awesome-nlp.md"
+  },
+  {
+    "id": "r-c8e3cfc999",
+    "title": "Gods and Robots",
+    "url": "https://omny.fm/shows/talking-machines/gods-and-robots",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "ai"
+    ],
+    "evidence": "Talking Machines: history and myth around machines that think.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~40 min",
+    "sitting_min": 40,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/643aa7b4-f98d-49c5-b0d5-ad9800e2803f/media.mp3",
+    "purpose": "interview",
+    "rank": 6
   },
   {
     "id": "r-ab0f92a625",
@@ -13381,6 +13870,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-c7946d9ba3",
+    "title": "How Capital One Delivers Multi-Agent Systems",
+    "url": "https://twimlai.com/podcast/twimlai/how-capital-one-delivers-multi-agent-systems",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "A bank shipping multi-agent, not a demo. TWIML.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~54 min",
+    "sitting_min": 54,
+    "audio_url": "https://traffic.megaphone.fm/MLN9114691307.mp3",
+    "purpose": "apply",
+    "rank": 9
+  },
+  {
     "id": "r-1874e4eaa4",
     "title": "How Powerful are Graph Neural Networks?",
     "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2019/publications_iclr19/gin_iclr19/README.md",
@@ -13418,7 +13930,8 @@
     "sitting": "~29 min",
     "sitting_min": 29,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-082.mp3",
-    "station_id": "s-la-work"
+    "purpose": "learn",
+    "rank": 0
   },
   {
     "id": "r-3840e962ee",
@@ -13440,7 +13953,8 @@
     "sitting": "~22 min",
     "sitting_min": 22,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-045.mp3",
-    "station_id": "s-cv"
+    "purpose": "learn",
+    "rank": 10
   },
   {
     "id": "r-4a38e5f5db",
@@ -13462,7 +13976,8 @@
     "sitting": "~30 min",
     "sitting_min": 30,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-054.mp3",
-    "station_id": "s-ir"
+    "purpose": "learn",
+    "rank": 12
   },
   {
     "id": "r-25f5983bf9",
@@ -13484,7 +13999,8 @@
     "sitting": "~20 min",
     "sitting_min": 20,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/lm101-057.mp3",
-    "station_id": "s-unsupervised"
+    "purpose": "learn",
+    "rank": 6
   },
   {
     "id": "r-ad44eefe93",
@@ -13522,7 +14038,8 @@
     "sitting": "~37 min",
     "sitting_min": 37,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-081.mp3",
-    "station_id": "s-ml-intuit"
+    "purpose": "learn",
+    "rank": 4
   },
   {
     "id": "r-74e846e07e",
@@ -13544,7 +14061,8 @@
     "sitting": "~30 min",
     "sitting_min": 30,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/lm101-065.mp3",
-    "station_id": "s-calc"
+    "purpose": "learn",
+    "rank": 1
   },
   {
     "id": "r-6fe4bd6bac",
@@ -13577,6 +14095,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-e6373909cc",
+    "title": "How to Engineer AI Inference Systems with Philip Kiely",
+    "url": "https://twimlai.com/podcast/twimlai/how-engineer-ai-inference-systems",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Serving as an engineering problem. TWIML.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~54 min",
+    "sitting_min": 54,
+    "audio_url": "https://traffic.megaphone.fm/MLN3829343846.mp3",
+    "purpose": "apply",
+    "rank": 3
   },
   {
     "id": "r-6a1611c300",
@@ -13614,7 +14155,8 @@
     "sitting": "~35 min",
     "sitting_min": 35,
     "audio_url": "https://traffic.libsyn.com/secure/learningmachines101/LM101-086.mp3",
-    "station_id": "s-prob"
+    "purpose": "learn",
+    "rank": 2
   },
   {
     "id": "r-34ccedd716",
@@ -13637,7 +14179,8 @@
     "sitting": "~29 min",
     "sitting_min": 29,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-060.mp3",
-    "station_id": "s-eval-prod"
+    "purpose": "learn",
+    "rank": 15
   },
   {
     "id": "r-e3ffaaa1d4",
@@ -13659,7 +14202,8 @@
     "sitting": "~23 min",
     "sitting_min": 23,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-046.mp3",
-    "station_id": "s-seq"
+    "purpose": "learn",
+    "rank": 11
   },
   {
     "id": "r-4cd0e6d55b",
@@ -13681,7 +14225,8 @@
     "sitting": "~30 min",
     "sitting_min": 30,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-059.mp3",
-    "station_id": "s-backprop"
+    "purpose": "learn",
+    "rank": 9
   },
   {
     "id": "r-a89fb357a6",
@@ -13703,7 +14248,8 @@
     "sitting": "~19 min",
     "sitting_min": 19,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-074.mp3",
-    "station_id": "s-logic"
+    "purpose": "learn",
+    "rank": 8
   },
   {
     "id": "r-95d55d8ca2",
@@ -13725,7 +14271,8 @@
     "sitting": "~32 min",
     "sitting_min": 32,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-080.mp3",
-    "station_id": "s-proofs"
+    "purpose": "learn",
+    "rank": 3
   },
   {
     "id": "r-5a3d310830",
@@ -13747,7 +14294,8 @@
     "sitting": "~22 min",
     "sitting_min": 22,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-063.mp3",
-    "station_id": "s-drl"
+    "purpose": "learn",
+    "rank": 14
   },
   {
     "id": "r-692c75f493",
@@ -13769,7 +14317,8 @@
     "sitting": "~31 min",
     "sitting_min": 31,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-062.mp3",
-    "station_id": "s-rl"
+    "purpose": "learn",
+    "rank": 13
   },
   {
     "id": "r-3720c927c7",
@@ -13791,7 +14340,8 @@
     "sitting": "~31 min",
     "sitting_min": 31,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-050.mp3",
-    "station_id": "s-ml-do"
+    "purpose": "learn",
+    "rank": 5
   },
   {
     "id": "r-2a98ad0544",
@@ -13813,7 +14363,8 @@
     "sitting": "~26 min",
     "sitting_min": 26,
     "audio_url": "https://traffic.libsyn.com/learningmachines101/lm101-079.mp3",
-    "station_id": "s-eval"
+    "purpose": "learn",
+    "rank": 7
   },
   {
     "id": "r-af4717611b",
@@ -13946,6 +14497,29 @@
     "source": "books.md"
   },
   {
+    "id": "r-ebd625edc6",
+    "title": "Humans in the Loop and Outside of the Classroom",
+    "url": "https://omny.fm/shows/talking-machines/humans-in-the-loop-and-outside-of-the-classroom",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "HITL as practice, not a slogan. Talking Machines.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~38 min",
+    "sitting_min": 38,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/064abeb6-ed86-4733-8f93-abae0022c3d0/media.mp3",
+    "purpose": "interview",
+    "rank": 1
+  },
+  {
     "id": "r-9492e20485",
     "title": "Hyper-Laplacian Priors",
     "url": "https://cs.nyu.edu/~dilip/research/fast-deconvolution",
@@ -13992,6 +14566,29 @@
     "evidence": "Harvested from awesome-rl.md",
     "featured": false,
     "source": "awesome-rl.md"
+  },
+  {
+    "id": "r-83b443c4e5",
+    "title": "If a Machine Could Predict Your Death, Should it?",
+    "url": "https://omny.fm/shows/talking-machines/if-a-machine-could-predict-your-death-should-it",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Short ethics interview. Finish before the next stop.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~18 min",
+    "sitting_min": 18,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/67d52fd0-07cf-489c-b261-ab6701707336/media.mp3",
+    "purpose": "interview",
+    "rank": 19
   },
   {
     "id": "r-cc6b68f2b2",
@@ -15001,6 +15598,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-545663d4b0",
+    "title": "Learning with Less, Invisible Labor and Combating Anti-Blackness",
+    "url": "https://omny.fm/shows/talking-machines/learning-with-less-invisible-labor-and-combating-a",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Who the data work falls on. Talking Machines.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~36 min",
+    "sitting_min": 36,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/f9c9f6bb-9d32-4497-b860-ad600160f130/media.mp3",
+    "purpose": "interview",
+    "rank": 9
+  },
+  {
     "id": "r-05ee170d67",
     "title": "Lecture 10: Reinforcement Learning 1",
     "url": "https://www.youtube.com/watch?v=ifma8G7LegE",
@@ -15787,6 +16407,29 @@
     "evidence": "Harvested from ml-youtube-courses.md",
     "featured": false,
     "source": "ml-youtube-courses.md"
+  },
+  {
+    "id": "r-acad558047",
+    "title": "Less about Models; More about Architecture",
+    "url": "https://share.transistor.fm/s/ec79b4ac",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Start here: the harness beats the next checkpoint. Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~45 min",
+    "sitting_min": 45,
+    "audio_url": "https://media.transistor.fm/ec79b4ac/efba87b4.mp3",
+    "purpose": "apply",
+    "rank": 0
   },
   {
     "id": "r-681fd603c4",
@@ -18589,7 +19232,8 @@
     "sitting": "~23 min",
     "sitting_min": 23,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-4.20250516.mp3",
-    "station_id": "s-ml-intuit"
+    "purpose": "learn",
+    "rank": 17
   },
   {
     "id": "r-27bfeab18b",
@@ -18611,7 +19255,8 @@
     "sitting": "~35 min",
     "sitting_min": 35,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-5.20260128.mp3",
-    "station_id": "s-ml-do"
+    "purpose": "learn",
+    "rank": 18
   },
   {
     "id": "r-c4609273c1",
@@ -18633,7 +19278,8 @@
     "sitting": "~35 min",
     "sitting_min": 35,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-7.20250516.mp3",
-    "station_id": "s-ml-do"
+    "purpose": "learn",
+    "rank": 19
   },
   {
     "id": "r-6fdf0bd3bc",
@@ -18655,7 +19301,8 @@
     "sitting": "~28 min",
     "sitting_min": 28,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-8.20250516.mp3",
-    "station_id": "s-la-see"
+    "purpose": "learn",
+    "rank": 16
   },
   {
     "id": "r-e91707b2bb",
@@ -18677,7 +19324,8 @@
     "sitting": "~42 min",
     "sitting_min": 42,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.015.20250126.mp3",
-    "station_id": "s-eval"
+    "purpose": "learn",
+    "rank": 20
   },
   {
     "id": "r-71c3fa9619",
@@ -18699,7 +19347,8 @@
     "sitting": "~44 min",
     "sitting_min": 44,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.025.20250126.mp3",
-    "station_id": "s-cv"
+    "purpose": "learn",
+    "rank": 21
   },
   {
     "id": "r-ab1d83f2e8",
@@ -18721,7 +19370,8 @@
     "sitting": "~43 min",
     "sitting_min": 43,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.029.20250126.mp3",
-    "station_id": "s-rl"
+    "purpose": "learn",
+    "rank": 23
   },
   {
     "id": "r-a3208c858d",
@@ -18743,7 +19393,8 @@
     "sitting": "~41 min",
     "sitting_min": 41,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg.032.20250126.mp3",
-    "station_id": "s-ir"
+    "purpose": "learn",
+    "rank": 24
   },
   {
     "id": "r-8d30815a0a",
@@ -18765,7 +19416,8 @@
     "sitting": "~43 min",
     "sitting_min": 43,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-33.20250414.mp3",
-    "station_id": "s-attn"
+    "purpose": "learn",
+    "rank": 22
   },
   {
     "id": "r-d00b2c5d24",
@@ -18787,7 +19439,8 @@
     "sitting": "~45 min",
     "sitting_min": 45,
     "audio_url": "https://traffic.libsyn.com/secure/machinelearningguide/mlg-35.20250507.mp3",
-    "station_id": "s-llm-tools"
+    "purpose": "learn",
+    "rank": 25
   },
   {
     "id": "r-5421899524",
@@ -18837,6 +19490,29 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-760a4e366e",
+    "title": "Models, Harnesses, and Multi-Agent Systems",
+    "url": "https://share.transistor.fm/s/063cfaad",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "How production agent stacks are actually wired.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~49 min",
+    "sitting_min": 49,
+    "audio_url": "https://media.transistor.fm/063cfaad/23dc320d.mp3",
+    "purpose": "apply",
+    "rank": 1
   },
   {
     "id": "r-2659fe71d5",
@@ -19343,6 +20019,75 @@
     "evidence": "Harvested from awesome-ml.md",
     "featured": false,
     "source": "awesome-ml.md"
+  },
+  {
+    "id": "r-24e30e7de0",
+    "title": "NeurIPS Best Paper: 1000 Layer Networks for Self-Supervised RL",
+    "url": "https://latent.space/p/neurips-best-paper-1000-layer-networks",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "rl"
+    ],
+    "evidence": "A best-paper walk, not a lesson. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~28 min",
+    "sitting_min": 28,
+    "audio_url": "https://api.substack.com/feed/podcast/186610577/1c67d698a72366b17c184a249d44225b.mp3",
+    "purpose": "pulse",
+    "rank": 14
+  },
+  {
+    "id": "r-f4e98aed07",
+    "title": "News Recommendations",
+    "url": "https://dataskeptic.com/blog/episodes/2026/news-recommendations",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "News ranking as a live system, not a toy dataset.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~46 min",
+    "sitting_min": 46,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Andreea_No_Ads_V1.mp3",
+    "purpose": "pulse",
+    "rank": 11
+  },
+  {
+    "id": "r-9cf3dd42db",
+    "title": "Niche vs Mainstream",
+    "url": "https://dataskeptic.com/blog/episodes/2026/niche-vs-mainstream",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Long-tail vs popular this recsys season.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~34 min",
+    "sitting_min": 34,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Anas_With_Ads_V1.mp3",
+    "purpose": "pulse",
+    "rank": 15
   },
   {
     "id": "r-fc4cdeafce",
@@ -19945,6 +20690,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-b444828d9e",
+    "title": "OpenAI and Gaussian Processes",
+    "url": "https://omny.fm/shows/talking-machines/openai-and-gaussian-processes",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "classical-ml"
+    ],
+    "evidence": "Early OpenAI plus the GP sitting that still holds.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~35 min",
+    "sitting_min": 35,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/54a56ccbe4b0ab38fed9fc81%3A54a57bffe4b0fe1194167e61%3A56aa5a71fb36b15e28b8cded/media.mp3",
+    "purpose": "interview",
+    "rank": 12
   },
   {
     "id": "r-1c65bd18c3",
@@ -20563,6 +21331,29 @@
     "source": "awesome-nlp.md"
   },
   {
+    "id": "r-9dd27e94f4",
+    "title": "Post-Mortem of Anthropic's Claude Code Leak",
+    "url": "https://share.transistor.fm/s/44e59b0b",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "What leaked, dated. Pulse, not architecture.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~44 min",
+    "sitting_min": 44,
+    "audio_url": "https://media.transistor.fm/44e59b0b/1ecd61fa.mp3",
+    "purpose": "pulse",
+    "rank": 16
+  },
+  {
     "id": "r-d15163de0a",
     "title": "Practical Deep Learning for Cloud, Mobile, and Edge",
     "url": "https://oreilly.com/library/view/practical-deep-learning/9781492034858",
@@ -20645,6 +21436,29 @@
     "source": "awesome-ml.md"
   },
   {
+    "id": "r-96953919ae",
+    "title": "Predicting Floods and Really Doing Good",
+    "url": "https://omny.fm/shows/talking-machines/predicting-floods-and-really-doing-good",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "ML that has to work in weather, not a notebook.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~39 min",
+    "sitting_min": 39,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/a3d5e263-f0d1-4960-a713-abca014b3daa/media.mp3",
+    "purpose": "interview",
+    "rank": 18
+  },
+  {
     "id": "r-3fbeea3e5e",
     "title": "Prime Minister 29",
     "url": "https://github.com/PyThaiNLP/lexicon-thai/tree/master/thai-corpus/Prime%20Minister%2029",
@@ -20692,6 +21506,29 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-db156892bf",
+    "title": "Prioritizing Problems and 100 episodes",
+    "url": "https://omny.fm/shows/talking-machines/prioritizing-problems-and-100-episodes",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "What is even worth modeling. Talking Machines.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~30 min",
+    "sitting_min": 30,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/4cefa8ce-3ac1-4b72-b4c5-ab8401623a7e/media.mp3",
+    "purpose": "interview",
+    "rank": 21
   },
   {
     "id": "r-d05b398fea",
@@ -21146,6 +21983,121 @@
     "source": "awesome-nlp.md"
   },
   {
+    "id": "r-1bbcf826a7",
+    "title": "Rebooting Enterprise AI with MCP and Kubernetes",
+    "url": "https://share.transistor.fm/s/d76e02d5",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "MCP + k8s as the boring production path.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~48 min",
+    "sitting_min": 48,
+    "audio_url": "https://media.transistor.fm/d76e02d5/e934139b.mp3",
+    "purpose": "apply",
+    "rank": 10
+  },
+  {
+    "id": "r-66deca7621",
+    "title": "Recommender Systems Optimization Goals",
+    "url": "https://dataskeptic.com/blog/episodes/2026/recommender-systems-optimization-goals",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "What recsys is optimizing for now. Data Skeptic.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~31 min",
+    "sitting_min": 31,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/1finale-part-2-final-adfree.mp3",
+    "purpose": "pulse",
+    "rank": 9
+  },
+  {
+    "id": "r-4a4d82efa9",
+    "title": "Recommender Systems Origin Story",
+    "url": "https://dataskeptic.com/blog/episodes/2026/recommender-systems-origin-story",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "How we got the recsys stack. Data Skeptic current season.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~25 min",
+    "sitting_min": 25,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/recsys-finale-pt1.mp3",
+    "purpose": "pulse",
+    "rank": 1
+  },
+  {
+    "id": "r-a1fe13479d",
+    "title": "Recommender Systems Today and Tomorrow",
+    "url": "https://dataskeptic.com/blog/episodes/2026/recommender-systems-today-and-tomorrow",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Where recsys is pointed now. Short pulse.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~22 min",
+    "sitting_min": 22,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/part3-withad.mp3",
+    "purpose": "pulse",
+    "rank": 4
+  },
+  {
+    "id": "r-851ae208d4",
+    "title": "Reconstructing how OpenAI agents attacked Hugging Face",
+    "url": "https://share.transistor.fm/s/9d74230b",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "A postmortem you can hear. Security as an apply sitting.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~44 min",
+    "sitting_min": 44,
+    "audio_url": "https://media.transistor.fm/9d74230b/ed549250.mp3",
+    "purpose": "apply",
+    "rank": 15
+  },
+  {
     "id": "r-a81de6d123",
     "title": "Reconstructing the World from Photos on the Internet",
     "url": "https://www.youtube.com/watch?v=04Kgg3QEXFI",
@@ -21247,7 +22199,8 @@
     "sitting": "~17 min",
     "sitting_min": 17,
     "audio_url": "https://feeds.soundcloud.com/stream/285783592-linear-digressions-regularization.mp3",
-    "station_id": "s-eval"
+    "purpose": "learn",
+    "rank": 29
   },
   {
     "id": "r-b8da716a4b",
@@ -21317,7 +22270,8 @@
     "sitting": "~18 min",
     "sitting_min": 18,
     "audio_url": "https://feeds.soundcloud.com/stream/272013221-linear-digressions-reinforcement-learning-for-artificial-intelligence.m4a",
-    "station_id": "s-rl"
+    "purpose": "learn",
+    "rank": 35
   },
   {
     "id": "r-cfdf1e45c6",
@@ -21418,6 +22372,29 @@
     "source": "graph-dl.md"
   },
   {
+    "id": "r-a32adb713d",
+    "title": "Relational Foundation Models for Enterprise Data with Jure Leskovec",
+    "url": "https://twimlai.com/podcast/twimlai/relational-foundation-models-enterprise-data",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "graphs"
+    ],
+    "evidence": "Leskovec on tables as a foundation-model domain. TWIML.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~66 min",
+    "sitting_min": 66,
+    "audio_url": "https://traffic.megaphone.fm/MLN3747054711.mp3",
+    "purpose": "interview",
+    "rank": 4
+  },
+  {
     "id": "r-43d43eb1e8",
     "title": "Removing Camera Shake From A Single Photograph",
     "url": "https://cs.nyu.edu/~fergus/research/deblur.html",
@@ -21498,6 +22475,29 @@
     "source": "awesome-cv.md"
   },
   {
+    "id": "r-9c7064ae8f",
+    "title": "Responsibility, Risk, and Publishing",
+    "url": "https://omny.fm/shows/talking-machines/responsibility-risk-and-publishing",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "How the field decides what to ship in a paper.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~25 min",
+    "sitting_min": 25,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/11240982-64ea-43b0-ae89-ad890172c4a8/media.mp3",
+    "purpose": "interview",
+    "rank": 20
+  },
+  {
     "id": "r-86f22bd716",
     "title": "RetargetMe",
     "url": "https://people.csail.mit.edu/mrub/retargetme",
@@ -21512,6 +22512,29 @@
     "evidence": "Harvested from awesome-cv.md",
     "featured": false,
     "source": "awesome-cv.md"
+  },
+  {
+    "id": "r-7e321c4cb3",
+    "title": "Retrieval After RAG: Hybrid Search, Agents, and Database Design",
+    "url": "https://latent.space/p/turbopuffer",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "What replaces naive RAG in production. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~60 min",
+    "sitting_min": 60,
+    "audio_url": "https://api.substack.com/feed/podcast/190777516/3e8657eee5a6ccb27814143e15672fd5.mp3",
+    "purpose": "apply",
+    "rank": 5
   },
   {
     "id": "r-fbb4cc3834",
@@ -22099,6 +23122,29 @@
     "source": "awesome-ml.md"
   },
   {
+    "id": "r-55f02f86c3",
+    "title": "Social Choice for Fair Recommendations",
+    "url": "https://dataskeptic.com/blog/episodes/2026/social-choice-for-fair-recommendations",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "Kyle + guest: fairness as social choice, not a metric dump.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~42 min",
+    "sitting_min": 42,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Robin_No_Ads_V1.mp3",
+    "purpose": "interview",
+    "rank": 2
+  },
+  {
     "id": "r-cb837c0628",
     "title": "Software / Libraries",
     "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/software/README.md",
@@ -22603,6 +23649,52 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-ba78c492ba",
+    "title": "State of Post-Training: From GPT-4.1 to 5.1",
+    "url": "https://latent.space/p/state-of-post-training-from-gpt-41",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "RLVR and token efficiency, this cycle. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~27 min",
+    "sitting_min": 27,
+    "audio_url": "https://api.substack.com/feed/podcast/186610564/4944e1f91a0d0d17e5525fb297469684.mp3",
+    "purpose": "pulse",
+    "rank": 13
+  },
+  {
+    "id": "r-05819a6fe1",
+    "title": "State of RL/Reasoning: IMO/IOI Gold, o3/GPT-5, and Cursor Composer",
+    "url": "https://latent.space/p/state-of-rlreasoning-imoioi-gold",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "rl"
+    ],
+    "evidence": "Where reasoning stacks sat this year. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~45 min",
+    "sitting_min": 45,
+    "audio_url": "https://api.substack.com/feed/podcast/186610562/84a86ba6927f827c7d138818724a3e00.mp3",
+    "purpose": "pulse",
+    "rank": 8
+  },
+  {
     "id": "r-2dc6082d4c",
     "title": "Statistical Learning",
     "url": "https://class.stanford.edu/courses/HumanitiesandScience/StatLearning/Winter2015/about",
@@ -23081,6 +24173,29 @@
     "source": "awesome-nlp.md"
   },
   {
+    "id": "r-c8034e5f52",
+    "title": "The End of SWE-Bench Verified",
+    "url": "https://latent.space/p/swe-bench-dead",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "What broke in the coding eval everyone cited. Latent Space.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~26 min",
+    "sitting_min": 26,
+    "audio_url": "https://api.substack.com/feed/podcast/188928663/d1b8836e5d38b238ccf001345a411fc7.mp3",
+    "purpose": "pulse",
+    "rank": 3
+  },
+  {
     "id": "r-1b782effa3",
     "title": "The essence of calculus",
     "url": "https://3blue1brown.com/lessons/essence-of-calculus",
@@ -23098,6 +24213,53 @@
     "featured": false,
     "source": "outline",
     "parent_id": "r-cd32413132"
+  },
+  {
+    "id": "r-12b35d855f",
+    "title": "The Evolution of Reasoning in Small Language Models with Yejin Choi",
+    "url": "https://twimlai.com/podcast/twimlai/the-evolution-of-reasoning-in-small-language-models",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "nlp"
+    ],
+    "evidence": "TWIML: Choi on why small models still reason.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~66 min",
+    "sitting_min": 66,
+    "audio_url": "https://traffic.megaphone.fm/MLN2256483849.mp3",
+    "purpose": "interview",
+    "rank": 3
+  },
+  {
+    "id": "r-a6cf2dbfaf",
+    "title": "The Future is Agentic in Recommender Systems",
+    "url": "https://dataskeptic.com/blog/episodes/2026/The-future-is-agentic-in-recommender-systems",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents",
+      "recommenders"
+    ],
+    "evidence": "Agents inside ranking. Current Data Skeptic.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~49 min",
+    "sitting_min": 49,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Yashar_No_Ads_V1.mp3",
+    "purpose": "pulse",
+    "rank": 5
   },
   {
     "id": "r-84f6628ca9",
@@ -23132,6 +24294,52 @@
     "evidence": "Harvested from graph-dl.md",
     "featured": false,
     "source": "graph-dl.md"
+  },
+  {
+    "id": "r-6f60b5fc16",
+    "title": "The Great AI Fallacy",
+    "url": "https://omny.fm/shows/talking-machines/the-great-ai-fallacy",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Start here: what the field oversells. Talking Machines.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~48 min",
+    "sitting_min": 48,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/b0b0925e-4161-42e6-9240-ab75015c3817/media.mp3",
+    "purpose": "interview",
+    "rank": 0
+  },
+  {
+    "id": "r-4b1bb7cb7a",
+    "title": "The History of Machine Learning from the Inside Out",
+    "url": "https://omny.fm/shows/talking-machines/the-history-of-machine-learning-from-the-inside-ou",
+    "kind": "podcast",
+    "provider": "talking-machines",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "ai"
+    ],
+    "evidence": "Lawrence and Adams on how the field got here.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~32 min",
+    "sitting_min": 32,
+    "audio_url": "https://sphinx.acast.com/p/open/s/6310c29b8aeabb0014b25f40/e/54a56ccbe4b0ab38fed9fc81%3A54a57bffe4b0fe1194167e61%3A54ef4512e4b0b5ba2b979706/media.mp3",
+    "purpose": "interview",
+    "rank": 11
   },
   {
     "id": "r-4c7feed4a1",
@@ -23203,7 +24411,8 @@
     "sitting": "~17 min",
     "sitting_min": 17,
     "audio_url": "https://feeds.soundcloud.com/stream/367800293-linear-digressions-the-kernel-trick-and-support-vector-machines.mp3",
-    "station_id": "s-ml-do"
+    "purpose": "learn",
+    "rank": 31
   },
   {
     "id": "r-f296e10f24",
@@ -23220,6 +24429,29 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-3080353512",
+    "title": "The Myth of Model Wars: Open vs Closed AI in 2026",
+    "url": "https://share.transistor.fm/s/6095edc5",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "eval"
+    ],
+    "evidence": "Open vs closed as this year's argument. Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~42 min",
+    "sitting_min": 42,
+    "audio_url": "https://media.transistor.fm/6095edc5/d370f038.mp3",
+    "purpose": "pulse",
+    "rank": 6
   },
   {
     "id": "r-0c16936125",
@@ -23867,7 +25099,8 @@
     "sitting": "~29 min",
     "sitting_min": 29,
     "audio_url": "https://feeds.soundcloud.com/stream/742527037-linear-digressions-unsupervised-dimensionality-reduction-umap-vs-t-sne.mp3",
-    "station_id": "s-unsupervised"
+    "purpose": "learn",
+    "rank": 33
   },
   {
     "id": "r-94899023b3",
@@ -24283,6 +25516,29 @@
     "source": "awesome-dl.md"
   },
   {
+    "id": "r-413b495096",
+    "title": "Video Recommendations in Industry",
+    "url": "https://dataskeptic.com/blog/episodes/2025/video-recommendations-in-industry",
+    "kind": "podcast",
+    "provider": "dataskeptic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "recommenders"
+    ],
+    "evidence": "How video ranking actually ships. Data Skeptic.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~38 min",
+    "sitting_min": 38,
+    "audio_url": "https://traffic.libsyn.com/secure/dataskeptic/Cory_With_Ads_V1.mp3",
+    "purpose": "apply",
+    "rank": 16
+  },
+  {
     "id": "r-14c3425d60",
     "title": "Vision and learning - computers and brains",
     "url": "https://web.mit.edu/course/other/i2course/www/vision_and_learning_fall_2013.html",
@@ -24525,6 +25781,75 @@
     "source": "awesome-cv.md"
   },
   {
+    "id": "r-8c36649223",
+    "title": "While loops with tool calls",
+    "url": "https://share.transistor.fm/s/ca41b93c",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "The agent loop as a control-flow problem. Practical AI.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~44 min",
+    "sitting_min": 44,
+    "audio_url": "https://media.transistor.fm/ca41b93c/a54b2afe.mp3",
+    "purpose": "apply",
+    "rank": 7
+  },
+  {
+    "id": "r-fdf290a364",
+    "title": "Why AI Infrastructure must evolve for Agent Experience",
+    "url": "https://latent.space/p/modal2026",
+    "kind": "podcast",
+    "provider": "latent-space",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Modal CTO on infra that agents can actually use.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~57 min",
+    "sitting_min": 57,
+    "audio_url": "https://api.substack.com/feed/podcast/205716015/3060ccd83d88111aef06dc1ba0e2b411.mp3",
+    "purpose": "apply",
+    "rank": 4
+  },
+  {
+    "id": "r-5610b3a91d",
+    "title": "Why the Next AI Breakthrough May Come from Physics with Max Welling",
+    "url": "https://twimlai.com/podcast/twimlai/why-next-ai-breakthrough-may-come-physics",
+    "kind": "podcast",
+    "provider": "twiml",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "theory"
+    ],
+    "evidence": "Welling on inductive bias from physics. TWIML.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~58 min",
+    "sitting_min": 58,
+    "audio_url": "https://traffic.megaphone.fm/MLN6316777640.mp3",
+    "purpose": "interview",
+    "rank": 8
+  },
+  {
     "id": "r-202c5ba1aa",
     "title": "Wiry Object Recognition Database",
     "url": "https://cs.cmu.edu/~owenc/word.htm",
@@ -24576,7 +25901,8 @@
     "sitting": "~17 min",
     "sitting_min": 17,
     "audio_url": "https://feeds.soundcloud.com/stream/552052683-linear-digressions-re-release-word2vec.mp3",
-    "station_id": "s-ir"
+    "purpose": "learn",
+    "rank": 28
   },
   {
     "id": "r-ec213abff9",
@@ -24721,6 +26047,29 @@
     "evidence": "Harvested from awesome-dl.md",
     "featured": false,
     "source": "awesome-dl.md"
+  },
+  {
+    "id": "r-839ce1d6ff",
+    "title": "Zero Trust for AI Agents",
+    "url": "https://share.transistor.fm/s/5c1a087d",
+    "kind": "podcast",
+    "provider": "practical-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "mlsys"
+    ],
+    "evidence": "Authn for tools the model can call.",
+    "featured": false,
+    "source": "commute",
+    "sitting": "~47 min",
+    "sitting_min": 47,
+    "audio_url": "https://media.transistor.fm/5c1a087d/89d77a53.mp3",
+    "purpose": "apply",
+    "rank": 6
   },
   {
     "id": "r-f664174f37",

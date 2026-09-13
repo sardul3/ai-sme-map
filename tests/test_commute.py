@@ -15,7 +15,8 @@ def _ep(**overrides):
         "title": "Linear machines",
         "url": "https://www.learningmachines101.com/linear/",
         "audio_url": "https://traffic.libsyn.com/learningmachines101/LM101-082.mp3",
-        "station_id": "s-la-work",
+        "purpose": "learn",
+        "rank": 0,
         "sitting_min": 29,
     }
     row.update(overrides)
@@ -23,48 +24,45 @@ def _ep(**overrides):
 
 
 class TestCommutePlaylist(unittest.TestCase):
-    def test_given_episodes_when_playlist_then_sorted_by_station_order_then_title(self):
-        stations = [
-            {"id": "s-la-see", "stage": 0, "title": "See matrices"},
-            {"id": "s-ml-intuit", "stage": 1, "title": "Algorithms"},
-            {"id": "s-theory", "stage": 6, "title": "Later"},
-        ]
+    def test_given_episodes_when_playlist_then_sorted_by_purpose_then_rank(self):
         episodes = [
-            {"title": "Zebra talk", "station_id": "s-la-see"},
-            {"title": "Alpha talk", "station_id": "s-la-see"},
-            {"title": "ML talk", "station_id": "s-ml-intuit"},
-            {"title": "Too late", "station_id": "s-theory"},
-            {"title": "Orphan", "station_id": "s-missing"},
+            {"title": "Zebra lesson", "purpose": "learn", "rank": 1},
+            {"title": "Alpha lesson", "purpose": "learn", "rank": 0},
+            {"title": "Chat", "purpose": "interview", "rank": 0},
+            {"title": "News", "purpose": "pulse", "rank": 0},
+            {"title": "Orphan", "purpose": "other", "rank": 0},
         ]
-        rows = playlist(episodes, stations)
-        self.assertEqual([r["title"] for r in rows], ["Alpha talk", "Zebra talk", "ML talk"])
+        rows = playlist(episodes)
+        self.assertEqual([r["title"] for r in rows], ["Alpha lesson", "Zebra lesson", "Chat", "News"])
 
 
 class TestCommuteEpisodeRules(unittest.TestCase):
     def test_given_valid_enclosure_when_checked_then_no_errors(self):
-        self.assertEqual(episode_errors(_ep(), {"s-la-work"}), [])
+        self.assertEqual(episode_errors(_ep()), [])
 
-    def test_given_sitting_outside_12_55_when_checked_then_error(self):
-        errs = episode_errors(_ep(sitting_min=70), {"s-la-work"})
+    def test_given_sitting_outside_12_75_when_checked_then_error(self):
+        errs = episode_errors(_ep(sitting_min=90), {})
         self.assertTrue(any("sitting" in e for e in errs))
 
     def test_given_sitting_50_when_checked_then_ok_for_long_lesson(self):
-        self.assertEqual(episode_errors(_ep(sitting_min=50), {"s-la-work"}), [])
+        self.assertEqual(episode_errors(_ep(sitting_min=50)), [])
 
     def test_given_youtube_only_when_checked_then_error(self):
         errs = episode_errors(
             _ep(audio_url="https://www.youtube.com/watch?v=abc", url="https://www.youtube.com/watch?v=abc"),
-            {"s-la-work"},
         )
         self.assertTrue(any("enclosure" in e or "youtube" in e for e in errs))
 
     def test_given_missing_audio_url_when_checked_then_error(self):
-        errs = episode_errors(_ep(audio_url=""), {"s-la-work"})
+        errs = episode_errors(_ep(audio_url=""))
         self.assertTrue(any("enclosure" in e or "audio_url" in e for e in errs))
 
-    def test_given_station_not_t0_t5_when_checked_then_error(self):
-        errs = episode_errors(_ep(station_id="s-theory"), {"s-la-work"})
-        self.assertTrue(any("station" in e for e in errs))
+    def test_given_unknown_purpose_when_checked_then_error(self):
+        errs = episode_errors(_ep(purpose="homework"))
+        self.assertTrue(any("purpose" in e for e in errs))
+
+    def test_given_interview_purpose_when_checked_then_ok(self):
+        self.assertEqual(episode_errors(_ep(purpose="interview", rank=1)), [])
 
 
 class TestCommuteResource(unittest.TestCase):
@@ -72,9 +70,11 @@ class TestCommuteResource(unittest.TestCase):
         rec = to_resource(_ep())
         self.assertEqual(rec["kind"], "podcast")
         self.assertEqual(rec["audio_url"], _ep()["audio_url"])
-        self.assertEqual(rec["station_id"], "s-la-work")
+        self.assertEqual(rec["purpose"], "learn")
+        self.assertEqual(rec["rank"], 0)
         self.assertIn("29", rec["sitting"])
         self.assertFalse(rec.get("featured"))
+        self.assertNotIn("station_id", rec)
 
 
 class TestCommuteCatalogValidate(unittest.TestCase):
@@ -90,7 +90,8 @@ class TestCommuteCatalogValidate(unittest.TestCase):
                 "url": "https://example.com/bad",
                 "kind": "podcast",
                 "audio_url": "",
-                "station_id": "s-la-see",
+                "purpose": "learn",
+                "rank": 0,
                 "sitting_min": 20,
             }
         ]
@@ -109,7 +110,8 @@ class TestCommuteFocusIsolation(unittest.TestCase):
                 "url": "https://example.com/audio-page",
                 "kind": "podcast",
                 "audio_url": "https://example.com/a.mp3",
-                "station_id": "s-la-see",
+                "purpose": "learn",
+                "rank": 0,
             },
         ]
         empty = next_focus(graph, resources, {})
@@ -185,7 +187,9 @@ class TestCommuteSeed(unittest.TestCase):
         }
         self.assertGreaterEqual(len(EPISODES), 1)
         for ep in EPISODES:
-            self.assertEqual(episode_errors(ep, t0_t5), [])
+            self.assertEqual(episode_errors(ep), [])
+        purposes = {ep.get("purpose") for ep in EPISODES}
+        self.assertTrue({"learn", "interview", "apply", "pulse"} <= purposes)
 
 
 class TestCompiledCommute(unittest.TestCase):
@@ -195,16 +199,22 @@ class TestCompiledCommute(unittest.TestCase):
         graph = __import__("json").loads((root / "data" / "graph.json").read_text())
         feed = root / "data" / "feed.xml"
         commute = [r for r in resources if r.get("kind") == "podcast" and r.get("audio_url")]
-        self.assertGreaterEqual(len(commute), 24)
+        self.assertGreaterEqual(len(commute), 40)
         providers = {r.get("provider") for r in commute}
-        self.assertGreaterEqual(len(providers), 3)
-        stations = {r.get("station_id") for r in commute}
-        self.assertGreaterEqual(len(stations), 12)
+        self.assertGreaterEqual(len(providers), 5)
+        purposes = {r.get("purpose") for r in commute}
+        self.assertTrue({"learn", "interview", "apply", "pulse"} <= purposes)
         blob = " ".join(f'{r.get("provider","")} {r.get("url","")}' for r in commute).lower()
-        self.assertTrue("ocdevel" in blob or "machine-learning-guide" in blob or "machinelearningguide" in blob)
+        self.assertTrue("ocdevel" in blob or "machinelearningguide" in blob)
         self.assertTrue("linear-digressions" in blob or "lineardigressions" in blob)
+        self.assertTrue("talking-machines" in blob or "talkingmachines" in blob)
+        self.assertTrue("dataskeptic" in blob)
+        self.assertTrue("practical-ai" in blob or "practicalai" in blob or "changelog" in blob)
+        self.assertTrue("twiml" in blob)
+        self.assertTrue("latent" in blob)
         for rec in commute:
-            self.assertIn(rec.get("station_id"), {n["id"] for n in graph["nodes"] if n["stage"] <= 5})
+            self.assertIn(rec.get("purpose"), {"learn", "interview", "apply", "pulse"})
+            self.assertIsInstance(rec.get("rank"), int)
             self.assertTrue(rec["audio_url"].lower().endswith((".mp3", ".m4a")))
         self.assertTrue(feed.exists())
         text = feed.read_text().lower()
@@ -226,6 +236,7 @@ class TestCommuteUIContract(unittest.TestCase):
         html = (root / "web" / "commute.html").read_text()
         self.assertIn('id="map"', html)
         self.assertIn('id="drawer"', html)
+        self.assertNotIn("Same dual rail as Tonight", html)
         self.assertIn('id="player"', html)
         self.assertIn('id="player-next"', html)
         self.assertIn('id="player-elapsed"', html)
@@ -244,6 +255,8 @@ class TestCommuteUIContract(unittest.TestCase):
         self.assertIn("renderHarvest", js)
         self.assertIn("playCommuteRelative", js)
         self.assertIn("formatClock", js)
+        self.assertIn("renderPurposeMap", js)
+        self.assertIn("data-purpose", js)
 
 
 class TestCommuteFeed(unittest.TestCase):

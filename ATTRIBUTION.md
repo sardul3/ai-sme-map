@@ -21,6 +21,6 @@ Course and book **titles** appear as nominative references (Stanford, Coursera, 
 
 AIMA: [aima.cs.berkeley.edu](https://aima.cs.berkeley.edu/). Berkeley CS188: [inst.eecs.berkeley.edu/~cs188](https://inst.eecs.berkeley.edu/~cs188/).
 
-Commute rows point at original episode pages and enclosures (currently [Learning Machines 101](https://www.learningmachines101.com/)). We do not rehost those mp3s. `data/feed.xml` is a personal unpublished playlist of the same links — not a show to submit to directories.
+Commute rows point at original episode pages and enclosures ([Learning Machines 101](https://www.learningmachines101.com/), [Machine Learning Guide](https://ocdevel.com/mlg), [Linear Digressions](https://lineardigressions.com/), [Talking Machines](https://www.thetalkingmachines.com/), [Data Skeptic](https://dataskeptic.com/), [Practical AI](https://changelog.com/practicalai), [TWIML](https://twimlai.com/), [Latent Space](https://www.latent.space/)). We do not rehost those mp3s. `data/feed.xml` is a personal unpublished playlist of the same links — not a show to submit to directories.
 
 Libgen, sci-hub, and torrent links are denied at compile time if they appear in a harvest.

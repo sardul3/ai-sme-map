@@ -1,0 +1,34 @@
+name: weekly-onboard
+on:
+  schedule:
+    - cron: "12 8 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  onboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Scrape harvest remotes and commute RSS
+        run: python3 scripts/weekly_onboard.py
+      - name: Compile library (unassigned grows; Do and commute ranks untouched)
+        run: python3 scripts/compile_catalog.py
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: weekly/inbox
+          delete-branch: true
+          title: "Weekly harvest and commute inbox"
+          commit-message: "Refresh harvest lists and commute inbox (weekly scrape)."
+          body: |
+            Automated weekly scrape. **Human gate:** do not merge Do-rail edits
+            or commute `purpose`/`rank` rows without a scorecard / purpose pass.
+
+            - New harvest URLs compile onto **Library · unassigned** (not Tonight).
+            - New enclosures land in `data/inbox.json` until someone copies an
+              original mp3 into `scripts/commute.py`.
+            - YouTube-only rows are dropped. Sitting must be 12–75 minutes.

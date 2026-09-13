@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from commute import EPISODES, playlist, to_resource, write_feed
 from graph_spec import CURATED_EXTRA
 from graph_spec import STATIONS as GRAPH_STATIONS
+from topic_request import harvest_files_from_disk
 
 LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
 HEADING_RE = re.compile(r"^#{1,4}\s+(.*)$", re.M)
@@ -1725,7 +1726,7 @@ def main() -> None:
         "ranking_pass": "2026-09-12",
         "ranking_rule": "intuition, exercises, modern stack, SME leftover — not institution",
         "stages": [
-            {"id": 0, "name": "Math sight", "months": "1.5–2"},
+            {"id": 0, "name": "Sight and ship", "months": "1.5–2"},
             {"id": 1, "name": "Classical ML + AI", "months": "2–2.5"},
             {"id": 2, "name": "Deep learning both ways", "months": "2.5–3"},
             {"id": 3, "name": "Language", "months": "2–2.5"},
@@ -1754,11 +1755,27 @@ def main() -> None:
         "do_rail_human_gate": True,
         "harvest_files": len(hashes),
         "commute_count": len(commute_rows),
+        "github_repo": "sardul3/ai-sme-map",
+        "harvest_lists": harvest_files_from_disk(),
     }
     (DATA / "catalog_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     progress_path = DATA / "progress.json"
     if not progress_path.exists():
         progress_path.write_text(json.dumps({"schema_version": 1}, indent=2) + "\n")
+    inbox_path = DATA / "inbox.json"
+    if not inbox_path.exists():
+        inbox_path.write_text(
+            json.dumps(
+                {
+                    "fetched_at": None,
+                    "human_gate": True,
+                    "harvested": [],
+                    "commute_candidates": [],
+                },
+                indent=2,
+            )
+            + "\n"
+        )
 
     print(f"resources {len(resources)}")
     print(f"featured {sum(1 for r in resources if r['featured'])}")

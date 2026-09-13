@@ -6,7 +6,7 @@ Resources are ranked by **intuition, exercises, modern stack, leftover SME depth
 
 **This is not** a degree, not 1,242 homework items, not dealradar, and not a hosted app. Progress is a local file. Do not put the PUT endpoint on a public IP.
 
-**59 stations** across T0–T7. Local: [http://127.0.0.1:7432](http://127.0.0.1:7432). Public static copy: [https://sardul3.github.io/ai-sme-map/](https://sardul3.github.io/ai-sme-map/) (progress in `localStorage`; no public PUT).
+**61 stations** across T0–T7. T0 practice includes a builder fork (Claude Code, LangGraph, MCP) with no linear-algebra prereq. Local: [http://127.0.0.1:7432](http://127.0.0.1:7432). Public static copy: [https://sardul3.github.io/ai-sme-map/](https://sardul3.github.io/ai-sme-map/) (progress in `localStorage`; no public PUT).
 
 ## Run (supported path)
 
@@ -36,6 +36,8 @@ Local eval log (opt-in, no PII sent anywhere): in the browser console, `localSto
 Keyboard: `d` marks the current Focus lesson done. Space play/pauses the commute player when it is open.
 
 **Commute · eyes-off** (`commute.html`) ranks walk-time audio by purpose — Learn, Hear people, Ship, Stay current — not by Tonight’s lesson stations. Talking Machines, Data Skeptic, Practical AI, TWIML, and Latent Space sit on those rails with the teaching shows. The deck player has prev/next, ±15s, a scrubber with times, and speed. Playback position lives in `localStorage` (`atlas_commute_pos`). Ticks do not count as Do.
+
+**Library · unassigned** (`library.html`) is everything cataloged that is on neither track, grouped by harvest file or curated kind. A Monday GitHub Action refetches pinned awesome-lists and commute RSS, compiles, and opens a PR. New harvest URLs land here. New enclosures land in `data/inbox.json` until someone copies them into `scripts/commute.py`. Tonight Do rails are never auto-edited.
 
 `data/feed.xml` is a **personal, unpublished** playlist of those original enclosures. Do not submit it to Apple Podcasts or treat it as a public SME Atlas show.
 

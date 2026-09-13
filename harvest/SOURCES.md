@@ -16,4 +16,4 @@ License: see `ATTRIBUTION.md`. Do-rail edits require a human.
 | graph-dl.md | Graph / geometric DL |
 | have-fun-ml.md | Project-style tutorials |
 
-Cadence: nightly `make links` on Do+featured; weekly `make harvest-diff`; monthly scorecard on T0–T3 Do; quarterly new stations. Harvest may grow Skim. Never auto-promote to Do. No Coursera/YouTube TOC scrape. No cookies.
+Cadence: nightly `make links` on Do+featured; weekly Actions `weekly-onboard.yml` (or `make weekly-onboard`) refetches remotes in `scripts/weekly_onboard.py` and opens a PR; on-demand `topic-request.yml` matches the shelf or fetches one GitHub `awesome-*` README into `harvest/topic-*.md`; monthly scorecard on T0–T3 Do; quarterly new stations. Harvest may grow Library · unassigned. Never auto-promote to Do or commute rank. No Coursera/YouTube TOC scrape. No cookies.

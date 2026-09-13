@@ -312,6 +312,25 @@ h1 {
   color: var(--ink);
 }
 .find input:focus { outline: none; border-bottom-width: 2px; }
+.find-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: baseline;
+  max-width: 720px;
+}
+.find-row button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--ink);
+}
 
 .map {
   display: grid;

@@ -1,13 +1,13 @@
 {
   "title": "AI/ML SME Atlas",
   "hours_per_week": 15,
-  "compiled_at": "2026-09-13T03:23:22Z",
+  "compiled_at": "2026-09-13T12:13:32Z",
   "ranking_pass": "2026-09-12",
   "ranking_rule": "intuition, exercises, modern stack, SME leftover \u2014 not institution",
   "stages": [
     {
       "id": 0,
-      "name": "Math sight",
+      "name": "Sight and ship",
       "months": "1.5\u20132"
     },
     {
@@ -183,6 +183,62 @@
       ],
       "project": [
         "r-0db5de4377"
+      ]
+    },
+    {
+      "id": "s-code-agents",
+      "title": "Ship code with a model",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "code-llm",
+      "prereqs": [],
+      "why": "A coding agent is tonight\u2019s sitting. No linear algebra required.",
+      "do": [
+        "r-4d17281029",
+        "r-34eb71ab7d"
+      ],
+      "parallel": [
+        "r-8a977528ce",
+        "r-d57801422b",
+        "r-4196a8dc1f"
+      ],
+      "skim": [
+        "r-fb8dc53be9",
+        "r-9c241fb43b"
+      ],
+      "project": [
+        "r-4d17281029"
+      ]
+    },
+    {
+      "id": "s-agent-graphs",
+      "title": "Loops, tools, other agents",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "agents",
+      "prereqs": [
+        "s-code-agents"
+      ],
+      "why": "LangGraph, MCP, multi-agent. Still no backprop required.",
+      "do": [
+        "r-46d288b663",
+        "r-abff9fb09f"
+      ],
+      "parallel": [
+        "r-d08dc0bc77",
+        "r-edae69a01e",
+        "r-e73cd795c4"
+      ],
+      "skim": [
+        "r-1056111271",
+        "r-edc8ba5f12",
+        "r-fd26f592f2",
+        "r-10269d4871",
+        "r-ba7749319b",
+        "r-c0386a1e9f"
+      ],
+      "project": [
+        "r-2046e661ad"
       ]
     },
     {
@@ -756,11 +812,13 @@
       ],
       "parallel": [
         "r-0baffed4a7",
-        "r-e2afe39a9d",
-        "r-75e0869f32"
+        "r-34eb71ab7d",
+        "r-46d288b663",
+        "r-e2afe39a9d"
       ],
       "skim": [
-        "r-504bf11980"
+        "r-504bf11980",
+        "r-abff9fb09f"
       ],
       "project": [
         "r-2046e661ad"
@@ -833,11 +891,13 @@
         "r-adfba0a02e"
       ],
       "parallel": [
+        "r-4d17281029",
         "r-bee5525343",
         "r-9a7ea2175f"
       ],
       "skim": [
-        "r-e14c2e0e1a"
+        "r-e14c2e0e1a",
+        "r-8a977528ce"
       ],
       "project": [
         "r-bee5525343"

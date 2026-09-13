@@ -1,11 +1,54 @@
 {
-  "compiled_at": "2026-09-13T03:23:22Z",
-  "git_sha": "cd6475f",
+  "compiled_at": "2026-09-13T12:13:32Z",
+  "git_sha": "e82710f",
   "ranking_pass": "2026-09-12",
-  "resource_count": 1434,
-  "featured_count": 187,
-  "station_count": 59,
+  "resource_count": 1452,
+  "featured_count": 205,
+  "station_count": 61,
   "do_rail_human_gate": true,
   "harvest_files": 11,
-  "commute_count": 94
+  "commute_count": 94,
+  "github_repo": "sardul3/ai-sme-map",
+  "harvest_lists": [
+    {
+      "name": "awesome-cv.md",
+      "role": "Computer vision list"
+    },
+    {
+      "name": "awesome-dl.md",
+      "role": "Deep learning list"
+    },
+    {
+      "name": "awesome-ml.md",
+      "role": "ML libraries and software list"
+    },
+    {
+      "name": "awesome-nlp.md",
+      "role": "NLP list"
+    },
+    {
+      "name": "awesome-rl.md",
+      "role": "RL list"
+    },
+    {
+      "name": "books.md",
+      "role": "Book list"
+    },
+    {
+      "name": "dl-papers-roadmap.md",
+      "role": "Paper roadmap"
+    },
+    {
+      "name": "graph-dl.md",
+      "role": "Graph / geometric DL"
+    },
+    {
+      "name": "have-fun-ml.md",
+      "role": "Project-style tutorials"
+    },
+    {
+      "name": "ml-youtube-courses.md",
+      "role": "Lecture playlists"
+    }
+  ]
 }

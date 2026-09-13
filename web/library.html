@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Library · unassigned — SME Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="library">
+  <header class="mast">
+    <div>
+      <p class="kicker">Cataloged · not on Tonight or Commute</p>
+      <h1>Library</h1>
+      <nav class="mast-nav" aria-label="Atlas">
+        <a href="index.html">Tonight</a>
+        <a href="commute.html">Commute · eyes-off</a>
+        <a href="library.html" aria-current="page">Library · unassigned</a>
+      </nav>
+    </div>
+  </header>
+
+  <p class="rule">
+    Harvest and leftover curated rows. Ordered by category. Weekly scrape may add here.
+    Promoting onto Tonight or Commute still needs a human.
+  </p>
+
+  <form class="find" id="find" autocomplete="off">
+    <label for="q">What are you trying to learn?</label>
+    <div class="find-row">
+      <input id="q" type="search" name="topic" placeholder="langgraph, MCP, claude code, RLHF…" />
+      <button type="submit">Ask the shelf</button>
+    </div>
+  </form>
+  <section id="hits" class="hits" hidden></section>
+  <section class="library" id="library"></section>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

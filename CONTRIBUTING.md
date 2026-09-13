@@ -12,7 +12,8 @@ This atlas is opinionated. **Do-rail changes are a product decision.** Skim may 
 ## Harvest
 
 1. Run `make harvest-diff` after editing `harvest/*.md`.
-2. New URLs default to **Skim**, not Do.
+2. New URLs default to **Library · unassigned** (and Skim in the harvest accordion), not Do.
+   Monday Actions (`weekly-onboard.yml`) refetch pinned remotes and commute RSS, then open a PR. Do not merge Do-rail or commute rank edits from that PR without a scorecard / purpose pass.
 3. Changing `scripts/graph_spec.py` station `do:` lists requires scorecard evidence in the PR (intuition, exercises, modern stack, SME depth).
 4. Commute rows live in `scripts/commute.py`. Human-gated original enclosures (12–75 min, direct `audio_url`). Categorize by `purpose` (`learn`, `interview`, `apply`, `pulse`) and `rank` (0 = start here). Do not attach `station_id`. YouTube-only and harvest auto-add are still out.
 

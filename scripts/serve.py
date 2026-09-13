@@ -25,6 +25,8 @@ PUBLIC_ALIASES = {
     "/index.html": "/web/index.html",
     "/commute": "/web/commute.html",
     "/commute.html": "/web/commute.html",
+    "/library": "/web/library.html",
+    "/library.html": "/web/library.html",
     "/styles.css": "/web/styles.css",
     "/app.js": "/web/app.js",
 }

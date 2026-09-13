@@ -3,7 +3,7 @@ const EVAL_KEY = "atlas_eval_log";
 const PAGE = document.body.dataset.page || "home";
 
 function atlasRoot(pathname = location.pathname) {
-  const pageStems = new Set(["index", "commute"]);
+  const pageStems = new Set(["index", "commute", "library"]);
   let path = pathname || "/";
   if (!path.startsWith("/")) path = `/${path}`;
   let trimmed = path.replace(/\/+$/, "");
@@ -23,7 +23,7 @@ function dataHref(name) {
 }
 
 async function load() {
-  const [graph, resources, progress, meta, placement, linkStatus] = await Promise.all([
+  const [graph, resources, progress, meta, placement, linkStatus, inbox] = await Promise.all([
     fetch(dataHref("graph.json")).then((r) => r.json()),
     fetch(dataHref("resources.json")).then((r) => r.json()),
     fetch(dataHref("progress.json"))
@@ -38,6 +38,9 @@ async function load() {
     fetch(dataHref("link_status.json"))
       .then((r) => (r.ok ? r.json() : { urls: {} }))
       .catch(() => ({ urls: {} })),
+    fetch(dataHref("inbox.json"))
+      .then((r) => (r.ok ? r.json() : { commute_candidates: [] }))
+      .catch(() => ({ commute_candidates: [] })),
   ]);
   const stored = JSON.parse(localStorage.getItem("atlas_progress") || "null");
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
@@ -49,6 +52,7 @@ async function load() {
     meta,
     placement,
     linkStatus,
+    inbox,
   };
 }
 
@@ -350,31 +354,118 @@ function renderMap(graph, progress, activeId, expanded, byId) {
     .join("");
 }
 
-function renderHits(q, resources, progress) {
+function normalizeTopic(raw) {
+  return (raw || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[,:;]+$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function topicContains(needle, ...parts) {
+  const hay = parts.map((p) => (p == null ? "" : String(p))).join(" ").toLowerCase();
+  if (!needle) return false;
+  if (hay.includes(needle)) return true;
+  const tokens = hay.split(/[^a-z0-9]+/).filter(Boolean);
+  const need = needle.split(/\s+/).filter(Boolean);
+  return tokens.includes(needle) || need.every((t) => tokens.includes(t));
+}
+
+function matchShelf(topic, harvestFiles, stations, resources) {
+  const needle = normalizeTopic(topic);
+  const harvest = [];
+  const harvestNames = new Set();
+  for (const row of harvestFiles || []) {
+    const name = row.name || "";
+    const stem = name.replace(/\.md$/, "").replace(/-/g, " ");
+    if (topicContains(needle, name, row.role, stem)) {
+      harvest.push({ name, role: row.role || "" });
+      harvestNames.add(name);
+    }
+  }
+  const stationHits = [];
+  for (const st of stations || []) {
+    if (topicContains(needle, st.id, st.title, st.branch, st.why)) {
+      stationHits.push(st);
+    }
+  }
+  const featured = [];
+  const leftover = [];
+  for (const rec of resources || []) {
+    if (!topicContains(needle, rec.title, rec.evidence, (rec.branches || []).join(" "))) continue;
+    if (harvestNames.has(rec.source)) continue;
+    if (rec.featured && rec.source === "curated") featured.push(rec);
+    else leftover.push(rec);
+  }
+  return {
+    harvest,
+    stations: stationHits,
+    featured,
+    resources: leftover.slice(0, 12),
+  };
+}
+
+function shelfHasHits(hits) {
+  return Boolean(
+    (hits.harvest && hits.harvest.length) ||
+      (hits.stations && hits.stations.length) ||
+      (hits.featured && hits.featured.length) ||
+      (hits.resources && hits.resources.length)
+  );
+}
+
+function topicIssueHref(topic, repo) {
+  const title = `topic: ${normalizeTopic(topic)}`;
+  return `https://github.com/${repo}/issues/new?template=topic_request.yml&title=${encodeURIComponent(title)}`;
+}
+
+function renderTopicHits(topic, hits, progress) {
   const box = $("hits");
   if (!box) return;
-  if (!q.trim()) {
+  if (!normalizeTopic(topic)) {
     box.hidden = true;
     box.innerHTML = "";
     return;
   }
-  const needle = q.toLowerCase();
-  const found = resources
-    .filter((r) =>
-      `${r.title} ${r.provider} ${r.kind} ${r.evidence} ${(r.branches || []).join(" ")}`
-        .toLowerCase()
-        .includes(needle)
-    )
-    .slice(0, 40);
   box.hidden = false;
-  box.innerHTML = `<h3>${found.length} matches${found.length === 40 ? "+" : ""} for “${q}”</h3>
-    ${found
-      .map((r) =>
-        renderResource(r, progress, {
-          rail: r.audio_url ? "commute" : r.kind === "lesson" ? "lesson" : "skim",
-        })
-      )
-      .join("")}`;
+  const repo = (state.meta && state.meta.github_repo) || "sardul3/ai-sme-map";
+  if (!shelfHasHits(hits)) {
+    box.innerHTML = `<h3>Nothing on the shelf for “${topic}”</h3>
+      <p class="why">File a topic request. Actions will comment if a list appears, or open a harvest PR. That never edits Tonight Do rails.</p>
+      <p><a class="go" href="${topicIssueHref(topic, repo)}" target="_blank" rel="noreferrer">File a topic request</a></p>`;
+    return;
+  }
+  const harvest = (hits.harvest || [])
+    .map((h) => {
+      const stem = h.name.replace(/\.md$/, "");
+      return `<p><a href="library.html#${stem}">Harvest · ${stem}</a>${h.role ? ` — ${h.role}` : ""}</p>`;
+    })
+    .join("");
+  const stations = (hits.stations || [])
+    .map(
+      (st) =>
+        `<button type="button" class="station ${st.rail || "practice"}" data-node="${st.id}">${st.title}<span class="meta">${st.branch || ""}</span></button>`
+    )
+    .join("");
+  const featured = (hits.featured || [])
+    .map((r) => renderResource(r, progress, { rail: "skim" }))
+    .join("");
+  const extra = (hits.resources || [])
+    .map((r) => renderResource(r, progress, { rail: r.audio_url ? "commute" : "skim" }))
+    .join("");
+  box.innerHTML = `<h3>Already on the shelf for “${topic}”</h3>
+    ${harvest ? `<div class="rail-block"><h4>Harvest lists</h4>${harvest}</div>` : ""}
+    ${stations ? `<div class="rail-block"><h4>Stations</h4>${stations}</div>` : ""}
+    ${featured ? `<div class="rail-block"><h4>Featured</h4>${featured}</div>` : ""}
+    ${extra ? `<div class="rail-block extras"><h4>Also cataloged</h4>${extra}</div>` : ""}`;
+}
+
+function askShelf(topic) {
+  const harvest = (state.meta && state.meta.harvest_lists) || [];
+  const hits = matchShelf(topic, harvest, state.graph.nodes, state.resources);
+  renderTopicHits(topic, hits, state.progress);
+  return hits;
 }
 
 function evalLog(event, extra) {
@@ -489,6 +580,103 @@ function renderCommute() {
     ${cards}`;
 }
 
+function unassignedResources(graph, resources) {
+  const ids = new Set();
+  for (const node of graph.nodes || []) {
+    for (const rail of ["do", "parallel", "skim", "project"]) {
+      for (const id of node[rail] || []) ids.add(id);
+    }
+  }
+  const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
+  for (const id of [...ids]) {
+    for (const part of (byId[id] && byId[id].parts) || []) {
+      if (part.id) ids.add(part.id);
+    }
+  }
+  for (const r of resources) {
+    if (r.parent_id && ids.has(r.parent_id)) ids.add(r.id);
+    if (r.audio_url && r.purpose) ids.add(r.id);
+  }
+  return resources.filter((r) => r.id && !ids.has(r.id));
+}
+
+function libraryCategory(r) {
+  const src = r.source || "";
+  if (src.endsWith(".md")) return `Harvest · ${src.replace(/\.md$/, "")}`;
+  if (src === "curated" && r.featured) return "Curated · featured";
+  if (src === "curated") return `Curated · ${r.kind || "other"}`;
+  if (src === "commute") return "Commute inbox";
+  return `Other · ${r.kind || "other"}`;
+}
+
+function libraryGroups(rows) {
+  const buckets = new Map();
+  for (const r of rows) {
+    const cat = libraryCategory(r);
+    if (!buckets.has(cat)) buckets.set(cat, []);
+    buckets.get(cat).push(r);
+  }
+  const rank = (name) => {
+    if (name === "Curated · featured") return 0;
+    if (name.startsWith("Curated")) return 1;
+    if (name === "Commute inbox") return 2;
+    if (name.startsWith("Harvest")) return 3;
+    return 4;
+  };
+  return [...buckets.entries()]
+    .sort((a, b) => rank(a[0]) - rank(b[0]) || a[0].localeCompare(b[0]))
+    .map(([category, list]) => ({
+      category,
+      rows: list.slice().sort((a, b) => a.title.localeCompare(b.title)),
+    }));
+}
+
+function renderLibrary() {
+  const el = $("library");
+  if (!el) return;
+  const rows = unassignedResources(state.graph, state.resources);
+  const groups = libraryGroups(rows);
+  const inbox = (state.inbox && state.inbox.commute_candidates) || [];
+  const inboxCards = inbox
+    .map((r) => {
+      const fake = {
+        ...r,
+        id: r.audio_url || r.url,
+        kind: "podcast",
+        evidence: "Weekly inbox — not ranked. Copy into commute.py to play in-atlas.",
+        source: "commute",
+      };
+      return renderResource(fake, state.progress, { rail: "skim" });
+    })
+    .join("");
+  const inboxBlock = inbox.length
+    ? `<details class="rail-block extras harvest-list" open>
+        <summary data-category="Commute inbox">Commute inbox · ${inbox.length} not ranked</summary>
+        <p class="why">Official RSS, sitting 12–75 min, original enclosure. A human still picks purpose and rank.</p>
+        ${inboxCards}
+      </details>`
+    : "";
+  const hash = (location.hash || "").replace(/^#/, "");
+  const blocks = groups
+    .map((g) => {
+      const cards = g.rows
+        .map((r) => renderResource(r, state.progress, { rail: r.audio_url ? "commute" : "skim" }))
+        .join("");
+      const stem = (g.category || "").replace(/^Harvest · /, "");
+      const open = hash && (stem === hash || g.category.includes(hash));
+      return `<details class="rail-block extras harvest-list"${open ? " open" : ""}>
+        <summary data-category="${g.category}">${g.category} · ${g.rows.length}</summary>
+        ${cards}
+      </details>`;
+    })
+    .join("");
+  el.innerHTML = `<p class="kicker">Not on a track</p>
+    <h2>${rows.length} unassigned resources</h2>
+    <p class="why">Tonight and Commute stay ranked. This shelf is the weekly scrape plus leftover curated rows.</p>
+    ${inboxBlock}
+    ${blocks || `<p class="why">Every catalog URL already sits on a track.</p>`}`;
+}
+
 function harvestGroups(resources) {
   const groups = new Map();
   for (const r of resources) {
@@ -520,7 +708,7 @@ function renderHarvest() {
     .join("");
   el.innerHTML = `<p class="kicker">Harvest library</p>
     <h2>All awesome resources</h2>
-    <p class="why">Sourced lists. Skim, not tonight’s Do rail. Search above to jump in.</p>
+    <p class="why">Sourced lists. Skim, not tonight’s Do rail. Ask the shelf above to jump in.</p>
     ${blocks || `<p class="why">No harvest files in this catalog yet.</p>`}`;
 }
 
@@ -676,6 +864,7 @@ const history = [];
 const firstFocus = nextFocus(state.graph, state.resources, state.progress);
 let active = stationById(firstFocus.stationId) || state.graph.nodes[0];
 let activePurpose = "learn";
+let lastTopic = "";
 evalLog("load", { focus: firstFocus.label || "done" });
 
 function ensureStageOpen(station) {
@@ -714,8 +903,7 @@ function renderPlacement() {
 async function persistAndRedraw() {
   await saveProgress(state.progress);
   redraw();
-  const q = $("q");
-  if (q) renderHits(q.value, state.resources, state.progress);
+  if (lastTopic) askShelf(lastTopic);
 }
 
 function redraw() {
@@ -726,6 +914,7 @@ function redraw() {
   renderFocus(focus);
   renderCommute();
   renderHarvest();
+  renderLibrary();
   if (PAGE === "commute") {
     renderPurposeMap(state.progress, activePurpose, state.byId);
     renderDrawer(activePurpose, state.byId, state.progress);
@@ -887,6 +1076,10 @@ document.addEventListener("keydown", async (ev) => {
   }
 });
 
-$("q")?.addEventListener("input", (ev) => {
-  renderHits(ev.target.value, state.resources, state.progress);
+$("find")?.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const q = $("q");
+  lastTopic = q ? q.value : "";
+  askShelf(lastTopic);
+  $("hits")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });

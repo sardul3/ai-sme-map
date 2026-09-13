@@ -1,0 +1,7 @@
+{
+  "fetched_at": null,
+  "human_gate": true,
+  "harvested": [],
+  "commute_candidates": [],
+  "note": "Weekly scrape fills this. Copy commute candidates into scripts/commute.py by purpose/rank."
+}

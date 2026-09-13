@@ -99,6 +99,24 @@
     "source": "curated"
   },
   {
+    "id": "r-e73cd795c4",
+    "title": "AI Agents in LangGraph (DeepLearning.AI)",
+    "url": "https://deeplearning.ai/courses/ai-agents-in-langgraph",
+    "kind": "course",
+    "provider": "deeplearning-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Short course: LangGraph without a full ML degree.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
     "id": "r-a6103eeb12",
     "title": "AI Safety Fundamentals (BlueDot)",
     "url": "https://course.aisafetyfundamentals.com",
@@ -113,6 +131,24 @@
       "alignment"
     ],
     "evidence": "Survey course. Parallel, not a substitute for the papers.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-d57801422b",
+    "title": "Aider",
+    "url": "https://aider.chat",
+    "kind": "article",
+    "provider": "aider",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "code-llm"
+    ],
+    "evidence": "Terminal pair-programmer. Smaller surface than an IDE agent.",
     "featured": true,
     "source": "curated"
   },
@@ -341,6 +377,24 @@
     "source": "curated"
   },
   {
+    "id": "r-1056111271",
+    "title": "AutoGen",
+    "url": "https://microsoft.github.io/autogen/stable",
+    "kind": "article",
+    "provider": "microsoft",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Multi-agent conversations. Skim until you have one loop working.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
     "id": "r-cc2619438b",
     "title": "AutoML: Methods, Systems, Challenges (Hutter et al.)",
     "url": "https://automl.org/book",
@@ -523,6 +577,31 @@
     "source": "curated"
   },
   {
+    "id": "r-34eb71ab7d",
+    "title": "Building effective agents (Anthropic)",
+    "url": "https://anthropic.com/engineering/building-effective-agents",
+    "kind": "article",
+    "provider": "anthropic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Workflows vs agents, tools, memory. The essay to read before a framework.",
+    "featured": true,
+    "source": "curated",
+    "sitting": "~45 min",
+    "scores": {
+      "intuition": 5,
+      "exercises": 2,
+      "stack": 4,
+      "depth": 4
+    }
+  },
+  {
     "id": "r-479c9c8ef8",
     "title": "Causal Inference for the Brave and True",
     "url": "https://matheusfacure.github.io/python-causality-handbook/landing-page.html",
@@ -594,6 +673,69 @@
     "evidence": "Interview + systems notes. Use with the O'Reilly book.",
     "featured": true,
     "source": "curated"
+  },
+  {
+    "id": "r-fb8dc53be9",
+    "title": "Claude Code best practices",
+    "url": "https://code.claude.com/docs/en/best-practices",
+    "kind": "article",
+    "provider": "anthropic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "production"
+    ],
+    "branches": [
+      "code-llm",
+      "agents"
+    ],
+    "evidence": "How to run Claude Code on a real repo without flooding context.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-9c241fb43b",
+    "title": "Claude Code on GitHub",
+    "url": "https://github.com/anthropics/claude-code",
+    "kind": "repo",
+    "provider": "anthropic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "from-scratch"
+    ],
+    "branches": [
+      "code-llm"
+    ],
+    "evidence": "The CLI itself. Project: install and open this atlas.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-4d17281029",
+    "title": "Claude Code overview",
+    "url": "https://code.claude.com/docs/en/overview",
+    "kind": "article",
+    "provider": "anthropic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "code-llm",
+      "agents"
+    ],
+    "evidence": "Start here if you write software. A coding agent sitting, not a linear-algebra course.",
+    "featured": true,
+    "source": "curated",
+    "sitting": "~1 h (install + one repo task)",
+    "scores": {
+      "intuition": 5,
+      "exercises": 4,
+      "stack": 5,
+      "depth": 3
+    }
   },
   {
     "id": "r-32448d97c5",
@@ -783,6 +925,24 @@
       "mlsys"
     ],
     "evidence": "Kernels, profiling, FlashAttention-era GPU programming.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-8a977528ce",
+    "title": "Cursor documentation",
+    "url": "https://cursor.com/docs",
+    "kind": "article",
+    "provider": "cursor",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "code-llm"
+    ],
+    "evidence": "In-editor agent. Parallel to Claude Code if this is already your IDE.",
     "featured": true,
     "source": "curated"
   },
@@ -1054,6 +1214,25 @@
       "rl"
     ],
     "evidence": "Current world-model RL that actually works across domains.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-10269d4871",
+    "title": "DSPy",
+    "url": "https://dspy.ai",
+    "kind": "article",
+    "provider": "dspy",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents",
+      "eval"
+    ],
+    "evidence": "Compile prompts instead of babysitting them. Meta-tooling.",
     "featured": true,
     "source": "curated"
   },
@@ -2242,6 +2421,67 @@
     }
   },
   {
+    "id": "r-d08dc0bc77",
+    "title": "LangChain overview",
+    "url": "https://docs.langchain.com/oss/python/langchain/overview",
+    "kind": "article",
+    "provider": "langchain",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "The library people mean when they say LangChain. Parallel to LangGraph.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-fd26f592f2",
+    "title": "LangGraph multi-agent workflows",
+    "url": "https://langchain.com/blog/langgraph-multi-agent-workflows",
+    "kind": "article",
+    "provider": "langchain",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "visual"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Supervisor vs swarm. The multi-agent shapes, not a framework tour.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-46d288b663",
+    "title": "LangGraph overview",
+    "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+    "kind": "article",
+    "provider": "langchain",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Graphs of agents and tools you can actually run. No backprop required.",
+    "featured": true,
+    "source": "curated",
+    "sitting": "~2 h (tutorial graph)",
+    "scores": {
+      "intuition": 4,
+      "exercises": 5,
+      "stack": 5,
+      "depth": 4
+    }
+  },
+  {
     "id": "r-c02d3942ae",
     "title": "Learning From Data (Caltech, Abu-Mostafa)",
     "url": "https://work.caltech.edu/telecourse.html",
@@ -2293,6 +2533,24 @@
       "eval"
     ],
     "evidence": "Process vs outcome reward. Reasoning-model lineage.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-ba7749319b",
+    "title": "Letta (MemGPT)",
+    "url": "https://docs.letta.com",
+    "kind": "article",
+    "provider": "letta",
+    "access": "free",
+    "level": "intermediate",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Long-memory agents. Skim after you have a loop.",
     "featured": true,
     "source": "curated"
   },
@@ -2390,6 +2648,25 @@
       "stack": 4,
       "depth": 4
     }
+  },
+  {
+    "id": "r-c0386a1e9f",
+    "title": "LlamaIndex",
+    "url": "https://developers.llamaindex.ai/python/framework",
+    "kind": "article",
+    "provider": "llamaindex",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents",
+      "nlp"
+    ],
+    "evidence": "RAG + agents if retrieval is the job.",
+    "featured": true,
+    "source": "curated"
   },
   {
     "id": "r-0b4c166313",
@@ -3070,6 +3347,32 @@
     }
   },
   {
+    "id": "r-abff9fb09f",
+    "title": "Model Context Protocol (MCP)",
+    "url": "https://modelcontextprotocol.io",
+    "kind": "article",
+    "provider": "anthropic",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "production"
+    ],
+    "branches": [
+      "agents",
+      "mlsys"
+    ],
+    "evidence": "How tools get into the model. MCP is the meta-tooling standard, not a prompt trick.",
+    "featured": true,
+    "source": "curated",
+    "sitting": "~1 h (read + one server)",
+    "scores": {
+      "intuition": 4,
+      "exercises": 3,
+      "stack": 5,
+      "depth": 4
+    }
+  },
+  {
     "id": "r-72f7d85b43",
     "title": "Modern Robotics Specialization (Northwestern)",
     "url": "https://coursera.org/specializations/modernrobotics",
@@ -3103,6 +3406,24 @@
       "rl"
     ],
     "evidence": "2024 MARL textbook. The multi-agent station.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-edc8ba5f12",
+    "title": "Multi-AI Agent Systems with CrewAI",
+    "url": "https://deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+    "kind": "course",
+    "provider": "deeplearning-ai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Crew-style multi-agent. Short, applied.",
     "featured": true,
     "source": "curated"
   },
@@ -3364,6 +3685,24 @@
       "optimization"
     ],
     "evidence": "Rare depth on SA/Q-learning theory. Wins a SME-later node.",
+    "featured": true,
+    "source": "curated"
+  },
+  {
+    "id": "r-edae69a01e",
+    "title": "OpenAI Agents SDK",
+    "url": "https://openai.github.io/openai-agents-python",
+    "kind": "article",
+    "provider": "openai",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "agents"
+    ],
+    "evidence": "Official agents SDK. Parallel if your stack is OpenAI.",
     "featured": true,
     "source": "curated"
   },
@@ -3858,6 +4197,24 @@
       "stack": 4,
       "depth": 5
     }
+  },
+  {
+    "id": "r-4196a8dc1f",
+    "title": "Simon Willison llm CLI",
+    "url": "https://llm.datasette.io/en/stable",
+    "kind": "article",
+    "provider": "datasette",
+    "access": "free",
+    "level": "intro",
+    "pedagogy": [
+      "assignments"
+    ],
+    "branches": [
+      "code-llm"
+    ],
+    "evidence": "One binary, many models. Meta-tooling without a framework religion.",
+    "featured": true,
+    "source": "curated"
   },
   {
     "id": "r-793d1f0d8c",

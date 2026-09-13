@@ -17,6 +17,7 @@
       <nav class="mast-nav" aria-label="Atlas">
         <a href="index.html">Tonight</a>
         <a href="commute.html" aria-current="page">Commute · eyes-off</a>
+        <a href="library.html">Library · unassigned</a>
       </nav>
     </div>
   </header>
@@ -35,8 +36,11 @@
   <aside id="drawer" class="drawer" hidden></aside>
 
   <form class="find" id="find" autocomplete="off">
-    <label for="q">Search every harvested list</label>
-    <input id="q" type="search" placeholder="awesome-ml, Silver, Colah, podcast…" />
+    <label for="q">What are you trying to learn?</label>
+    <div class="find-row">
+      <input id="q" type="search" name="topic" placeholder="langgraph, MCP, claude code, RLHF…" />
+      <button type="submit">Ask the shelf</button>
+    </div>
   </form>
   <section id="hits" class="hits" hidden></section>
   <section class="harvest" id="harvest"></section>

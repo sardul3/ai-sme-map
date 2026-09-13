@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 
-WEB_FILES = ("index.html", "commute.html", "app.js", "styles.css")
+WEB_FILES = ("index.html", "commute.html", "library.html", "app.js", "styles.css")
 DATA_FILES = (
     "graph.json",
     "resources.json",
@@ -18,6 +18,7 @@ DATA_FILES = (
     "placement.json",
     "link_status.json",
     "feed.xml",
+    "inbox.json",
 )
 
 

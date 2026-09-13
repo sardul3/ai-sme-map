@@ -1,0 +1,63 @@
+name: topic-request
+on:
+  issues:
+    types: [opened, labeled]
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+jobs:
+  shelf:
+    if: contains(join(github.event.issue.labels.*.name, ','), 'topic-request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Match shelf or fetch one awesome list
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/topic_request.py \
+            --issue \
+            --issue-title "${{ github.event.issue.title }}" \
+            --comment-path /tmp/topic-comment.md \
+            --wrote-path /tmp/topic-wrote.txt
+      - name: Comment shelf result
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body-file /tmp/topic-comment.md
+      - name: Compile if a harvest file was written
+        id: compile
+        run: |
+          if [ -s /tmp/topic-wrote.txt ]; then
+            python3 scripts/compile_catalog.py
+            echo "wrote=1" >> "$GITHUB_OUTPUT"
+            slug=$(python3 -c "from pathlib import Path; t=Path('/tmp/topic-wrote.txt').read_text().strip(); print(Path(t).stem.removeprefix('topic-'))")
+            echo "slug=$slug" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: peter-evans/create-pull-request@v7
+        if: steps.compile.outputs.wrote == '1'
+        id: pr
+        with:
+          branch: topic/${{ steps.compile.outputs.slug }}
+          delete-branch: true
+          title: "Harvest topic ${{ steps.compile.outputs.slug }}"
+          commit-message: "Add harvest list for requested topic (Library only)."
+          body: |
+            On-demand topic scrape. **Human gate:** do not merge Do rail edits
+            or commute purpose/rank rows without a scorecard / purpose pass.
+
+            - New markdown compiles onto **Library · unassigned** (not Tonight).
+            - Do not append this file to HARVEST_REMOTES until a human promotes it.
+            - Never edit Tonight Do rails from this PR.
+      - name: Link the harvest PR
+        if: steps.pr.outputs.pull-request-url != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONPATH: scripts
+        run: |
+          python3 -c "from topic_request import issue_comment_body; print(issue_comment_body(scrape_pr='${{ steps.pr.outputs.pull-request-url }}'), end='')" > /tmp/topic-pr.md
+          gh issue comment "${{ github.event.issue.number }}" --body-file /tmp/topic-pr.md

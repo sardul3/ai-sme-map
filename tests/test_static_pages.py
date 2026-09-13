@@ -23,11 +23,14 @@ class TestAtlasRoot(unittest.TestCase):
             "/index.html": "/",
             "/commute": "/",
             "/commute.html": "/",
+            "/library": "/",
+            "/library.html": "/",
             "/web/index.html": "/",
             "/ai-sme-map": "/ai-sme-map/",
             "/ai-sme-map/": "/ai-sme-map/",
             "/ai-sme-map/commute": "/ai-sme-map/",
             "/ai-sme-map/commute.html": "/ai-sme-map/",
+            "/ai-sme-map/library.html": "/ai-sme-map/",
             "/ai-sme-map/web/index.html": "/ai-sme-map/",
         }
         for path, expected in cases.items():
@@ -41,6 +44,8 @@ class TestServePublicPaths(unittest.TestCase):
         self.assertEqual(resolve_public_path("/index.html"), "/web/index.html")
         self.assertEqual(resolve_public_path("/commute"), "/web/commute.html")
         self.assertEqual(resolve_public_path("/commute.html"), "/web/commute.html")
+        self.assertEqual(resolve_public_path("/library"), "/web/library.html")
+        self.assertEqual(resolve_public_path("/library.html"), "/web/library.html")
         self.assertEqual(resolve_public_path("/styles.css"), "/web/styles.css")
         self.assertEqual(resolve_public_path("/app.js"), "/web/app.js")
         self.assertEqual(resolve_public_path("/data/graph.json"), "/data/graph.json")
@@ -48,7 +53,7 @@ class TestServePublicPaths(unittest.TestCase):
 
 class TestRelativeAssets(unittest.TestCase):
     def test_given_html_when_read_then_assets_are_relative(self):
-        for name in ("index.html", "commute.html"):
+        for name in ("index.html", "commute.html", "library.html"):
             html = (ROOT / "web" / name).read_text()
             with self.subTest(name=name):
                 self.assertIn('href="styles.css"', html)
@@ -71,6 +76,7 @@ class TestExportStatic(unittest.TestCase):
             export_static(dest)
             self.assertTrue((dest / "index.html").is_file())
             self.assertTrue((dest / "commute.html").is_file())
+            self.assertTrue((dest / "library.html").is_file())
             self.assertTrue((dest / "app.js").is_file())
             self.assertTrue((dest / "styles.css").is_file())
             self.assertTrue((dest / "data" / "graph.json").is_file())

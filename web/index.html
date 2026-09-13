@@ -17,6 +17,7 @@
       <nav class="mast-nav" aria-label="Atlas">
         <a href="index.html" aria-current="page">Tonight</a>
         <a href="commute.html">Commute · eyes-off</a>
+        <a href="library.html">Library · unassigned</a>
       </nav>
     </div>
     <dl class="counts" id="counts"></dl>
@@ -26,6 +27,7 @@
     Do the first link. <span class="swatch theory">theory</span> is orange,
     <span class="swatch practice">practice</span> is blue.
     Parallel and Skim are a library, not tonight’s queue.
+    Software-first path: T0 practice <em>Ship code with a model</em> — Claude Code, then LangGraph and MCP. No linear algebra required.
   </p>
 
   <section class="focus" id="focus"></section>
@@ -43,8 +45,11 @@
   </details>
 
   <form class="find" id="find" autocomplete="off">
-    <label for="q">Search the catalog</label>
-    <input id="q" type="search" placeholder="transformer, Boyd, NPTEL, visual…" />
+    <label for="q">What are you trying to learn?</label>
+    <div class="find-row">
+      <input id="q" type="search" name="topic" placeholder="langgraph, MCP, claude code, RLHF…" />
+      <button type="submit">Ask the shelf</button>
+    </div>
   </form>
 
   <main id="map" class="map"></main>

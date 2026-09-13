@@ -1,0 +1,25 @@
+name: Topic request
+description: Ask the atlas if a list exists, or scrape one GitHub awesome-* README
+title: "topic: "
+labels:
+  - topic-request
+body:
+  - type: markdown
+    attributes:
+      value: >
+        This never edits Tonight Do rails or commute ranks.
+        If the shelf already has a harvest list or station, Actions will comment
+        with those links. Otherwise it may open a Library-only harvest PR.
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: What you want to learn
+      placeholder: langgraph
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional GitHub awesome-* URL if you already have one

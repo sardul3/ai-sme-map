@@ -1,7 +1,7 @@
 PORT = 7432
 ROOT = $(PWD)
 
-.PHONY: compile validate test serve open install-agent uninstall-agent links links-do harvest-diff backup-progress first-run export-static arxiv-watch eval-slo sync-check
+.PHONY: compile validate test serve open install-agent uninstall-agent links links-do harvest-diff weekly-onboard backup-progress first-run export-static arxiv-watch eval-slo sync-check
 
 compile:
 	python3 scripts/compile_catalog.py
@@ -28,6 +28,10 @@ sync-check:
 
 harvest-diff:
 	python3 scripts/harvest_diff.py
+
+weekly-onboard:
+	python3 scripts/weekly_onboard.py
+	python3 scripts/compile_catalog.py
 
 backup-progress:
 	python3 scripts/backup_progress.py

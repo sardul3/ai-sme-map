@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commute · eyes-off — SME Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="commute">
+  <header class="mast">
+    <div>
+      <p class="kicker">Eyes-off · T0–T5 teaching enclosures</p>
+      <h1>Commute</h1>
+      <nav class="mast-nav" aria-label="Atlas">
+        <a href="index.html">Tonight</a>
+        <a href="commute.html" aria-current="page">Commute · eyes-off</a>
+      </nav>
+    </div>
+  </header>
+
+  <p class="rule">
+    Play streams the original enclosure here. Titles open show notes.
+    Ticks do not count as Do. Space play/pauses when the player is open.
+  </p>
+
+  <section class="commute" id="commute"></section>
+  <p class="focus-tools">
+    <button type="button" id="undo" hidden>Undo last tick</button>
+  </p>
+
+  <form class="find" id="find" autocomplete="off">
+    <label for="q">Search every harvested list</label>
+    <input id="q" type="search" placeholder="awesome-ml, Silver, Colah, podcast…" />
+  </form>
+  <section id="hits" class="hits" hidden></section>
+  <section class="harvest" id="harvest"></section>
+
+  <aside class="player" id="player" hidden>
+    <div class="player-copy">
+      <p class="kicker">Now playing</p>
+      <p id="player-title"></p>
+    </div>
+    <audio id="player-audio"></audio>
+    <div class="player-controls">
+      <button type="button" id="player-toggle" aria-label="Play or pause">Play</button>
+      <label class="player-seek-label">
+        <span class="visually-hidden">Seek</span>
+        <input id="player-seek" type="range" min="0" max="100" value="0" step="0.1" />
+      </label>
+      <div class="speeds" role="group" aria-label="Playback speed">
+        <button type="button" data-speed="1">1×</button>
+        <button type="button" data-speed="1.25">1.25×</button>
+        <button type="button" data-speed="1.5">1.5×</button>
+        <button type="button" data-speed="2">2×</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

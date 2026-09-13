@@ -1,0 +1,29 @@
+{
+  "questions": [
+    {
+      "id": "q-la",
+      "prompt": "Can you explain a matrix as a linear transformation without looking it up?",
+      "skip_station": "s-la-see"
+    },
+    {
+      "id": "q-calc",
+      "prompt": "Do you know what a gradient is geometrically?",
+      "skip_station": "s-calc"
+    },
+    {
+      "id": "q-ml",
+      "prompt": "Have you trained a classifier in Python (sklearn or similar)?",
+      "skip_station": "s-ml-do"
+    },
+    {
+      "id": "q-backprop",
+      "prompt": "Have you implemented backprop on a tiny net (micrograd or from scratch)?",
+      "skip_station": "s-backprop"
+    },
+    {
+      "id": "q-search",
+      "prompt": "Have you implemented BFS/A* or taken a classical AI course?",
+      "skip_station": "s-search"
+    }
+  ]
+}

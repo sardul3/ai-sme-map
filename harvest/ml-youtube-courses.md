@@ -129,7 +129,7 @@ To learn some of the basics of ML:
 - Decision Trees
 - Introduction to Neural Networks
 - Debugging ML Models
- ...
+  ...
 
 🔗 [Link to Course](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)
 
@@ -143,7 +143,7 @@ A series of mini lectures covering various introductory topics in ML:
 - Statistical Significance
 - Clustering and K-means
 - Ensemble models
- ...
+  ...
 
 🔗 [Link to Course](https://www.youtube.com/playlist?list=PLRKtJ4IpxJpDxl0NTvNYQWKCYzHNuy2xG)
 
@@ -167,7 +167,7 @@ Covers the application of deep learning for art, aesthetics, and creativity.
 - Explorations in AI for Creativity
 - Neural Abstractions
 - Easy 3D Content Creation with Consistent Neural Fields
- ...
+  ...
 
 🔗 [Link to Course](https://www.youtube.com/playlist?list=PLCpMvp7ftsnIbNwRnQJbDNRqO6qiN3EyH)
 
@@ -441,7 +441,7 @@ This course consists of lectures focused on Transformers, providing a deep dive 
 - Transformers in Language: GPT-3, Codex
 - Applications in Vision
 - Transformers in RL & Universal
- Compute Engines
+  Compute Engines
 - Scaling transformers
 - Interpretability with transformers
 - ...
@@ -655,6 +655,7 @@ The Deep Learning Lecture Series is a collaboration between DeepMind and the UCL
 - ...
 
 🔗 [Link to Course](https://www.youtube.com/playlist?list=PLqYmG7hTraZDVH599EItlEWsUOsJbAodm)
+
 
 ## LLMOps: Building Real-World Applications With Large Language Models
 

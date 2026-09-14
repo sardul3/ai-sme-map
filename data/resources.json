@@ -12139,7 +12139,7 @@
   },
   {
     "id": "r-0854207921",
-    "title": "Dive into Machine Learning with Python Jupyter notebook and scikit-learn",
+    "title": "Dive into Machine Learning  with Python Jupyter notebook and scikit-learn",
     "url": "https://github.com/hangtwenty/dive-into-machine-learning",
     "kind": "book",
     "provider": "github",
@@ -13417,7 +13417,7 @@
   },
   {
     "id": "r-11878f4ab3",
-    "title": "Google - Sequence to Sequence Learning with Neural Networks",
+    "title": "Google - Sequence to Sequence  Learning with Neural Networks",
     "url": "https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf",
     "kind": "article",
     "provider": "papers",
@@ -18375,15 +18375,16 @@
     "source": "awesome-dl.md"
   },
   {
-    "id": "r-ac335963c6",
+    "id": "r-8ff70b7d94",
     "title": "Machine Learning Discussion Group - Deep Learning w/ Stanford AI Lab",
-    "url": "https://www.youtube.com/playlist?list=PL78U8qQHXgrhP9aZraxTT5-X1RccTcUYT",
+    "url": "https://www.youtube.com/watch?v=2QJi0ArLq7s",
     "kind": "lecture-series",
     "provider": "youtube",
     "access": "free",
     "level": "unspecified",
     "pedagogy": [],
     "branches": [
+      "classical-ml",
       "deep-learning"
     ],
     "evidence": "Harvested from awesome-dl.md",
@@ -21018,7 +21019,7 @@
   },
   {
     "id": "r-16912455c9",
-    "title": "O'Reilly AI Conference - O'Reilly Artificial Intelligence Conference",
+    "title": "O'Reilly AI Conference - \tO'Reilly Artificial Intelligence Conference",
     "url": "https://conferences.oreilly.com/artificial-intelligence/ai-ny",
     "kind": "book",
     "provider": "conferences",
@@ -22361,6 +22362,22 @@
     "audio_url": "https://media.transistor.fm/d76e02d5/e934139b.mp3",
     "purpose": "apply",
     "rank": 10
+  },
+  {
+    "id": "r-6c7bc57a75",
+    "title": "Recent Developments in Deep Learning",
+    "url": "https://www.youtube.com/watch?v=vShMxxqtDDs",
+    "kind": "lecture-series",
+    "provider": "youtube",
+    "access": "free",
+    "level": "unspecified",
+    "pedagogy": [],
+    "branches": [
+      "deep-learning"
+    ],
+    "evidence": "Harvested from awesome-dl.md",
+    "featured": false,
+    "source": "awesome-dl.md"
   },
   {
     "id": "r-66deca7621",

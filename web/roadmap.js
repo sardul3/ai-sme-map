@@ -15,12 +15,59 @@ const LANES = [
   { id: "project", label: "Build" },
 ];
 
-function checkpointPos(st, layout) {
+function canvasRow(r) {
+  return r && !(r.audio_url && r.purpose);
+}
+
+function checkpointHeight(st, byId, progress) {
+  const atlas = globalThis.atlas;
+  let y = TITLE_H;
+  for (const lane of LANES) {
+    y += LANE_LABEL_H;
+    const ids =
+      atlas && lane.id === "do"
+        ? atlas.doIdsForStation(st, progress || {}, byId || {})
+        : st[lane.id] || [];
+    let n = 0;
+    for (const id of ids) {
+      if (canvasRow(byId && byId[id])) n += 1;
+    }
+    y += (n === 0 ? 1 : n) * (CHIP_H + CHIP_GAP);
+    y += 6;
+  }
+  return Math.max(y + PAD, TITLE_H + 48);
+}
+
+function checkpointPos(st, layout, i, height) {
   const hit = layout.checkpoints && layout.checkpoints[st.id];
   if (hit && typeof hit.x === "number") return hit;
   const x = 48 + (st.stage || 0) * 300;
-  const y = st.rail === "theory" ? 56 : 460;
+  const band = st.rail === "practice" ? 460 : 56;
+  const y = band + (i || 0) * ((height || 0) + 24);
   return { x, y };
+}
+
+function checkpointStack(stations, layout, byId, progress) {
+  const groups = new Map();
+  for (const st of stations || []) {
+    const rail = st.rail === "practice" ? "practice" : "theory";
+    const key = `${st.stage || 0}:${rail}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(st);
+  }
+  const pos = {};
+  for (const group of groups.values()) {
+    let y = group[0].rail === "practice" ? 460 : 56;
+    for (let i = 0; i < group.length; i++) {
+      const st = group[i];
+      const height = checkpointHeight(st, byId, progress);
+      const placed = checkpointPos(st, layout, i, height);
+      const authored = layout.checkpoints && layout.checkpoints[st.id];
+      pos[st.id] = authored && typeof authored.x === "number" ? placed : { x: placed.x, y };
+      y = pos[st.id].y + height + 24;
+    }
+  }
+  return pos;
 }
 
 function clusterKey(group, rows) {
@@ -30,10 +77,17 @@ function clusterKey(group, rows) {
   return (group && group.category) || "";
 }
 
-function clusterPos(key, index, layout) {
+function clusterHeight(nChips) {
+  return TITLE_H + nChips * (CHIP_H + CHIP_GAP) + PAD * 2;
+}
+
+function clusterPos(key, layout, nChips, previousCluster) {
+  const height = clusterHeight(nChips || 0);
   const hit = layout.clusters && layout.clusters[key];
-  if (hit && typeof hit.x === "number") return hit;
-  return { x: 48 + 8 * 300, y: 56 + index * 240 };
+  if (hit && typeof hit.x === "number") return { x: hit.x, y: hit.y, height };
+  const x = 48 + 8 * 300;
+  const y = previousCluster ? previousCluster.y + previousCluster.height + 48 : 56;
+  return { x, y, height };
 }
 
 if (document.body.dataset.page !== "roadmap") {
@@ -59,10 +113,6 @@ function initRoadmap() {
     const s = String(title || "");
     if (s.length <= n) return s;
     return `${s.slice(0, n - 1)}…`;
-  }
-
-  function canvasRow(r) {
-    return r && !(r.audio_url && r.purpose);
   }
 
   function applyView(svg) {
@@ -293,6 +343,7 @@ function initRoadmap() {
     }
     try {
       await atlas.saveAssignments({ schema_version: 1, placements });
+      setRoadmapNote("");
       renderRoadmap();
     } catch {
       snapBack(drag.el, drag.orig);
@@ -323,6 +374,7 @@ function initRoadmap() {
     if (drag.clusterKey) nextLayout.clusters[drag.clusterKey] = next;
     try {
       await atlas.saveLayout(nextLayout);
+      setRoadmapNote("");
       renderRoadmap();
     } catch {
       snapBack(drag.el, drag.orig);
@@ -500,8 +552,7 @@ function initRoadmap() {
     const byId = state.byId || {};
     const progress = state.progress || {};
     const pins = pinsOf(progress);
-    const pos = {};
-    for (const st of stations) pos[st.id] = checkpointPos(st, layout);
+    const pos = checkpointStack(stations, layout, byId, progress);
 
     const parts = [];
     for (const st of stations) {
@@ -527,9 +578,12 @@ function initRoadmap() {
     }
     const unassigned = unassignedResources(graph, state.resources || []);
     const groups = libraryGroups(unassigned);
-    groups.forEach((group, index) => {
+    let previousCluster = null;
+    groups.forEach((group) => {
       const key = clusterKey(group, group.rows);
-      parts.push(clusterMarkup(group, clusterPos(key, index, layout), key));
+      const nChips = (group.rows || []).filter(canvasRow).length;
+      previousCluster = clusterPos(key, layout, nChips, previousCluster);
+      parts.push(clusterMarkup(group, previousCluster, key));
     });
     world.innerHTML = parts.join("");
     applyView(svg);

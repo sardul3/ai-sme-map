@@ -69,3 +69,8 @@ class TestApplyPlacements(unittest.TestCase):
         graph = {"nodes": apply_placements(nodes(), {"r-seed": None})}
         ids = {r["id"] for r in unassigned(resources, graph)}
         self.assertEqual(ids, {"r-seed"})
+
+    def test_given_compile_source_when_read_then_applies_placements(self):
+        text = (Path(__file__).resolve().parents[1] / "scripts" / "compile_catalog.py").read_text()
+        self.assertIn("apply_placements", text)
+        self.assertIn("load_assignments", text)

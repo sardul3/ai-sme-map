@@ -125,6 +125,7 @@ class TestWeeklyOnboardSeam(unittest.TestCase):
         text = (ROOT / "scripts" / "weekly_onboard.py").read_text()
         self.assertNotIn("graph_spec.py", text)
         self.assertNotIn("EPISODES.append", text)
+        self.assertNotIn("assignments.json", text)
         self.assertIn("HARVEST_REMOTES", text)
         self.assertGreaterEqual(len(HARVEST_REMOTES), 5)
         self.assertGreaterEqual(len(COMMUTE_FEEDS), 3)

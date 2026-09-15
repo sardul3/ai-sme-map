@@ -575,6 +575,96 @@ h1 {
   margin: 8px 0 4px;
 }
 .card.part { grid-template-columns: 1fr auto; }
+
+.roadmap-board {
+  position: relative;
+  margin: 22px 0;
+}
+.roadmap-board svg {
+  width: 100%;
+  height: calc(100vh - 12rem);
+  background: var(--ticket);
+  border: 1px solid var(--ink);
+  cursor: grab;
+  display: block;
+  touch-action: none;
+}
+.roadmap-board svg.panning { cursor: grabbing; }
+#roadmap-fit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background: var(--ticket);
+  color: var(--ink);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.roadmap-lane-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--muted);
+  letter-spacing: 0.06em;
+}
+.roadmap-checkpoint-body {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+.roadmap-checkpoint-rail { fill: var(--rule); }
+.roadmap-checkpoint.theory .roadmap-checkpoint-rail { fill: var(--theory); }
+.roadmap-checkpoint.practice .roadmap-checkpoint-rail { fill: var(--practice); }
+.roadmap-checkpoint-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+.roadmap-checkpoint-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  fill: var(--muted);
+  letter-spacing: 0.06em;
+}
+.roadmap-cluster-body {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-dasharray: 5 4;
+}
+.roadmap-chip { cursor: pointer; }
+.roadmap-chip rect {
+  fill: var(--ticket);
+  stroke: var(--ink);
+}
+.roadmap-chip-title {
+  font-family: "Figtree", system-ui, sans-serif;
+  font-size: 11px;
+  fill: var(--ink);
+  pointer-events: none;
+}
+.roadmap-mark {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--done);
+  pointer-events: none;
+}
+.roadmap-star {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--theory);
+  pointer-events: none;
+}
+.roadmap-edge {
+  stroke: var(--ink);
+  stroke-opacity: 0.28;
+  stroke-width: 1.5;
+  fill: none;
+}
+
 button.skip {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11px;

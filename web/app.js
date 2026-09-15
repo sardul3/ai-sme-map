@@ -3,7 +3,7 @@ const EVAL_KEY = "atlas_eval_log";
 const PAGE = document.body.dataset.page || "home";
 
 function atlasRoot(pathname = location.pathname) {
-  const pageStems = new Set(["index", "commute", "library"]);
+  const pageStems = new Set(["index", "commute", "library", "roadmap"]);
   let path = pathname || "/";
   if (!path.startsWith("/")) path = `/${path}`;
   let trimmed = path.replace(/\/+$/, "");
@@ -23,7 +23,8 @@ function dataHref(name) {
 }
 
 async function load() {
-  const [graph, resources, progress, meta, placement, linkStatus, inbox] = await Promise.all([
+  const emptyLayout = { schema_version: 1, checkpoints: {}, clusters: {} };
+  const [graph, resources, progress, meta, placement, linkStatus, inbox, layout] = await Promise.all([
     fetch(dataHref("graph.json")).then((r) => r.json()),
     fetch(dataHref("resources.json")).then((r) => r.json()),
     fetch(dataHref("progress.json"))
@@ -41,6 +42,18 @@ async function load() {
     fetch(dataHref("inbox.json"))
       .then((r) => (r.ok ? r.json() : { commute_candidates: [] }))
       .catch(() => ({ commute_candidates: [] })),
+    fetch(dataHref("roadmap_layout.json"))
+      .then((r) => (r.ok ? r.json() : emptyLayout))
+      .then((data) =>
+        data && typeof data === "object"
+          ? {
+              schema_version: data.schema_version ?? 1,
+              checkpoints: data.checkpoints || {},
+              clusters: data.clusters || {},
+            }
+          : emptyLayout
+      )
+      .catch(() => emptyLayout),
   ]);
   const stored = JSON.parse(localStorage.getItem("atlas_progress") || "null");
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
@@ -53,6 +66,7 @@ async function load() {
     placement,
     linkStatus,
     inbox,
+    layout,
   };
 }
 
@@ -1034,6 +1048,38 @@ async function persistAndRedraw() {
   if (lastTopic) askShelf(lastTopic);
 }
 
+globalThis.atlas = {
+  get state() {
+    return state;
+  },
+  get active() {
+    return active;
+  },
+  set active(node) {
+    active = node;
+  },
+  $,
+  PAGE,
+  pinsOf,
+  doIdsForStation,
+  isComplete,
+  unassignedResources,
+  categoryOf: libraryCategory,
+  libraryGroups,
+  renderResource,
+  renderDrawer,
+  persistAndRedraw,
+  pinStationForCard,
+  togglePin,
+  saveLayout: async (layout) => {
+    void layout;
+  },
+  saveAssignments: async (blob) => {
+    void blob;
+  },
+  isAuthor: () => ["127.0.0.1", "localhost", "::1"].includes(location.hostname),
+};
+
 function redraw() {
   const focus = nextFocus(state.graph, state.resources, state.progress);
   if (!focus.done) ensureStageOpen(stationById(focus.stationId));
@@ -1046,6 +1092,8 @@ function redraw() {
   if (PAGE === "commute") {
     renderPurposeMap(state.progress, activePurpose, state.byId);
     renderDrawer(activePurpose, state.byId, state.progress);
+  } else if (PAGE === "roadmap") {
+    globalThis.renderRoadmap?.();
   } else {
     renderMap(state.graph, state.progress, active && active.id, expanded, state.byId);
     renderDrawer(active, state.byId, state.progress);

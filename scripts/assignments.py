@@ -34,6 +34,10 @@ def load_assignments(path: Path | None = None) -> dict:
     return {"schema_version": 1, "placements": placements}
 
 
+def filter_placements(placements: dict, known_ids: set[str]) -> dict:
+    return {k: v for k, v in (placements or {}).items() if k in known_ids}
+
+
 def load_layout(path: Path | None = None) -> dict:
     blob = load_json(path or LAYOUT_PATH, empty_layout())
     checkpoints = blob.get("checkpoints") if isinstance(blob.get("checkpoints"), dict) else {}

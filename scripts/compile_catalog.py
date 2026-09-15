@@ -18,7 +18,7 @@ DATA = ROOT / "data"
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent))
-from assignments import apply_placements, load_assignments
+from assignments import apply_placements, filter_placements, load_assignments
 from commute import EPISODES, playlist, to_resource, write_feed
 from graph_spec import CURATED_EXTRA
 from graph_spec import STATIONS as GRAPH_STATIONS
@@ -1711,11 +1711,7 @@ def main() -> None:
         )
 
     known_ids = set(url_to_id.values())
-    placements = {
-        rid: val
-        for rid, val in load_assignments()["placements"].items()
-        if rid in known_ids
-    }
+    placements = filter_placements(load_assignments()["placements"], known_ids)
     nodes = apply_placements(nodes, placements)
 
     compiled_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

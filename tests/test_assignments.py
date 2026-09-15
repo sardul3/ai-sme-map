@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from assignments import apply_placements, validate_assignments
+from assignments import apply_placements, filter_placements, validate_assignments
 from library import unassigned
 
 
@@ -19,6 +19,34 @@ def nodes():
             "project": [],
         }
     ]
+
+
+class TestFilterPlacements(unittest.TestCase):
+    def test_given_mixed_ids_when_filtered_then_keeps_known_drops_unknown(self):
+        placements = {
+            "r-known": {"station": "s-a", "rail": "parallel"},
+            "r-unknown": {"station": "s-a", "rail": "do"},
+            "r-tomb": None,
+        }
+        known = {"r-known", "r-seed"}
+        out = filter_placements(placements, known)
+        self.assertEqual(set(out.keys()), {"r-known"})
+        self.assertEqual(out["r-known"]["rail"], "parallel")
+
+    def test_given_filtered_placements_when_merged_then_unknown_not_on_rails(self):
+        known_ids = {"r-seed", "r-known"}
+        placements = filter_placements(
+            {
+                "r-known": {"station": "s-a", "rail": "parallel"},
+                "r-unknown": {"station": "s-a", "rail": "do"},
+            },
+            known_ids,
+        )
+        out = apply_placements(nodes(), placements)
+        st = out[0]
+        all_rail_ids = set(st["do"]) | set(st["parallel"]) | set(st["skim"]) | set(st["project"])
+        self.assertIn("r-known", st["parallel"])
+        self.assertNotIn("r-unknown", all_rail_ids)
 
 
 class TestApplyPlacements(unittest.TestCase):

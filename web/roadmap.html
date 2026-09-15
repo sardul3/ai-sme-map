@@ -3,48 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Commute · eyes-off — SME Atlas</title>
+  <title>Roadmap — SME Atlas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-page="commute">
+<body data-page="roadmap">
   <header class="mast">
     <div>
-      <p class="kicker">Eyes-off · ranked by purpose</p>
-      <h1>Commute</h1>
+      <p class="kicker">Stations · harvest clusters · localhost overlay</p>
+      <h1>Roadmap</h1>
       <nav class="mast-nav" aria-label="Atlas">
         <a href="index.html">Tonight</a>
-        <a href="commute.html" aria-current="page">Commute · eyes-off</a>
+        <a href="commute.html">Commute · eyes-off</a>
         <a href="library.html">Library · unassigned</a>
-        <a href="roadmap.html">Roadmap</a>
+        <a href="roadmap.html" aria-current="page">Roadmap</a>
       </nav>
     </div>
   </header>
 
   <p class="rule">
-    Four rails: learn a concept, hear people, ship something, stay current.
-    Ranked inside each rail. Play streams the original enclosure. Titles open show notes. Ticks do not count as Do.
+    Checkpoints on the compiled rails. Harvest clusters sit to the side until a human assigns them.
+    Pan, zoom, or Fit. Click a chip for the drawer.
   </p>
 
-  <section class="commute" id="commute"></section>
-  <p class="focus-tools">
-    <button type="button" id="undo" hidden>Undo last tick</button>
-  </p>
-
-  <main id="map" class="map"></main>
+  <div id="board" class="roadmap-board"></div>
   <aside id="drawer" class="drawer" hidden></aside>
-
-  <form class="find" id="find" autocomplete="off">
-    <label for="q">What are you trying to learn?</label>
-    <div class="find-row">
-      <input id="q" type="search" name="topic" placeholder="langgraph, MCP, claude code, RLHF…" />
-      <button type="submit">Ask the shelf</button>
-    </div>
-  </form>
-  <section id="hits" class="hits" hidden></section>
-  <section class="harvest" id="harvest"></section>
 
   <aside class="player player-deck" id="player" hidden>
     <div class="player-art" id="player-art" aria-hidden="true"></div>
@@ -82,5 +67,6 @@
   </aside>
 
   <script src="app.js" type="module"></script>
+  <script src="roadmap.js" type="module"></script>
 </body>
 </html>

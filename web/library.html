@@ -18,6 +18,7 @@
         <a href="index.html">Tonight</a>
         <a href="commute.html">Commute · eyes-off</a>
         <a href="library.html" aria-current="page">Library · unassigned</a>
+        <a href="roadmap.html">Roadmap</a>
       </nav>
     </div>
   </header>
@@ -36,6 +37,41 @@
   </form>
   <section id="hits" class="hits" hidden></section>
   <section class="library" id="library"></section>
+
+  <aside class="player player-deck" id="player" hidden>
+    <div class="player-art" id="player-art" aria-hidden="true"></div>
+    <div class="player-copy">
+      <p class="kicker" id="player-show">Now playing</p>
+      <p id="player-title"></p>
+      <p class="player-station" id="player-station"></p>
+      <div class="player-chrome">
+        <button type="button" id="player-size" aria-label="Minimize player">Mini</button>
+        <button type="button" id="player-dismiss" aria-label="Dismiss player">Dismiss</button>
+      </div>
+    </div>
+    <audio id="player-audio"></audio>
+    <div class="player-controls">
+      <div class="player-transport">
+        <button type="button" data-skip="-15" aria-label="Back 15 seconds">−15</button>
+        <button type="button" id="player-prev" aria-label="Previous episode">Prev</button>
+        <button type="button" id="player-toggle" class="player-play" aria-label="Play or pause">Play</button>
+        <button type="button" id="player-next" aria-label="Next episode">Next</button>
+        <button type="button" data-skip="15" aria-label="Forward 15 seconds">+15</button>
+      </div>
+      <label class="player-seek-label">
+        <span id="player-elapsed">0:00</span>
+        <span class="visually-hidden">Seek</span>
+        <input id="player-seek" type="range" min="0" max="100" value="0" step="0.1" />
+        <span id="player-remain">0:00</span>
+      </label>
+      <div class="speeds" role="group" aria-label="Playback speed">
+        <button type="button" data-speed="1">1×</button>
+        <button type="button" data-speed="1.25">1.25×</button>
+        <button type="button" data-speed="1.5">1.5×</button>
+        <button type="button" data-speed="2">2×</button>
+      </div>
+    </div>
+  </aside>
 
   <script src="app.js" type="module"></script>
 </body>

@@ -12,13 +12,23 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 PORT = 7432
 HOST = "127.0.0.1"
-PROGRESS = ROOT / "data" / "progress.json"
 LOOPBACK = {"127.0.0.1", "::1", "localhost"}
 
 import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
+from assignments import apply_placements, filter_placements, validate_assignments  # noqa: E402
 from focus import by_id, next_focus, rollup_all  # noqa: E402
+
+PROGRESS = ROOT / "data" / "progress.json"
+ASSIGNMENTS = ROOT / "data" / "assignments.json"
+LAYOUT = ROOT / "data" / "roadmap_layout.json"
+SEED = ROOT / "data" / "graph.seed.json"
+PUT_PATHS = {
+    "/data/progress.json",
+    "/data/assignments.json",
+    "/data/roadmap_layout.json",
+}
 
 PUBLIC_ALIASES = {
     "/": "/web/index.html",
@@ -27,8 +37,11 @@ PUBLIC_ALIASES = {
     "/commute.html": "/web/commute.html",
     "/library": "/web/library.html",
     "/library.html": "/web/library.html",
+    "/roadmap": "/web/roadmap.html",
+    "/roadmap.html": "/web/roadmap.html",
     "/styles.css": "/web/styles.css",
     "/app.js": "/web/app.js",
+    "/roadmap.js": "/web/roadmap.js",
 }
 
 
@@ -93,12 +106,13 @@ class Handler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_PUT(self):  # noqa: N802
-        if urlparse(self.path).path.rstrip("/") != "/data/progress.json":
+        path = urlparse(self.path).path.rstrip("/") or "/"
+        if path not in PUT_PATHS:
             self.send_error(404)
             return
         host = self.client_address[0]
         if host not in LOOPBACK:
-            self.send_error(403, "progress writes are localhost-only")
+            self.send_error(403, "writes are localhost-only")
             return
         length = int(self.headers.get("Content-Length", "0"))
         raw = self.rfile.read(length)
@@ -109,13 +123,45 @@ class Handler(SimpleHTTPRequestHandler):
         except (json.JSONDecodeError, ValueError):
             self.send_error(400, "invalid json")
             return
-        resources = load_json(ROOT / "data" / "resources.json", [])
-        graph = load_json(ROOT / "data" / "graph.json", {"nodes": []})
-        progress = dict(payload)
-        progress.setdefault("schema_version", 1)
-        progress = rollup_all(progress, by_id(resources))
-        PROGRESS.write_text(json.dumps(progress, indent=2) + "\n")
-        self._json(200, {"progress": progress, "focus": next_focus(graph, resources, progress)})
+        if path == "/data/progress.json":
+            resources = load_json(ROOT / "data" / "resources.json", [])
+            graph = load_json(ROOT / "data" / "graph.json", {"nodes": []})
+            progress = dict(payload)
+            progress.setdefault("schema_version", 1)
+            progress = rollup_all(progress, by_id(resources))
+            PROGRESS.write_text(json.dumps(progress, indent=2) + "\n")
+            return self._json(200, {"progress": progress, "focus": next_focus(graph, resources, progress)})
+        if path == "/data/assignments.json":
+            errs = validate_assignments(payload)
+            if errs:
+                self.send_error(400, errs[0])
+                return
+            if not SEED.exists():
+                self.send_error(400, "graph.seed.json missing; compile the catalog first")
+                return
+            payload.setdefault("schema_version", 1)
+            payload.setdefault("placements", {})
+            ASSIGNMENTS.write_text(json.dumps(payload, indent=2) + "\n")
+            resources = load_json(ROOT / "data" / "resources.json", [])
+            known_ids = {r["id"] for r in resources if isinstance(r, dict) and r.get("id")}
+            placements = filter_placements(payload["placements"], known_ids)
+            seed = load_json(SEED, {"nodes": []})
+            graph = load_json(ROOT / "data" / "graph.json", {"nodes": []})
+            graph["nodes"] = apply_placements(seed.get("nodes") or [], placements)
+            (ROOT / "data" / "graph.json").write_text(json.dumps(graph, indent=2) + "\n")
+            return self._json(200, {"assignments": payload, "graph": graph})
+        if path == "/data/roadmap_layout.json":
+            checkpoints = payload.get("checkpoints", {})
+            clusters = payload.get("clusters", {})
+            if not isinstance(checkpoints, dict) or not isinstance(clusters, dict):
+                self.send_error(400, "checkpoints and clusters must be objects")
+                return
+            payload.setdefault("schema_version", 1)
+            payload["checkpoints"] = checkpoints
+            payload["clusters"] = clusters
+            LAYOUT.write_text(json.dumps(payload, indent=2) + "\n")
+            return self._json(200, payload)
+        self.send_error(404)
 
     def log_message(self, fmt: str, *args) -> None:
         sys.stderr.write("%s - %s\n" % (self.address_string(), fmt % args))

@@ -125,6 +125,7 @@ class TestWeeklyOnboardSeam(unittest.TestCase):
         text = (ROOT / "scripts" / "weekly_onboard.py").read_text()
         self.assertNotIn("graph_spec.py", text)
         self.assertNotIn("EPISODES.append", text)
+        self.assertNotIn("assignments.json", text)
         self.assertIn("HARVEST_REMOTES", text)
         self.assertGreaterEqual(len(HARVEST_REMOTES), 5)
         self.assertGreaterEqual(len(COMMUTE_FEEDS), 3)
@@ -141,13 +142,17 @@ class TestWeeklyOnboardSeam(unittest.TestCase):
 
 class TestLibraryUIContract(unittest.TestCase):
     def test_given_nav_when_read_then_three_tabs_on_each_page(self):
-        for name in ("index.html", "commute.html", "library.html"):
-            html = (ROOT / "web" / name).read_text()
+        for name in ("index.html", "commute.html", "library.html", "roadmap.html"):
+            path = ROOT / "web" / name
             with self.subTest(name=name):
+                self.assertTrue(path.is_file(), name)
+                html = path.read_text()
                 self.assertIn('href="index.html"', html)
                 self.assertIn('href="commute.html"', html)
                 self.assertIn('href="library.html"', html)
+                self.assertIn('href="roadmap.html"', html)
                 self.assertIn("Library · unassigned", html)
+                self.assertIn("Roadmap", html)
 
     def test_given_library_page_when_read_then_groups_and_search(self):
         html = (ROOT / "web" / "library.html").read_text()
@@ -171,6 +176,21 @@ class TestLibraryUIContract(unittest.TestCase):
         self.assertEqual(atlas_root("/ai-sme-map/library.html"), "/ai-sme-map/")
         self.assertEqual(resolve_public_path("/library"), "/web/library.html")
         self.assertEqual(resolve_public_path("/library.html"), "/web/library.html")
+
+
+class TestPinUiContract(unittest.TestCase):
+    def test_given_app_js_when_read_then_pin_helpers_and_star_control(self):
+        js = (ROOT / "web" / "app.js").read_text()
+        self.assertIn("function pinsOf", js)
+        self.assertIn("function stationPrimary", js)
+        self.assertIn("function doIdsForStation", js)
+        self.assertIn("data-pin", js)
+        self.assertIn('progress.pins', js)
+        start = js.index("function pinStationForCard")
+        end = js.index("function packFocus", start)
+        pin_fn = js[start:end]
+        self.assertIn('getElementById("drawer")', pin_fn)
+        self.assertIn(".hidden", pin_fn)
 
 
 if __name__ == "__main__":

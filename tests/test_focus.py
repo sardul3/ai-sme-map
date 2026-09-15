@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from focus import apply_status, is_complete, next_focus, rollup_all
+from focus import apply_status, do_ids_for_station, is_complete, next_focus, rollup_all
 
 
 GRAPH = {
@@ -39,6 +39,7 @@ RES = [
     {"id": "r-strang", "title": "18.06", "url": "https://ocw.mit.edu/18-06", "sitting": "~3 h"},
     {"id": "r-later", "title": "Year 2 paper", "url": "https://example.com/later", "sitting": "~2 h"},
 ]
+RES.append({"id": "r-extra", "title": "Pinned extra", "url": "https://example.com/extra-course", "sitting": "~1 h"})
 
 
 def by_id(resources):
@@ -92,6 +93,42 @@ class TestParts(unittest.TestCase):
     def test_rollup_parent_done_fills_parts(self):
         out = rollup_all({"r-3b1b": "done"}, by_id(RES))
         self.assertEqual(out["r-3b1b:span"], "done")
+
+
+class TestPins(unittest.TestCase):
+    def test_given_pin_when_focus_then_pinned_resource(self):
+        f = next_focus(GRAPH, RES, {"pins": {"s-a": "r-extra"}})
+        self.assertEqual(f["station_id"], "s-a")
+        self.assertEqual(f["resource_id"], "r-extra")
+        self.assertIsNone(f["part_id"])
+
+    def test_given_pin_done_when_focus_then_compiled_do0(self):
+        f = next_focus(GRAPH, RES, {"pins": {"s-a": "r-extra"}, "r-extra": "done"})
+        self.assertEqual(f["resource_id"], "r-3b1b")
+        self.assertEqual(f["part_id"], "r-3b1b:vectors")
+
+    def test_given_unknown_pin_when_focus_then_compiled_do0(self):
+        f = next_focus(GRAPH, RES, {"pins": {"s-a": "r-missing"}})
+        self.assertEqual(f["resource_id"], "r-3b1b")
+
+    def test_given_later_station_pin_when_earlier_open_then_stay(self):
+        f = next_focus(GRAPH, RES, {"pins": {"s-c": "r-extra"}})
+        self.assertEqual(f["station_id"], "s-a")
+        self.assertEqual(f["resource_id"], "r-3b1b")
+
+    def test_given_pin_with_parts_when_focus_then_first_part(self):
+        f = next_focus(GRAPH, RES, {"pins": {"s-b": "r-imperial"}, "r-3b1b": "done"})
+        self.assertEqual(f["station_id"], "s-b")
+        self.assertEqual(f["resource_id"], "r-imperial")
+        self.assertEqual(f["part_id"], "r-imperial:week-1")
+
+    def test_do_ids_put_pin_first_without_duplicate(self):
+        from focus import by_id
+
+        ids = do_ids_for_station(GRAPH["nodes"][0], {"pins": {"s-a": "r-extra"}}, by_id(RES))
+        self.assertEqual(ids[0], "r-extra")
+        self.assertEqual(ids[1], "r-3b1b")
+        self.assertEqual(len(ids), 2)
 
 
 class TestCatalogFocus(unittest.TestCase):

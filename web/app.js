@@ -544,6 +544,8 @@ async function saveProgress(progress) {
 }
 
 const COMMUTE_POS_KEY = "atlas_commute_pos";
+const NOW_PLAYING_KEY = "atlas_now_playing";
+const PLAYER_SIZE_KEY = "atlas_player_size";
 
 function commuteStore() {
   try {
@@ -559,6 +561,66 @@ function saveCommutePos(id, time, speed) {
   if (id) store.positions[id] = time;
   if (speed != null) store.speed = speed;
   localStorage.setItem(COMMUTE_POS_KEY, JSON.stringify(store));
+}
+
+function readNowPlaying() {
+  try {
+    return JSON.parse(sessionStorage.getItem(NOW_PLAYING_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeNowPlaying(rec, playing) {
+  try {
+    if (!rec) {
+      sessionStorage.removeItem(NOW_PLAYING_KEY);
+      return;
+    }
+    sessionStorage.setItem(NOW_PLAYING_KEY, JSON.stringify({ id: rec.id, playing: !!playing }));
+  } catch {
+    /* private mode */
+  }
+}
+
+function pagePlayerDefaultSize() {
+  return PAGE === "commute" ? "deck" : "mini";
+}
+
+function playerSize() {
+  try {
+    const stored = localStorage.getItem(PLAYER_SIZE_KEY);
+    if (stored === "mini" || stored === "deck") return stored;
+  } catch {
+    /* ignore */
+  }
+  return pagePlayerDefaultSize();
+}
+
+function applyPlayerChrome() {
+  const box = $("player");
+  if (!box) return;
+  const size = playerSize();
+  box.classList.toggle("player-mini", size === "mini");
+  box.classList.toggle("player-deck", size !== "mini");
+  const sizeBtn = $("player-size");
+  if (sizeBtn) {
+    sizeBtn.textContent = size === "mini" ? "Expand" : "Mini";
+    sizeBtn.setAttribute("aria-label", size === "mini" ? "Expand player" : "Minimize player");
+  }
+}
+
+function dismissPlayer() {
+  const audio = $("player-audio");
+  const box = $("player");
+  if (audio) {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+  }
+  state.nowPlaying = null;
+  writeNowPlaying(null, false);
+  if (box) box.hidden = true;
 }
 
 const PURPOSES = {
@@ -787,8 +849,14 @@ function bindPlayer() {
     audio.playbackRate = store.speed || 1;
     markSpeed(audio.playbackRate);
   });
-  audio.addEventListener("play", syncMediaSession);
-  audio.addEventListener("pause", syncMediaSession);
+  audio.addEventListener("play", () => {
+    writeNowPlaying(state.nowPlaying, !audio.paused);
+    syncMediaSession();
+  });
+  audio.addEventListener("pause", () => {
+    writeNowPlaying(state.nowPlaying, !audio.paused);
+    syncMediaSession();
+  });
   audio.addEventListener("ended", () => playCommuteRelative(1));
 }
 
@@ -824,7 +892,7 @@ function syncMediaSession() {
   navigator.mediaSession.playbackState = $("player-audio")?.paused ? "paused" : "playing";
 }
 
-function playCommute(id) {
+function playCommute(id, { autoplay = true } = {}) {
   const rec = state.byId[id];
   if (!rec || !rec.audio_url) return;
   const audio = $("player-audio");
@@ -834,6 +902,8 @@ function playCommute(id) {
   state.nowPlaying = rec;
   if (rec.purpose) activePurpose = rec.purpose;
   box.hidden = false;
+  writeNowPlaying(rec, autoplay);
+  applyPlayerChrome();
   bindPlayer();
   if (audio.getAttribute("src") !== rec.audio_url) {
     audio.src = rec.audio_url;
@@ -841,6 +911,12 @@ function playCommute(id) {
   const store = commuteStore();
   audio.playbackRate = store.speed || 1;
   markSpeed(audio.playbackRate);
+  if (!autoplay) {
+    const t = store.positions && store.positions[rec.id];
+    if (typeof t === "number" && !Number.isNaN(t) && audio.readyState >= 1) {
+      audio.currentTime = t;
+    }
+  }
   if (title) title.textContent = rec.title;
   const show = $("player-show");
   const stLine = $("player-station");
@@ -853,7 +929,7 @@ function playCommute(id) {
     art.textContent = meta ? meta.mark : "▶";
   }
   setupMediaSession(rec);
-  audio.play().catch(() => {});
+  if (autoplay) audio.play().catch(() => {});
   if (PAGE === "commute") redraw();
 }
 
@@ -980,6 +1056,11 @@ function redraw() {
 }
 
 redraw();
+bindPlayer();
+const pending = readNowPlaying();
+if (pending && pending.id && state.byId[pending.id] && state.byId[pending.id].audio_url) {
+  playCommute(pending.id, { autoplay: !!pending.playing });
+}
 
 document.body.addEventListener("click", async (ev) => {
   const pinBtn = ev.target.closest("[data-pin]");
@@ -995,6 +1076,21 @@ document.body.addEventListener("click", async (ev) => {
   const playBtn = ev.target.closest("[data-commute-play]");
   if (playBtn) {
     playCommute(playBtn.dataset.commutePlay);
+    return;
+  }
+  if (ev.target.id === "player-size") {
+    const next = playerSize() === "mini" ? "deck" : "mini";
+    try {
+      localStorage.setItem(PLAYER_SIZE_KEY, next);
+    } catch {
+      /* private mode */
+    }
+    applyPlayerChrome();
+    return;
+  }
+  if (ev.target.id === "player-dismiss") {
+    dismissPlayer();
+    redraw();
     return;
   }
   if (ev.target.id === "player-toggle") {

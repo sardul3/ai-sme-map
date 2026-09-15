@@ -189,6 +189,44 @@ h1 {
   margin: 28px -32px -80px;
   box-shadow: 0 -12px 32px rgba(28, 42, 74, 0.28);
 }
+.player[hidden] {
+  display: none;
+}
+.player.player-mini {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: auto;
+  width: min(22rem, calc(100vw - 32px));
+  grid-template-columns: auto 1fr auto;
+  margin: 0;
+}
+.player-mini .player-controls {
+  grid-column: auto;
+}
+.player-mini .player-seek-label,
+.player-mini .speeds,
+.player-mini [data-skip],
+.player-mini #player-prev,
+.player-mini #player-next {
+  display: none;
+}
+.player-chrome {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.player-chrome button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--ticket);
+  background: transparent;
+  color: var(--ticket);
+  padding: 4px 8px;
+  cursor: pointer;
+}
 .player-art {
   width: 56px;
   height: 56px;

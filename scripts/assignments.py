@@ -83,8 +83,8 @@ def apply_placements(nodes: list[dict], placements: dict) -> list[dict]:
     for rid, val in (placements or {}).items():
         if not isinstance(rid, str):
             continue
-        strip(rid)
         if val is None:
+            strip(rid)
             continue
         if not isinstance(val, dict):
             continue
@@ -92,6 +92,7 @@ def apply_placements(nodes: list[dict], placements: dict) -> list[dict]:
         rail = val.get("rail")
         if station is None or rail not in RAILS:
             continue
+        strip(rid)
         if rid not in station[rail]:
             station[rail].append(rid)
     return out

@@ -44,6 +44,10 @@ class TestApplyPlacements(unittest.TestCase):
         out = apply_placements(nodes(), {"r-x": {"station": "s-nope", "rail": "do"}})
         self.assertEqual(out[0]["do"], ["r-seed"])
 
+    def test_given_unknown_station_for_seed_when_merged_then_seed_kept(self):
+        out = apply_placements(nodes(), {"r-seed": {"station": "s-nope", "rail": "do"}})
+        self.assertEqual(out[0]["do"], ["r-seed"])
+
     def test_given_bad_rail_when_validated_then_error(self):
         errs = validate_assignments(
             {"schema_version": 1, "placements": {"r-x": {"station": "s-a", "rail": "must"}}}

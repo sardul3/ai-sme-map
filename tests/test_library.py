@@ -173,5 +173,15 @@ class TestLibraryUIContract(unittest.TestCase):
         self.assertEqual(resolve_public_path("/library.html"), "/web/library.html")
 
 
+class TestPinUiContract(unittest.TestCase):
+    def test_given_app_js_when_read_then_pin_helpers_and_star_control(self):
+        js = (ROOT / "web" / "app.js").read_text()
+        self.assertIn("function pinsOf", js)
+        self.assertIn("function stationPrimary", js)
+        self.assertIn("function doIdsForStation", js)
+        self.assertIn("data-pin", js)
+        self.assertIn('progress.pins', js)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -72,6 +72,38 @@ function isComplete(progress, id, byId) {
   return false;
 }
 
+function pinsOf(progress) {
+  const raw = progress && progress.pins;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (typeof k === "string" && typeof v === "string") out[k] = v;
+  }
+  return out;
+}
+
+function stationPrimary(station, progress, byId) {
+  const pin = pinsOf(progress)[station.id];
+  if (pin && byId[pin] && !isComplete(progress, pin, byId)) return pin;
+  return (station.do || [])[0] || null;
+}
+
+function doIdsForStation(station, progress, byId) {
+  const doIds = [...(station.do || [])];
+  const pin = pinsOf(progress)[station.id];
+  if (pin && byId[pin] && !isComplete(progress, pin, byId)) {
+    return [pin, ...doIds.filter((id) => id !== pin)];
+  }
+  return doIds;
+}
+
+function togglePin(progress, stationId, resourceId) {
+  const pins = { ...pinsOf(progress) };
+  if (pins[stationId] === resourceId) delete pins[stationId];
+  else pins[stationId] = resourceId;
+  return { ...progress, pins };
+}
+
 function applyStatus(progress, byId, id, status) {
   const out = { ...progress, [id]: status };
   const rec = byId[id] || {};
@@ -90,9 +122,9 @@ function nextFocus(graph, resources, progress) {
   // Keep in sync with scripts/focus.py
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
   for (const station of graph.nodes || []) {
-    const doIds = station.do || [];
-    if (!doIds.length) continue;
-    const rec = byId[doIds[0]];
+    const primaryId = stationPrimary(station, progress, byId);
+    if (!primaryId) continue;
+    const rec = byId[primaryId];
     if (!rec) continue;
     if (rec.parts && rec.parts.length) {
       for (const part of rec.parts) {
@@ -106,6 +138,13 @@ function nextFocus(graph, resources, progress) {
     if (!isComplete(progress, rec.id, byId)) return packFocus(station, rec, null);
   }
   return { done: true };
+}
+
+function pinStationForCard(explicitStationId) {
+  if (explicitStationId) return explicitStationId;
+  if (PAGE !== "commute" && active && active.id) return active.id;
+  const focus = nextFocus(state.graph, state.resources, state.progress);
+  return focus.done ? null : focus.stationId;
 }
 
 function packFocus(station, rec, part) {
@@ -200,7 +239,15 @@ function playButton(r) {
   return `<button type="button" data-commute-play="${r.id}" aria-label="Play ${r.title}">Play</button>`;
 }
 
-function renderResource(r, progress, { rank = 0, rail = "do" } = {}) {
+function starButton(r, progress, stationId) {
+  const sid = pinStationForCard(stationId);
+  if (!sid) return "";
+  const on = pinsOf(progress)[sid] === r.id;
+  const label = on ? "Unpin start here" : "Pin as start here";
+  return `<button type="button" class="star ${on ? "on" : ""}" data-pin="${r.id}" data-pin-station="${sid}" aria-pressed="${on}" aria-label="${label}">★</button>`;
+}
+
+function renderResource(r, progress, { rank = 0, rail = "do", stationId = null } = {}) {
   const st = progress[r.id] || "todo";
   const byId = state.byId;
   const hitRail = r.audio_url ? "commute" : rail;
@@ -211,7 +258,7 @@ function renderResource(r, progress, { rank = 0, rail = "do" } = {}) {
       ${scoreLine(r)}
       <div class="prov">${doRankBadge(rail, rank)}${coveredBadge(r, progress, byId)}${staleBadge(r.url)}${accessBadge(r)}${r.kind} · ${r.provider} · ${r.level}${sittingMark(r.sitting)}</div>
     </div>
-    <div class="status">${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
+    <div class="status">${starButton(r, progress, stationId)}${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
   </article>`;
 }
 
@@ -231,13 +278,17 @@ function renderParts(parent, progress) {
   return `<div class="parts"><h5>Lessons</h5>${rows}</div>`;
 }
 
-function rail(title, ids, byId, progress, kind, { open = true } = {}) {
-  if (!ids.length) return "";
-  const cards = ids
+function rail(title, ids, byId, progress, kind, { open = true, station = null } = {}) {
+  const list = kind === "do" && station ? doIdsForStation(station, progress, byId) : ids;
+  if (!list.length) return "";
+  const cards = list
     .map((id, i) => {
       const r = byId[id];
       if (!r) return "";
-      return renderResource(r, progress, { rank: i, rail: kind }) + (kind === "do" ? renderParts(r, progress) : "");
+      return (
+        renderResource(r, progress, { rank: i, rail: kind, stationId: station && station.id }) +
+        (kind === "do" ? renderParts(r, progress) : "")
+      );
     })
     .join("");
   if (open) return `<div class="rail-block"><h4>${title}</h4>${cards}</div>`;
@@ -286,7 +337,7 @@ function renderDrawer(node, byId, progress) {
     <h3>${node.title}</h3>
     <p class="why">${node.why}</p>
     ${skip}
-    ${rail("Do (ranked)", node.do, byId, progress, "do")}
+    ${rail("Do (ranked)", node.do, byId, progress, "do", { station: node })}
     ${rail("Build", node.project, byId, progress, "project")}
     ${rail("Parallel style", node.parallel, byId, progress, "parallel", { open: false })}
     ${rail("Skim — library, not homework", node.skim, byId, progress, "skim", { open: false })}
@@ -930,6 +981,16 @@ function redraw() {
 redraw();
 
 document.body.addEventListener("click", async (ev) => {
+  const pinBtn = ev.target.closest("[data-pin]");
+  if (pinBtn) {
+    const sid = pinBtn.dataset.pinStation;
+    const rid = pinBtn.dataset.pin;
+    if (!sid || !rid) return;
+    snapshot();
+    state.progress = togglePin(state.progress, sid, rid);
+    await persistAndRedraw();
+    return;
+  }
   const playBtn = ev.target.closest("[data-commute-play]");
   if (playBtn) {
     playCommute(playBtn.dataset.commutePlay);

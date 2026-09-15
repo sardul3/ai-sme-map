@@ -43,3 +43,17 @@ class TestRoadmapView(unittest.TestCase):
         self.assertIn("assignments.json", js)
         self.assertIn("localhost-only", js)
         self.assertIn("placements", js)
+
+    def test_given_finish_chip_drag_when_read_then_save_before_state(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        start = js.index("async function finishChipDrag")
+        end = js.index("async function finishGroupDrag")
+        block = js[start:end]
+        save_at = block.index("await atlas.saveAssignments")
+        before_save = block[:save_at]
+        self.assertNotIn("atlas.state.assignments =", before_save)
+
+    def test_given_roadmap_js_when_library_drop_then_tombstone_without_seed(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("!atlas.state.graphSeed", js)
+        self.assertIn("placements[id] = null", js)

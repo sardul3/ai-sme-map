@@ -286,13 +286,12 @@ function initRoadmap() {
     const id = drag.resourceId;
     if (hit.kind === "lane") {
       placements[id] = { station: hit.station, rail: hit.rail };
-    } else if (inSeedRails(id, atlas.state.graphSeed)) {
+    } else if (!atlas.state.graphSeed || inSeedRails(id, atlas.state.graphSeed)) {
       placements[id] = null;
     } else {
       delete placements[id];
     }
     try {
-      atlas.state.assignments = { schema_version: 1, placements };
       await atlas.saveAssignments({ schema_version: 1, placements });
       renderRoadmap();
     } catch {

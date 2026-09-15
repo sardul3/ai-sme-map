@@ -181,6 +181,11 @@ class TestPinUiContract(unittest.TestCase):
         self.assertIn("function doIdsForStation", js)
         self.assertIn("data-pin", js)
         self.assertIn('progress.pins', js)
+        start = js.index("function pinStationForCard")
+        end = js.index("function packFocus", start)
+        pin_fn = js[start:end]
+        self.assertIn('getElementById("drawer")', pin_fn)
+        self.assertIn(".hidden", pin_fn)
 
 
 if __name__ == "__main__":

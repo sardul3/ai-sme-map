@@ -142,7 +142,8 @@ function nextFocus(graph, resources, progress) {
 
 function pinStationForCard(explicitStationId) {
   if (explicitStationId) return explicitStationId;
-  if (PAGE !== "commute" && active && active.id) return active.id;
+  const drawer = document.getElementById("drawer");
+  if (PAGE !== "commute" && drawer && !drawer.hidden && active && active.id) return active.id;
   const focus = nextFocus(state.graph, state.resources, state.progress);
   return focus.done ? null : focus.stationId;
 }
@@ -338,9 +339,9 @@ function renderDrawer(node, byId, progress) {
     <p class="why">${node.why}</p>
     ${skip}
     ${rail("Do (ranked)", node.do, byId, progress, "do", { station: node })}
-    ${rail("Build", node.project, byId, progress, "project")}
-    ${rail("Parallel style", node.parallel, byId, progress, "parallel", { open: false })}
-    ${rail("Skim — library, not homework", node.skim, byId, progress, "skim", { open: false })}
+    ${rail("Build", node.project, byId, progress, "project", { station: node })}
+    ${rail("Parallel style", node.parallel, byId, progress, "parallel", { open: false, station: node })}
+    ${rail("Skim — library, not homework", node.skim, byId, progress, "skim", { open: false, station: node })}
   `;
 }
 

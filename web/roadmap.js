@@ -80,6 +80,77 @@ function initRoadmap() {
     return pt.matrixTransform(ctm.inverse());
   }
 
+  function parseTranslate(value) {
+    const m = /translate\(\s*(-?[\d.]+)\s*[,\s]\s*(-?[\d.]+)/.exec(value || "");
+    return m ? { x: Number(m[1]), y: Number(m[2]) } : { x: 0, y: 0 };
+  }
+
+  function worldDelta(svg, x0, y0, x1, y1) {
+    const p0 = svgPoint(svg, x0, y0);
+    const p1 = svgPoint(svg, x1, y1);
+    return { x: p1.x - p0.x, y: p1.y - p0.y };
+  }
+
+  function ensureRoadmapNote() {
+    let note = document.getElementById("roadmap-note");
+    if (note) return note;
+    note = document.createElement("p");
+    note.id = "roadmap-note";
+    note.className = "rule";
+    note.hidden = true;
+    note.dataset.file = "assignments.json";
+    const board = document.getElementById("board");
+    if (board && board.parentNode) board.parentNode.insertBefore(note, board);
+    else document.body.appendChild(note);
+    return note;
+  }
+
+  function setRoadmapNote(text) {
+    const note = ensureRoadmapNote();
+    note.textContent = text;
+    note.hidden = !text;
+  }
+
+  function snapBack(el, orig) {
+    if (el) el.setAttribute("transform", orig);
+    setRoadmapNote("Assignments are localhost-only.");
+  }
+
+  function inSeedRails(id, seed) {
+    for (const st of (seed && seed.nodes) || []) {
+      for (const lane of LANES) {
+        if ((st[lane.id] || []).includes(id)) return true;
+      }
+    }
+    return false;
+  }
+
+  function dropTargetAt(clientX, clientY, dragged) {
+    const prev = dragged && dragged.style ? dragged.style.pointerEvents : "";
+    if (dragged && dragged.style) dragged.style.pointerEvents = "none";
+    const el = document.elementFromPoint(clientX, clientY);
+    if (dragged && dragged.style) dragged.style.pointerEvents = prev;
+    const lane = el && el.closest && el.closest("[data-drop-station][data-drop-rail]");
+    if (lane) {
+      return {
+        kind: "lane",
+        station: lane.getAttribute("data-drop-station"),
+        rail: lane.getAttribute("data-drop-rail"),
+      };
+    }
+    const cluster = el && el.closest && el.closest("[data-drop-cluster]");
+    if (cluster) {
+      return { kind: "cluster", key: cluster.getAttribute("data-drop-cluster") };
+    }
+    return null;
+  }
+
+  function placementsCopy() {
+    const atlas = globalThis.atlas;
+    const cur = (atlas.state.assignments && atlas.state.assignments.placements) || {};
+    return { ...cur };
+  }
+
   function chipMarkup(r, x, y, { stationId = "", pinId = "" } = {}) {
     const atlas = globalThis.atlas;
     const done = atlas.isComplete(atlas.state.progress, r.id, atlas.state.byId);
@@ -103,43 +174,60 @@ function initRoadmap() {
   function checkpointMarkup(st, pos, { progress, byId, pinId }) {
     const rail = st.rail === "practice" ? "practice" : "theory";
     let y = TITLE_H;
-    const chips = [];
+    const chips = [
+      `<g class="roadmap-checkpoint-header" data-drag-checkpoint="${esc(st.id)}">
+      <rect class="roadmap-checkpoint-head" width="${CHECKPOINT_W}" height="${TITLE_H}" fill="transparent"/>
+      <text class="roadmap-checkpoint-kicker" x="16" y="14">T${esc(st.stage)} · ${esc(st.branch || "")}</text>
+      <text class="roadmap-checkpoint-title" x="16" y="30">${esc(st.title)}</text>
+    </g>`,
+    ];
     for (const lane of LANES) {
-      chips.push(
-        `<text class="roadmap-lane-label" x="${PAD}" y="${y + 11}">${esc(lane.label)}</text>`
-      );
+      const laneStart = y;
+      const laneParts = [
+        `<text class="roadmap-lane-label" x="${PAD}" y="${y + 11}">${esc(lane.label)}</text>`,
+      ];
       y += LANE_LABEL_H;
+      let chipsInLane = 0;
       const ids = laneIds(st, lane.id, progress, byId);
       for (const id of ids) {
         const r = byId[id];
         if (!canvasRow(r)) continue;
-        chips.push(chipMarkup(r, PAD, y, { stationId: st.id, pinId }));
+        laneParts.push(chipMarkup(r, PAD, y, { stationId: st.id, pinId }));
         y += CHIP_H + CHIP_GAP;
+        chipsInLane += 1;
       }
+      if (chipsInLane === 0) y += CHIP_H + CHIP_GAP;
       y += 6;
+      const laneH = y - laneStart;
+      chips.push(`<g class="roadmap-lane" data-drop-station="${esc(st.id)}" data-drop-rail="${esc(lane.id)}">
+      <rect class="roadmap-lane-drop" x="0" y="${laneStart}" width="${CHECKPOINT_W}" height="${laneH}" fill="transparent"/>
+      ${laneParts.join("")}
+    </g>`);
     }
     const height = Math.max(y + PAD, TITLE_H + 48);
     return `<g class="roadmap-checkpoint ${rail}" data-station="${esc(st.id)}" transform="translate(${pos.x} ${pos.y})">
       <rect class="roadmap-checkpoint-body" width="${CHECKPOINT_W}" height="${height}"/>
       <rect class="roadmap-checkpoint-rail" width="6" height="${height}"/>
-      <text class="roadmap-checkpoint-kicker" x="16" y="14">T${esc(st.stage)} · ${esc(st.branch || "")}</text>
-      <text class="roadmap-checkpoint-title" x="16" y="30">${esc(st.title)}</text>
       ${chips.join("")}
     </g>`;
   }
 
   function clusterMarkup(group, pos, key) {
     let y = TITLE_H;
-    const chips = [];
+    const chips = [
+      `<g class="roadmap-cluster-header" data-drag-cluster="${esc(key)}">
+      <rect class="roadmap-cluster-head" width="${CHECKPOINT_W}" height="${TITLE_H}" fill="transparent"/>
+      <text class="roadmap-checkpoint-title" x="12" y="22">${esc(group.category)}</text>
+    </g>`,
+    ];
     for (const r of group.rows || []) {
       if (!canvasRow(r)) continue;
       chips.push(chipMarkup(r, PAD, y, {}));
       y += CHIP_H + CHIP_GAP;
     }
     const height = Math.max(y + PAD, TITLE_H + 28);
-    return `<g class="roadmap-cluster" data-cluster="${esc(key)}" transform="translate(${pos.x} ${pos.y})">
+    return `<g class="roadmap-cluster" data-cluster="${esc(key)}" data-drop-cluster="${esc(key)}" transform="translate(${pos.x} ${pos.y})">
       <rect class="roadmap-cluster-body" width="${CHECKPOINT_W}" height="${height}"/>
-      <text class="roadmap-checkpoint-title" x="12" y="22">${esc(group.category)}</text>
       ${chips.join("")}
     </g>`;
   }
@@ -178,49 +266,164 @@ function initRoadmap() {
     refreshDrawer();
   }
 
+  async function finishChipDrag(ev, drag) {
+    const atlas = globalThis.atlas;
+    if (!drag.moved) {
+      drag.el.setAttribute("transform", drag.orig);
+      return;
+    }
+    panned = true;
+    if (!atlas || !atlas.isAuthor()) {
+      snapBack(drag.el, drag.orig);
+      return;
+    }
+    const hit = dropTargetAt(ev.clientX, ev.clientY, drag.el);
+    if (!hit || !drag.resourceId) {
+      drag.el.setAttribute("transform", drag.orig);
+      return;
+    }
+    const placements = placementsCopy();
+    const id = drag.resourceId;
+    if (hit.kind === "lane") {
+      placements[id] = { station: hit.station, rail: hit.rail };
+    } else if (inSeedRails(id, atlas.state.graphSeed)) {
+      placements[id] = null;
+    } else {
+      delete placements[id];
+    }
+    try {
+      atlas.state.assignments = { schema_version: 1, placements };
+      await atlas.saveAssignments({ schema_version: 1, placements });
+      renderRoadmap();
+    } catch {
+      snapBack(drag.el, drag.orig);
+    }
+  }
+
+  async function finishGroupDrag(ev, drag, svg) {
+    const atlas = globalThis.atlas;
+    if (!drag.moved) {
+      drag.el.setAttribute("transform", drag.orig);
+      return;
+    }
+    panned = true;
+    if (!atlas || !atlas.isAuthor()) {
+      snapBack(drag.el, drag.orig);
+      return;
+    }
+    const d = worldDelta(svg, drag.startX, drag.startY, ev.clientX, ev.clientY);
+    const orig = parseTranslate(drag.orig);
+    const next = { x: orig.x + d.x, y: orig.y + d.y };
+    const layout = atlas.state.layout || { schema_version: 1, checkpoints: {}, clusters: {} };
+    const nextLayout = {
+      schema_version: layout.schema_version || 1,
+      checkpoints: { ...(layout.checkpoints || {}) },
+      clusters: { ...(layout.clusters || {}) },
+    };
+    if (drag.checkpointId) nextLayout.checkpoints[drag.checkpointId] = next;
+    if (drag.clusterKey) nextLayout.clusters[drag.clusterKey] = next;
+    try {
+      await atlas.saveLayout(nextLayout);
+      renderRoadmap();
+    } catch {
+      snapBack(drag.el, drag.orig);
+    }
+  }
+
   function bindPanZoom(svg) {
     if (svg.dataset.panBound) return;
     svg.dataset.panBound = "1";
-    let dragging = false;
-    let lastX = 0;
-    let lastY = 0;
+    let drag = null;
 
     svg.addEventListener("pointerdown", (ev) => {
       if (ev.button !== 0) return;
       const chip = ev.target.closest && ev.target.closest(".roadmap-chip");
-      if (chip) return;
-      dragging = true;
+      if (chip) {
+        drag = {
+          kind: "chip",
+          el: chip,
+          orig: chip.getAttribute("transform") || "",
+          startX: ev.clientX,
+          startY: ev.clientY,
+          resourceId: chip.getAttribute("data-resource") || "",
+          moved: false,
+        };
+        panned = false;
+        svg.setPointerCapture(ev.pointerId);
+        return;
+      }
+      const header =
+        ev.target.closest && ev.target.closest("[data-drag-checkpoint], [data-drag-cluster]");
+      if (header) {
+        const group = header.closest(".roadmap-checkpoint, .roadmap-cluster");
+        if (!group) return;
+        drag = {
+          kind: "group",
+          el: group,
+          orig: group.getAttribute("transform") || "",
+          startX: ev.clientX,
+          startY: ev.clientY,
+          checkpointId: header.getAttribute("data-drag-checkpoint") || "",
+          clusterKey: header.getAttribute("data-drag-cluster") || "",
+          moved: false,
+        };
+        panned = false;
+        svg.setPointerCapture(ev.pointerId);
+        return;
+      }
+      drag = {
+        kind: "pan",
+        lastX: ev.clientX,
+        lastY: ev.clientY,
+        moved: false,
+      };
       panned = false;
-      lastX = ev.clientX;
-      lastY = ev.clientY;
       svg.setPointerCapture(ev.pointerId);
       svg.classList.add("panning");
     });
     svg.addEventListener("pointermove", (ev) => {
-      if (!dragging) return;
-      const dx = ev.clientX - lastX;
-      const dy = ev.clientY - lastY;
-      if (Math.abs(dx) + Math.abs(dy) > 3) panned = true;
-      lastX = ev.clientX;
-      lastY = ev.clientY;
-      const p0 = svgPoint(svg, ev.clientX - dx, ev.clientY - dy);
-      const p1 = svgPoint(svg, ev.clientX, ev.clientY);
-      view.x += p1.x - p0.x;
-      view.y += p1.y - p0.y;
-      applyView(svg);
+      if (!drag) return;
+      if (drag.kind === "pan") {
+        const dx = ev.clientX - drag.lastX;
+        const dy = ev.clientY - drag.lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 3) {
+          drag.moved = true;
+          panned = true;
+        }
+        drag.lastX = ev.clientX;
+        drag.lastY = ev.clientY;
+        const p0 = svgPoint(svg, ev.clientX - dx, ev.clientY - dy);
+        const p1 = svgPoint(svg, ev.clientX, ev.clientY);
+        view.x += p1.x - p0.x;
+        view.y += p1.y - p0.y;
+        applyView(svg);
+        return;
+      }
+      const d = worldDelta(svg, drag.startX, drag.startY, ev.clientX, ev.clientY);
+      if (Math.abs(d.x) + Math.abs(d.y) > 3) drag.moved = true;
+      const orig = parseTranslate(drag.orig);
+      drag.el.setAttribute("transform", `translate(${orig.x + d.x} ${orig.y + d.y})`);
     });
-    const endPan = (ev) => {
-      if (!dragging) return;
-      dragging = false;
+    const endDrag = (ev) => {
+      if (!drag) return;
+      const current = drag;
+      drag = null;
       svg.classList.remove("panning");
       try {
         svg.releasePointerCapture(ev.pointerId);
       } catch {
         /* already released */
       }
+      if (current.kind === "chip") {
+        void finishChipDrag(ev, current);
+        return;
+      }
+      if (current.kind === "group") {
+        void finishGroupDrag(ev, current, svg);
+      }
     };
-    svg.addEventListener("pointerup", endPan);
-    svg.addEventListener("pointercancel", endPan);
+    svg.addEventListener("pointerup", endDrag);
+    svg.addEventListener("pointercancel", endDrag);
     svg.addEventListener("click", (ev) => {
       if (panned) {
         panned = false;
@@ -252,6 +455,7 @@ function initRoadmap() {
   function ensureBoard() {
     const board = document.getElementById("board");
     if (!board) return null;
+    ensureRoadmapNote();
     let fit = document.getElementById("roadmap-fit");
     if (!fit) {
       fit = document.createElement("button");

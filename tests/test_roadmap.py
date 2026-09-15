@@ -36,3 +36,10 @@ class TestRoadmapView(unittest.TestCase):
         css = (ROOT / "web" / "styles.css").read_text()
         self.assertIn(".roadmap-board svg", css)
         self.assertIn("calc(100vh - 12rem)", css)
+
+    def test_given_roadmap_js_when_read_then_authoring_hooks(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("isAuthor", js)
+        self.assertIn("assignments.json", js)
+        self.assertIn("localhost-only", js)
+        self.assertIn("placements", js)

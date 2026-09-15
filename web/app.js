@@ -22,9 +22,35 @@ function dataHref(name) {
   return `${atlasRoot()}data/${name}`;
 }
 
+function isAuthor() {
+  return ["127.0.0.1", "localhost", "::1"].includes(location.hostname);
+}
+
+async function putJson(name, body) {
+  const res = await fetch(dataHref(name), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  return res.json();
+}
+
 async function load() {
   const emptyLayout = { schema_version: 1, checkpoints: {}, clusters: {} };
-  const [graph, resources, progress, meta, placement, linkStatus, inbox, layout] = await Promise.all([
+  const emptyAssignments = { schema_version: 1, placements: {} };
+  const [
+    graph,
+    resources,
+    progress,
+    meta,
+    placement,
+    linkStatus,
+    inbox,
+    layout,
+    assignments,
+    graphSeed,
+  ] = await Promise.all([
     fetch(dataHref("graph.json")).then((r) => r.json()),
     fetch(dataHref("resources.json")).then((r) => r.json()),
     fetch(dataHref("progress.json"))
@@ -54,6 +80,23 @@ async function load() {
           : emptyLayout
       )
       .catch(() => emptyLayout),
+    fetch(dataHref("assignments.json"))
+      .then((r) => (r.ok ? r.json() : emptyAssignments))
+      .then((data) =>
+        data && typeof data === "object"
+          ? {
+              schema_version: data.schema_version ?? 1,
+              placements:
+                data.placements && typeof data.placements === "object" ? data.placements : {},
+            }
+          : emptyAssignments
+      )
+      .catch(() => emptyAssignments),
+    isAuthor()
+      ? fetch(dataHref("graph.seed.json"))
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)
+      : Promise.resolve(null),
   ]);
   const stored = JSON.parse(localStorage.getItem("atlas_progress") || "null");
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
@@ -67,6 +110,8 @@ async function load() {
     linkStatus,
     inbox,
     layout,
+    assignments,
+    graphSeed,
   };
 }
 
@@ -1072,12 +1117,18 @@ globalThis.atlas = {
   pinStationForCard,
   togglePin,
   saveLayout: async (layout) => {
-    void layout;
+    const data = await putJson("roadmap_layout.json", layout);
+    state.layout = data && typeof data === "object" ? data : layout;
+    return data;
   },
   saveAssignments: async (blob) => {
-    void blob;
+    const data = await putJson("assignments.json", blob);
+    if (data && data.graph) state.graph = data.graph;
+    if (data && data.assignments) state.assignments = data.assignments;
+    else if (blob) state.assignments = blob;
+    return data;
   },
-  isAuthor: () => ["127.0.0.1", "localhost", "::1"].includes(location.hostname),
+  isAuthor,
 };
 
 function redraw() {

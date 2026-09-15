@@ -1,0 +1,1524 @@
+{
+  "nodes": [
+    {
+      "id": "s-la-see",
+      "title": "See matrices",
+      "stage": 0,
+      "rail": "theory",
+      "branch": "linear-algebra",
+      "prereqs": [],
+      "why": "Geometry before Gaussian elimination.",
+      "do": [
+        "r-340c2f1719"
+      ],
+      "parallel": [
+        "r-ec56bcb9fa",
+        "r-609749e311"
+      ],
+      "skim": [
+        "r-ff988b25b4"
+      ],
+      "project": [
+        "r-0db5de4377"
+      ]
+    },
+    {
+      "id": "s-la-work",
+      "title": "Work matrices",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "linear-algebra",
+      "prereqs": [
+        "s-la-see"
+      ],
+      "why": "Four subspaces, least squares, SVD with problem sets.",
+      "do": [
+        "r-1a658dcbd4",
+        "r-5ca3dd34c5"
+      ],
+      "parallel": [
+        "r-1fc943f0a2",
+        "r-609749e311"
+      ],
+      "skim": [
+        "r-3db4434484"
+      ],
+      "project": [
+        "r-0db5de4377"
+      ]
+    },
+    {
+      "id": "s-calc",
+      "title": "Gradients that mean something",
+      "stage": 0,
+      "rail": "theory",
+      "branch": "calculus",
+      "prereqs": [
+        "s-la-see"
+      ],
+      "why": "Backprop is multivariable calculus.",
+      "do": [
+        "r-cd32413132",
+        "r-ec035a76c0"
+      ],
+      "parallel": [
+        "r-609749e311"
+      ],
+      "skim": [
+        "r-ec56bcb9fa"
+      ],
+      "project": [
+        "r-d8434563d6"
+      ]
+    },
+    {
+      "id": "s-prob",
+      "title": "Uncertainty as a tool",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "probability",
+      "prereqs": [],
+      "why": "Every loss is a likelihood in disguise.",
+      "do": [
+        "r-81a49cc0ef",
+        "r-d6733a6f95"
+      ],
+      "parallel": [
+        "r-6fcc41c0a7",
+        "r-a263ec3acb"
+      ],
+      "skim": [
+        "r-9578c8a5de"
+      ],
+      "project": [
+        "r-cf88d04ac8"
+      ]
+    },
+    {
+      "id": "s-proofs",
+      "title": "Proofs without tears",
+      "stage": 0,
+      "rail": "theory",
+      "branch": "theory",
+      "prereqs": [],
+      "why": "Later SME theory dies if you cannot write a proof.",
+      "do": [
+        "r-c74cdbbc40"
+      ],
+      "parallel": [
+        "r-609749e311"
+      ],
+      "skim": [
+        "r-a33ef82385"
+      ],
+      "project": [
+        "r-ce847e33ab"
+      ]
+    },
+    {
+      "id": "s-numerical",
+      "title": "Numbers that survive contact with a computer",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "linear-algebra",
+      "prereqs": [
+        "s-la-work"
+      ],
+      "why": "Conditioning, SVD in float64, not chalkboard.",
+      "do": [
+        "r-0db5de4377"
+      ],
+      "parallel": [
+        "r-3db4434484"
+      ],
+      "skim": [
+        "r-1fc943f0a2"
+      ],
+      "project": [
+        "r-0db5de4377"
+      ]
+    },
+    {
+      "id": "s-code-agents",
+      "title": "Ship code with a model",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "code-llm",
+      "prereqs": [],
+      "why": "A coding agent is tonight\u2019s sitting. No linear algebra required.",
+      "do": [
+        "r-4d17281029",
+        "r-34eb71ab7d"
+      ],
+      "parallel": [
+        "r-8a977528ce",
+        "r-d57801422b",
+        "r-4196a8dc1f"
+      ],
+      "skim": [
+        "r-fb8dc53be9",
+        "r-9c241fb43b"
+      ],
+      "project": [
+        "r-4d17281029"
+      ]
+    },
+    {
+      "id": "s-agent-graphs",
+      "title": "Loops, tools, other agents",
+      "stage": 0,
+      "rail": "practice",
+      "branch": "agents",
+      "prereqs": [
+        "s-code-agents"
+      ],
+      "why": "LangGraph, MCP, multi-agent. Still no backprop required.",
+      "do": [
+        "r-46d288b663",
+        "r-abff9fb09f"
+      ],
+      "parallel": [
+        "r-d08dc0bc77",
+        "r-edae69a01e",
+        "r-e73cd795c4"
+      ],
+      "skim": [
+        "r-1056111271",
+        "r-edc8ba5f12",
+        "r-fd26f592f2",
+        "r-10269d4871",
+        "r-ba7749319b",
+        "r-c0386a1e9f"
+      ],
+      "project": [
+        "r-2046e661ad"
+      ]
+    },
+    {
+      "id": "s-ml-intuit",
+      "title": "Algorithms in English",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "classical-ml",
+      "prereqs": [
+        "s-prob"
+      ],
+      "why": "If you cannot draw it, you cannot debug it.",
+      "do": [
+        "r-81a49cc0ef"
+      ],
+      "parallel": [
+        "r-4c7feed4a1",
+        "r-c042ac16c0"
+      ],
+      "skim": [
+        "r-a027505474"
+      ],
+      "project": [
+        "r-503733ec7a"
+      ]
+    },
+    {
+      "id": "s-ml-do",
+      "title": "Train classical models",
+      "stage": 1,
+      "rail": "practice",
+      "branch": "classical-ml",
+      "prereqs": [
+        "s-ml-intuit",
+        "s-la-work"
+      ],
+      "why": "Labs plus a book that forces exercises.",
+      "do": [
+        "r-b5111d6451",
+        "r-66a3ac3c01"
+      ],
+      "parallel": [
+        "r-a58f24a277",
+        "r-b6fffc75f3"
+      ],
+      "skim": [
+        "r-a027505474",
+        "r-914185be77",
+        "r-d3942ba9c1"
+      ],
+      "project": [
+        "r-d16b762bad"
+      ]
+    },
+    {
+      "id": "s-unsupervised",
+      "title": "Structure without labels",
+      "stage": 1,
+      "rail": "practice",
+      "branch": "classical-ml",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Clustering, density, PCA as geometry \u2014 not an afterthought week.",
+      "do": [
+        "r-66a3ac3c01",
+        "r-793d1f0d8c"
+      ],
+      "parallel": [
+        "r-cf88d04ac8",
+        "r-b5111d6451"
+      ],
+      "skim": [
+        "r-c042ac16c0"
+      ],
+      "project": [
+        "r-793d1f0d8c"
+      ]
+    },
+    {
+      "id": "s-trees",
+      "title": "Trees and boosting",
+      "stage": 1,
+      "rail": "practice",
+      "branch": "classical-ml",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Tabular SME is still GBM, not a tiny net.",
+      "do": [
+        "r-503733ec7a",
+        "r-5e02239893"
+      ],
+      "parallel": [
+        "r-81a49cc0ef",
+        "r-66a3ac3c01"
+      ],
+      "skim": [
+        "r-a58f24a277"
+      ],
+      "project": [
+        "r-d16b762bad"
+      ]
+    },
+    {
+      "id": "s-eval",
+      "title": "Measure without lying",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "eval",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Leakage, calibration, slices. SME is distrusting a single accuracy.",
+      "do": [
+        "r-bf543877be",
+        "r-c042ac16c0"
+      ],
+      "parallel": [
+        "r-66a3ac3c01",
+        "r-efee775bbf"
+      ],
+      "skim": [
+        "r-eda95444d0"
+      ],
+      "project": [
+        "r-eda95444d0"
+      ]
+    },
+    {
+      "id": "s-search",
+      "title": "Search and planning",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "ai",
+      "prereqs": [],
+      "why": "Classical AI: uninformed/informed search, MDPs as planning. Not sklearn.",
+      "do": [
+        "r-46a4328186",
+        "r-59e4783e56"
+      ],
+      "parallel": [
+        "r-1542a2ce90"
+      ],
+      "skim": [
+        "r-d5bc750755"
+      ],
+      "project": [
+        "r-ce847e33ab"
+      ]
+    },
+    {
+      "id": "s-logic",
+      "title": "Knowledge, SAT, constraints",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "ai",
+      "prereqs": [
+        "s-search"
+      ],
+      "why": "KR and logic. Agents without this become prompt soup.",
+      "do": [
+        "r-59e4783e56",
+        "r-1542a2ce90"
+      ],
+      "parallel": [
+        "r-46a4328186"
+      ],
+      "skim": [
+        "r-d5bc750755"
+      ],
+      "project": [
+        "r-ce847e33ab"
+      ]
+    },
+    {
+      "id": "s-games",
+      "title": "Adversaries and equilibria",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "ai",
+      "prereqs": [
+        "s-search"
+      ],
+      "why": "Minimax, MCTS, Nash. Games are AI, not a Kaggle metric.",
+      "do": [
+        "r-efe7ee0bbd",
+        "r-b2f52801d7"
+      ],
+      "parallel": [
+        "r-f4d6c0ae24",
+        "r-46a4328186"
+      ],
+      "skim": [
+        "r-59e4783e56"
+      ],
+      "project": [
+        "r-ce847e33ab"
+      ]
+    },
+    {
+      "id": "s-kg",
+      "title": "Knowledge graphs",
+      "stage": 1,
+      "rail": "theory",
+      "branch": "ai",
+      "prereqs": [
+        "s-logic"
+      ],
+      "why": "Structured knowledge for retrieval and neuro-symbolic work.",
+      "do": [
+        "r-4bb4fd74fa",
+        "r-317ce3862d"
+      ],
+      "parallel": [
+        "r-a042960b7e",
+        "r-2ca67ad074"
+      ],
+      "skim": [
+        "r-59e4783e56"
+      ],
+      "project": [
+        "r-4bb4fd74fa"
+      ]
+    },
+    {
+      "id": "s-backprop",
+      "title": "Backprop from scalars",
+      "stage": 2,
+      "rail": "theory",
+      "branch": "deep-learning",
+      "prereqs": [
+        "s-calc",
+        "s-ml-do"
+      ],
+      "why": "Frameworks hide the only idea that matters.",
+      "do": [
+        "r-954942e1fc",
+        "r-d8434563d6"
+      ],
+      "parallel": [
+        "r-1412161047"
+      ],
+      "skim": [
+        "r-bccccd101e"
+      ],
+      "project": [
+        "r-d8434563d6"
+      ]
+    },
+    {
+      "id": "s-ship-net",
+      "title": "Ship a working net",
+      "stage": 2,
+      "rail": "practice",
+      "branch": "deep-learning",
+      "prereqs": [
+        "s-backprop"
+      ],
+      "why": "Top-down PyTorch for people who already write code.",
+      "do": [
+        "r-4f7dd67228",
+        "r-77221b7d1c"
+      ],
+      "parallel": [
+        "r-bad8a6e6d3",
+        "r-6924e1fcdd",
+        "r-126a2e4742"
+      ],
+      "skim": [
+        "r-c86246e631",
+        "r-0d6fbd795f",
+        "r-0e780f46fd"
+      ],
+      "project": [
+        "r-865eebb404"
+      ]
+    },
+    {
+      "id": "s-cv",
+      "title": "See",
+      "stage": 2,
+      "rail": "theory",
+      "branch": "computer-vision",
+      "prereqs": [
+        "s-ship-net"
+      ],
+      "why": "Conv nets, still the visual backbone.",
+      "do": [
+        "r-0c6bfaaf23"
+      ],
+      "parallel": [
+        "r-17a0f66355",
+        "r-a52e1fd0f5"
+      ],
+      "skim": [
+        "r-f67a29341e",
+        "r-6623342951"
+      ],
+      "project": [
+        "r-c30f6b01f3"
+      ]
+    },
+    {
+      "id": "s-seq",
+      "title": "Sequences before transformers",
+      "stage": 2,
+      "rail": "theory",
+      "branch": "nlp",
+      "prereqs": [
+        "s-backprop"
+      ],
+      "why": "RNNs/LSTMs so attention is a solution, not magic.",
+      "do": [
+        "r-cb832d9c99",
+        "r-bad8a6e6d3"
+      ],
+      "parallel": [
+        "r-a52e1fd0f5",
+        "r-c86246e631"
+      ],
+      "skim": [
+        "r-befe6935d9"
+      ],
+      "project": [
+        "r-4d94ac9d46"
+      ]
+    },
+    {
+      "id": "s-ssl",
+      "title": "Learn without labels (deep)",
+      "stage": 2,
+      "rail": "practice",
+      "branch": "computer-vision",
+      "prereqs": [
+        "s-cv"
+      ],
+      "why": "Contrastive, masked, frozen features. How modern vision actually starts.",
+      "do": [
+        "r-b199c6e40d",
+        "r-9be180f42e"
+      ],
+      "parallel": [
+        "r-91d9bed7be",
+        "r-17a0f66355"
+      ],
+      "skim": [
+        "r-6623342951"
+      ],
+      "project": [
+        "r-17a0f66355"
+      ]
+    },
+    {
+      "id": "s-diffusion",
+      "title": "Generate pixels",
+      "stage": 2,
+      "rail": "practice",
+      "branch": "diffusion",
+      "prereqs": [
+        "s-ship-net"
+      ],
+      "why": "VAE \u2192 GAN (history) \u2192 diffusion (now).",
+      "do": [
+        "r-5828bd6696",
+        "r-40c45d180a"
+      ],
+      "parallel": [
+        "r-8d5da7c127",
+        "r-6b243cd670"
+      ],
+      "skim": [
+        "r-40959faa0c"
+      ],
+      "project": [
+        "r-5828bd6696"
+      ]
+    },
+    {
+      "id": "s-gnn",
+      "title": "Graphs",
+      "stage": 2,
+      "rail": "theory",
+      "branch": "graphs",
+      "prereqs": [
+        "s-ship-net"
+      ],
+      "why": "Not everything is a grid or a sequence.",
+      "do": [
+        "r-89e72fece6",
+        "r-375cb8ce24"
+      ],
+      "parallel": [
+        "r-56203654b7"
+      ],
+      "skim": [
+        "r-c86246e631"
+      ],
+      "project": [
+        "r-89e72fece6"
+      ]
+    },
+    {
+      "id": "s-attn",
+      "title": "Attention, then transformers",
+      "stage": 3,
+      "rail": "theory",
+      "branch": "nlp",
+      "prereqs": [
+        "s-seq"
+      ],
+      "why": "Visual \u2192 implement \u2192 paper.",
+      "do": [
+        "r-6f678024ab",
+        "r-954942e1fc",
+        "r-a477b3d0b1"
+      ],
+      "parallel": [
+        "r-05408dd2d0",
+        "r-32b9d4c781"
+      ],
+      "skim": [
+        "r-befe6935d9",
+        "r-e06e237c81",
+        "r-55c64b5071"
+      ],
+      "project": [
+        "r-bee5525343"
+      ]
+    },
+    {
+      "id": "s-ir",
+      "title": "Retrieve before you generate",
+      "stage": 3,
+      "rail": "theory",
+      "branch": "nlp",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "BM25 and IR eval before you wrap a vector DB.",
+      "do": [
+        "r-2ca67ad074"
+      ],
+      "parallel": [
+        "r-e06e237c81"
+      ],
+      "skim": [
+        "r-85b95758fc"
+      ],
+      "project": [
+        "r-9a7ea2175f"
+      ]
+    },
+    {
+      "id": "s-llm-tools",
+      "title": "Language tools in production",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "generative",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "Tokenizers, RAG, LoRA. After you could write GPT.",
+      "do": [
+        "r-9a7ea2175f",
+        "r-ac9c240033"
+      ],
+      "parallel": [
+        "r-75e0869f32",
+        "r-39dce8aa2e",
+        "r-7a22705a79"
+      ],
+      "skim": [
+        "r-753df152bd",
+        "r-5620e2ae11",
+        "r-89014a8388"
+      ],
+      "project": [
+        "r-bee5525343"
+      ]
+    },
+    {
+      "id": "s-llm-from-scratch",
+      "title": "Language models from scratch (2025)",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "generative",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "Data, tokenizer, train, eval \u2014 not only API calls.",
+      "do": [
+        "r-e14c2e0e1a",
+        "r-bee5525343"
+      ],
+      "parallel": [
+        "r-954942e1fc",
+        "r-b87cc50558"
+      ],
+      "skim": [
+        "r-55c64b5071",
+        "r-323c56e841"
+      ],
+      "project": [
+        "r-bee5525343"
+      ]
+    },
+    {
+      "id": "s-speech",
+      "title": "Hear",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "speech",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "Waveforms are not text with a different file extension.",
+      "do": [
+        "r-31f2b40388",
+        "r-757df4c923"
+      ],
+      "parallel": [
+        "r-e06e237c81"
+      ],
+      "skim": [
+        "r-4a3141e521"
+      ],
+      "project": [
+        "r-4a3141e521"
+      ]
+    },
+    {
+      "id": "s-llm-eval",
+      "title": "Judge models, not vibes",
+      "stage": 3,
+      "rail": "theory",
+      "branch": "eval",
+      "prereqs": [
+        "s-llm-tools"
+      ],
+      "why": "HELM, harnesses, arena \u2014 and their failure modes.",
+      "do": [
+        "r-d22e72274a",
+        "r-408a94776e"
+      ],
+      "parallel": [
+        "r-9957908348",
+        "r-323c56e841"
+      ],
+      "skim": [
+        "r-504bf11980"
+      ],
+      "project": [
+        "r-408a94776e"
+      ]
+    },
+    {
+      "id": "s-agents",
+      "title": "Tools, memory, loops",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "agents",
+      "prereqs": [
+        "s-llm-tools",
+        "s-search"
+      ],
+      "why": "ReAct, tool use, memory. LLM agents after you can search and plan.",
+      "do": [
+        "r-2046e661ad",
+        "r-c47d0779af"
+      ],
+      "parallel": [
+        "r-0baffed4a7",
+        "r-34eb71ab7d",
+        "r-46d288b663",
+        "r-e2afe39a9d"
+      ],
+      "skim": [
+        "r-504bf11980",
+        "r-abff9fb09f"
+      ],
+      "project": [
+        "r-2046e661ad"
+      ]
+    },
+    {
+      "id": "s-agent-eval",
+      "title": "Eval agents, not chat",
+      "stage": 3,
+      "rail": "theory",
+      "branch": "eval",
+      "prereqs": [
+        "s-agents",
+        "s-llm-eval"
+      ],
+      "why": "GAIA, SWE-bench, \u03c4-bench, function-calling. Different from MMLU.",
+      "do": [
+        "r-a1eab53841",
+        "r-c3824812b2"
+      ],
+      "parallel": [
+        "r-db2c348b23",
+        "r-1bb96f4eca",
+        "r-88571928f3"
+      ],
+      "skim": [
+        "r-e0cb42ccf2"
+      ],
+      "project": [
+        "r-c3824812b2"
+      ]
+    },
+    {
+      "id": "s-multimodal",
+      "title": "More than text",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "multimodal",
+      "prereqs": [
+        "s-cv",
+        "s-attn"
+      ],
+      "why": "CLIP \u2192 visual instruction tuning.",
+      "do": [
+        "r-32448d97c5",
+        "r-0b4c166313"
+      ],
+      "parallel": [
+        "r-17a0f66355"
+      ],
+      "skim": [
+        "r-55c64b5071"
+      ],
+      "project": [
+        "r-17a0f66355"
+      ]
+    },
+    {
+      "id": "s-code-llm",
+      "title": "Models that write programs",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "code-llm",
+      "prereqs": [
+        "s-llm-tools"
+      ],
+      "why": "Data, eval (HumanEval lineage), not only Copilot demos.",
+      "do": [
+        "r-2d3901bbb6",
+        "r-adfba0a02e"
+      ],
+      "parallel": [
+        "r-4d17281029",
+        "r-bee5525343",
+        "r-9a7ea2175f"
+      ],
+      "skim": [
+        "r-e14c2e0e1a",
+        "r-8a977528ce"
+      ],
+      "project": [
+        "r-bee5525343"
+      ]
+    },
+    {
+      "id": "s-ssm",
+      "title": "State space vs attention",
+      "stage": 3,
+      "rail": "theory",
+      "branch": "ssm",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "S4 \u2192 Mamba. Know the alternative, don't marry it.",
+      "do": [
+        "r-0fcb4625b6",
+        "r-92d620d565"
+      ],
+      "parallel": [
+        "r-42bc010bf3"
+      ],
+      "skim": [
+        "r-55c64b5071"
+      ],
+      "project": [
+        "r-42bc010bf3"
+      ]
+    },
+    {
+      "id": "s-rl",
+      "title": "Decisions, not labels",
+      "stage": 4,
+      "rail": "theory",
+      "branch": "rl",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "MDPs before DQN memes.",
+      "do": [
+        "r-ced3adf656",
+        "r-c63bfe97e0"
+      ],
+      "parallel": [
+        "r-379ad7a6de",
+        "r-2ad19ecd29"
+      ],
+      "skim": [
+        "r-294a515c55"
+      ],
+      "project": [
+        "r-00de6be40f"
+      ]
+    },
+    {
+      "id": "s-drl",
+      "title": "Play",
+      "stage": 4,
+      "rail": "practice",
+      "branch": "rl",
+      "prereqs": [
+        "s-rl",
+        "s-ship-net"
+      ],
+      "why": "Deep RL is a different sport.",
+      "do": [
+        "r-4541b0dfa3",
+        "r-f1f653c970"
+      ],
+      "parallel": [
+        "r-1e4acf8a1b",
+        "r-00de6be40f"
+      ],
+      "skim": [
+        "r-37573c9be9"
+      ],
+      "project": [
+        "r-4541b0dfa3"
+      ]
+    },
+    {
+      "id": "s-bandits",
+      "title": "Explore vs exploit",
+      "stage": 4,
+      "rail": "theory",
+      "branch": "bandits",
+      "prereqs": [
+        "s-prob"
+      ],
+      "why": "Before full MDPs, or you will misuse \u03b5-greedy forever.",
+      "do": [
+        "r-86162ee264"
+      ],
+      "parallel": [
+        "r-c63bfe97e0"
+      ],
+      "skim": [
+        "r-379ad7a6de"
+      ],
+      "project": [
+        "r-00de6be40f"
+      ]
+    },
+    {
+      "id": "s-imitation",
+      "title": "Copy, then improve",
+      "stage": 4,
+      "rail": "practice",
+      "branch": "imitation",
+      "prereqs": [
+        "s-rl"
+      ],
+      "why": "DAgger lineage + offline RL as sequence models.",
+      "do": [
+        "r-37573c9be9",
+        "r-f1f653c970"
+      ],
+      "parallel": [
+        "r-1e4acf8a1b"
+      ],
+      "skim": [
+        "r-c63bfe97e0"
+      ],
+      "project": [
+        "r-00de6be40f"
+      ]
+    },
+    {
+      "id": "s-marl",
+      "title": "Other agents exist",
+      "stage": 4,
+      "rail": "theory",
+      "branch": "marl",
+      "prereqs": [
+        "s-rl"
+      ],
+      "why": "Non-stationarity is the point.",
+      "do": [
+        "r-ec0ac87478"
+      ],
+      "parallel": [
+        "r-1e4acf8a1b"
+      ],
+      "skim": [
+        "r-4541b0dfa3"
+      ],
+      "project": [
+        "r-00de6be40f"
+      ]
+    },
+    {
+      "id": "s-world-models",
+      "title": "Imagine the environment",
+      "stage": 4,
+      "rail": "practice",
+      "branch": "world-models",
+      "prereqs": [
+        "s-drl",
+        "s-diffusion"
+      ],
+      "why": "World models, Dreamer, video-as-simulator interest.",
+      "do": [
+        "r-5036377596",
+        "r-45c7ed3212"
+      ],
+      "parallel": [
+        "r-4541b0dfa3"
+      ],
+      "skim": [
+        "r-1e4acf8a1b"
+      ],
+      "project": [
+        "r-5036377596"
+      ]
+    },
+    {
+      "id": "s-data-ml",
+      "title": "Data-centric",
+      "stage": 5,
+      "rail": "theory",
+      "branch": "data-centric",
+      "prereqs": [
+        "s-eval"
+      ],
+      "why": "The dataset is the model.",
+      "do": [
+        "r-4fcf520664",
+        "r-a36851b229"
+      ],
+      "parallel": [
+        "r-bf543877be"
+      ],
+      "skim": [
+        "r-eda95444d0"
+      ],
+      "project": [
+        "r-4fcf520664"
+      ]
+    },
+    {
+      "id": "s-sys",
+      "title": "Make it real",
+      "stage": 5,
+      "rail": "practice",
+      "branch": "mlsys",
+      "prereqs": [
+        "s-ship-net"
+      ],
+      "why": "A notebook is not a system.",
+      "do": [
+        "r-94c49e722f",
+        "r-76a45a3742"
+      ],
+      "parallel": [
+        "r-724497000c",
+        "r-2b87ade069",
+        "r-7dce512d55"
+      ],
+      "skim": [
+        "r-8b308f1fb5"
+      ],
+      "project": [
+        "r-76a45a3742"
+      ]
+    },
+    {
+      "id": "s-eval-prod",
+      "title": "Eval in production",
+      "stage": 5,
+      "rail": "practice",
+      "branch": "eval",
+      "prereqs": [
+        "s-sys",
+        "s-eval"
+      ],
+      "why": "Monitoring, drift, LLM evals in the loop.",
+      "do": [
+        "r-efee775bbf",
+        "r-d22e72274a"
+      ],
+      "parallel": [
+        "r-408a94776e"
+      ],
+      "skim": [
+        "r-9957908348"
+      ],
+      "project": [
+        "r-408a94776e"
+      ]
+    },
+    {
+      "id": "s-compilers",
+      "title": "Kernels, compilers, FLOPs",
+      "stage": 5,
+      "rail": "theory",
+      "branch": "compilers",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "FlashAttention, torch.compile, CUDA Mode.",
+      "do": [
+        "r-0b97388b15",
+        "r-b87cc50558"
+      ],
+      "parallel": [
+        "r-84d1f73baf"
+      ],
+      "skim": [
+        "r-8b308f1fb5"
+      ],
+      "project": [
+        "r-84d1f73baf"
+      ]
+    },
+    {
+      "id": "s-privacy",
+      "title": "Privacy and federated",
+      "stage": 5,
+      "rail": "theory",
+      "branch": "privacy",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "DP is math. Federated is a systems constraint.",
+      "do": [
+        "r-ef0dde9c4f"
+      ],
+      "parallel": [
+        "r-fdeee16a19"
+      ],
+      "skim": [
+        "r-94c49e722f"
+      ],
+      "project": [
+        "r-76a45a3742"
+      ]
+    },
+    {
+      "id": "s-theory",
+      "title": "Why it generalizes",
+      "stage": 6,
+      "rail": "theory",
+      "branch": "theory",
+      "prereqs": [
+        "s-ml-do",
+        "s-la-work"
+      ],
+      "why": "SME is saying when a bound exists.",
+      "do": [
+        "r-c02d3942ae",
+        "r-b5a53a61c9"
+      ],
+      "parallel": [
+        "r-3a9de260d0",
+        "r-a33ef82385",
+        "r-69fb6fefc1"
+      ],
+      "skim": [
+        "r-cf602275cc",
+        "r-a50dfc0fc5"
+      ],
+      "project": [
+        "r-b5a53a61c9"
+      ]
+    },
+    {
+      "id": "s-prob-sme",
+      "title": "Bayesian desk",
+      "stage": 6,
+      "rail": "theory",
+      "branch": "probability",
+      "prereqs": [
+        "s-prob",
+        "s-theory"
+      ],
+      "why": "Pick one thick book and live in it.",
+      "do": [
+        "r-c033a6f941"
+      ],
+      "parallel": [
+        "r-8446d56f69"
+      ],
+      "skim": [
+        "r-4e9d34065e"
+      ],
+      "project": [
+        "r-c3089df011"
+      ]
+    },
+    {
+      "id": "s-opt",
+      "title": "Convex and beyond",
+      "stage": 6,
+      "rail": "theory",
+      "branch": "optimization",
+      "prereqs": [
+        "s-calc"
+      ],
+      "why": "SGD folklore vs real convex analysis.",
+      "do": [
+        "r-74cdeeded5"
+      ],
+      "parallel": [
+        "r-40e1de7aae"
+      ],
+      "skim": [
+        "r-294a515c55"
+      ],
+      "project": [
+        "r-40e1de7aae"
+      ]
+    },
+    {
+      "id": "s-info-theory",
+      "title": "Bits, KL, and learning",
+      "stage": 6,
+      "rail": "theory",
+      "branch": "info-theory",
+      "prereqs": [
+        "s-prob"
+      ],
+      "why": "Cross-entropy is not just a Keras argument.",
+      "do": [
+        "r-ce47195892"
+      ],
+      "parallel": [
+        "r-c033a6f941"
+      ],
+      "skim": [
+        "r-6c82358ea8"
+      ],
+      "project": [
+        "r-ce47195892"
+      ]
+    },
+    {
+      "id": "s-pgm",
+      "title": "Graphical models",
+      "stage": 6,
+      "rail": "theory",
+      "branch": "pgm",
+      "prereqs": [
+        "s-prob-sme"
+      ],
+      "why": "Independence, inference, latent variables \u2014 not only neural nets.",
+      "do": [
+        "r-4e9d34065e",
+        "r-997ea7db3e"
+      ],
+      "parallel": [
+        "r-c033a6f941"
+      ],
+      "skim": [
+        "r-59e4783e56"
+      ],
+      "project": [
+        "r-997ea7db3e"
+      ]
+    },
+    {
+      "id": "s-causal",
+      "title": "Cause, not correlation",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "causal",
+      "prereqs": [
+        "s-ml-do",
+        "s-eval"
+      ],
+      "why": "Do-calculus, identification, not just a DAG sticker.",
+      "do": [
+        "r-479c9c8ef8",
+        "r-a846299417"
+      ],
+      "parallel": [
+        "r-f7d9cecb79",
+        "r-f9194112fb"
+      ],
+      "skim": [
+        "r-922f25f1dc"
+      ],
+      "project": [
+        "r-479c9c8ef8"
+      ]
+    },
+    {
+      "id": "s-recommenders",
+      "title": "Rank things for people",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "recommenders",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Retrieval and ranking systems, not a cosine demo.",
+      "do": [
+        "r-0fda86e5a4",
+        "r-89b12718fb"
+      ],
+      "parallel": [
+        "r-66a3ac3c01"
+      ],
+      "skim": [
+        "r-2ca67ad074"
+      ],
+      "project": [
+        "r-0fda86e5a4"
+      ]
+    },
+    {
+      "id": "s-timeseries",
+      "title": "Time is not an iid row",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "timeseries",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Forecasting first, then sequence models.",
+      "do": [
+        "r-a54ec86efa",
+        "r-aa93948c01"
+      ],
+      "parallel": [
+        "r-66a3ac3c01"
+      ],
+      "skim": [
+        "r-c86246e631"
+      ],
+      "project": [
+        "r-aa93948c01"
+      ]
+    },
+    {
+      "id": "s-robotics",
+      "title": "Bodies",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "robotics",
+      "prereqs": [
+        "s-rl",
+        "s-cv"
+      ],
+      "why": "Control, manipulation, LeRobot. Embodied interest is not a blog post.",
+      "do": [
+        "r-a400c08d9a",
+        "r-7824bc907f"
+      ],
+      "parallel": [
+        "r-6eb5585d83",
+        "r-72f7d85b43"
+      ],
+      "skim": [
+        "r-5036377596"
+      ],
+      "project": [
+        "r-7824bc907f"
+      ]
+    },
+    {
+      "id": "s-scientific-ml",
+      "title": "Science as a loss function",
+      "stage": 7,
+      "rail": "theory",
+      "branch": "scientific-ml",
+      "prereqs": [
+        "s-ship-net",
+        "s-opt"
+      ],
+      "why": "PINNs, neural ODEs, AlphaFold as existence proof.",
+      "do": [
+        "r-f8401f372e",
+        "r-8fdca54378"
+      ],
+      "parallel": [
+        "r-93aeec17fb"
+      ],
+      "skim": [
+        "r-c86246e631"
+      ],
+      "project": [
+        "r-f8401f372e"
+      ]
+    },
+    {
+      "id": "s-interp",
+      "title": "Look inside",
+      "stage": 7,
+      "rail": "theory",
+      "branch": "interpretability",
+      "prereqs": [
+        "s-attn"
+      ],
+      "why": "Mech interp, circuits, TransformerLens.",
+      "do": [
+        "r-cf3a5c8c94",
+        "r-b21c9cd698"
+      ],
+      "parallel": [
+        "r-274d4e4184",
+        "r-fc3c72b562"
+      ],
+      "skim": [
+        "r-befe6935d9"
+      ],
+      "project": [
+        "r-b21c9cd698"
+      ]
+    },
+    {
+      "id": "s-alignment",
+      "title": "What we asked vs what we got",
+      "stage": 7,
+      "rail": "theory",
+      "branch": "alignment",
+      "prereqs": [
+        "s-llm-tools",
+        "s-rl"
+      ],
+      "why": "RLHF, DPO, constitutions, process reward.",
+      "do": [
+        "r-a3655fc041",
+        "r-0e8a4b3694"
+      ],
+      "parallel": [
+        "r-fbddce6a19",
+        "r-4e681dc6ea",
+        "r-a6103eeb12"
+      ],
+      "skim": [
+        "r-fc3c72b562",
+        "r-497d9309bb"
+      ],
+      "project": [
+        "r-4e681dc6ea"
+      ]
+    },
+    {
+      "id": "s-test-time",
+      "title": "Think at inference",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "generative",
+      "prereqs": [
+        "s-alignment",
+        "s-llm-eval"
+      ],
+      "why": "CoT, verifiers, reasoning models (o1/R1 lineage).",
+      "do": [
+        "r-5bd403a2f3",
+        "r-954d08138b"
+      ],
+      "parallel": [
+        "r-497d9309bb"
+      ],
+      "skim": [
+        "r-9957908348"
+      ],
+      "project": [
+        "r-408a94776e"
+      ]
+    },
+    {
+      "id": "s-3d-vision",
+      "title": "Space",
+      "stage": 7,
+      "rail": "practice",
+      "branch": "3d-vision",
+      "prereqs": [
+        "s-cv"
+      ],
+      "why": "NeRF \u2192 Gaussian splatting.",
+      "do": [
+        "r-d13dfe2fbd",
+        "r-40214239b3"
+      ],
+      "parallel": [
+        "r-9fb0bce2df"
+      ],
+      "skim": [
+        "r-17a0f66355"
+      ],
+      "project": [
+        "r-9fb0bce2df"
+      ]
+    },
+    {
+      "id": "s-fairness",
+      "title": "Who the model fails",
+      "stage": 7,
+      "rail": "theory",
+      "branch": "fairness",
+      "prereqs": [
+        "s-eval"
+      ],
+      "why": "Not an ethics slide. Definitions and impossibility results.",
+      "do": [
+        "r-922f25f1dc"
+      ],
+      "parallel": [
+        "r-bf543877be"
+      ],
+      "skim": [
+        "r-c042ac16c0"
+      ],
+      "project": [
+        "r-922f25f1dc"
+      ]
+    }
+  ]
+}

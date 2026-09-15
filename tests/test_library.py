@@ -142,13 +142,17 @@ class TestWeeklyOnboardSeam(unittest.TestCase):
 
 class TestLibraryUIContract(unittest.TestCase):
     def test_given_nav_when_read_then_three_tabs_on_each_page(self):
-        for name in ("index.html", "commute.html", "library.html"):
-            html = (ROOT / "web" / name).read_text()
+        for name in ("index.html", "commute.html", "library.html", "roadmap.html"):
+            path = ROOT / "web" / name
             with self.subTest(name=name):
+                self.assertTrue(path.is_file(), name)
+                html = path.read_text()
                 self.assertIn('href="index.html"', html)
                 self.assertIn('href="commute.html"', html)
                 self.assertIn('href="library.html"', html)
+                self.assertIn('href="roadmap.html"', html)
                 self.assertIn("Library · unassigned", html)
+                self.assertIn("Roadmap", html)
 
     def test_given_library_page_when_read_then_groups_and_search(self):
         html = (ROOT / "web" / "library.html").read_text()

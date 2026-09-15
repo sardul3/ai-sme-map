@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-PAGE_STEMS = frozenset({"index", "commute", "library"})
+PAGE_STEMS = frozenset({"index", "commute", "library", "roadmap"})
 
 
 def atlas_root(pathname: str) -> str:

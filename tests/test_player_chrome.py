@@ -17,6 +17,18 @@ class TestPlayerChrome(unittest.TestCase):
         self.assertIn('id="player" hidden', html)
         self.assertIn('id="player-audio"', html)
 
+    def test_given_roadmap_when_read_then_player_shell_exists_hidden(self):
+        path = ROOT / "web" / "roadmap.html"
+        self.assertTrue(path.is_file())
+        html = path.read_text()
+        self.assertIn('data-page="roadmap"', html)
+        self.assertIn('id="board"', html)
+        self.assertIn('id="player" hidden', html)
+        self.assertIn('id="player-dismiss"', html)
+        self.assertIn('id="player-size"', html)
+        self.assertIn('src="app.js"', html)
+        self.assertIn('src="roadmap.js"', html)
+
     def test_given_app_js_when_read_then_session_now_playing(self):
         js = (ROOT / "web" / "app.js").read_text()
         self.assertIn("atlas_now_playing", js)

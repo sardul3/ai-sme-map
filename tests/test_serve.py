@@ -18,3 +18,15 @@ class TestServeBind(unittest.TestCase):
         import serve
 
         self.assertTrue(serve.git_sha())
+
+    def test_put_paths_include_assignments_and_layout(self):
+        import inspect
+        import serve
+
+        src = inspect.getsource(serve.Handler.do_PUT)
+        self.assertIn("/data/assignments.json", src)
+        self.assertIn("/data/roadmap_layout.json", src)
+        self.assertIn("LOOPBACK", src)
+        self.assertIn("graph.seed.json", src)
+        self.assertIn("filter_placements", src)
+        self.assertIn("apply_placements", src)

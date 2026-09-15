@@ -1711,8 +1711,10 @@ def main() -> None:
         )
 
     known_ids = set(url_to_id.values())
+    seed_nodes = nodes  # after resolve, before overlay
+    (DATA / "graph.seed.json").write_text(json.dumps({"nodes": seed_nodes}, indent=2) + "\n")
     placements = filter_placements(load_assignments()["placements"], known_ids)
-    nodes = apply_placements(nodes, placements)
+    nodes = apply_placements(seed_nodes, placements)
 
     compiled_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     try:

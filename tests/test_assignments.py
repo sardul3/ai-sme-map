@@ -102,3 +102,5 @@ class TestApplyPlacements(unittest.TestCase):
         text = (Path(__file__).resolve().parents[1] / "scripts" / "compile_catalog.py").read_text()
         self.assertIn("apply_placements", text)
         self.assertIn("load_assignments", text)
+        self.assertIn("graph.seed.json", text)
+        self.assertIn("filter_placements", text)

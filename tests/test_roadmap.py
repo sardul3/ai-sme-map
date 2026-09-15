@@ -14,6 +14,10 @@ class TestRoadmapView(unittest.TestCase):
         self.assertIn("Build", js)
         self.assertIn("viewBox", js)
         self.assertIn("unassigned", js.lower())
+        self.assertTrue(
+            "awesome-ml.md" in js or ("clusterKey" in js and 'endsWith(".md")' in js),
+            "harvest cluster layout keys must be source filenames, not Harvest · labels",
+        )
 
     def test_given_roadmap_page_when_read_then_board_and_scripts(self):
         html = (ROOT / "web" / "roadmap.html").read_text()

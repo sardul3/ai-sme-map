@@ -23,6 +23,13 @@ function checkpointPos(st, layout) {
   return { x, y };
 }
 
+function clusterKey(group, rows) {
+  const list = rows || (group && group.rows) || [];
+  const sources = [...new Set(list.map((r) => r && r.source).filter(Boolean))];
+  if (sources.length === 1 && String(sources[0]).endsWith(".md")) return sources[0];
+  return (group && group.category) || "";
+}
+
 function clusterPos(key, index, layout) {
   const hit = layout.clusters && layout.clusters[key];
   if (hit && typeof hit.x === "number") return hit;
@@ -121,7 +128,7 @@ function initRoadmap() {
     </g>`;
   }
 
-  function clusterMarkup(group, pos) {
+  function clusterMarkup(group, pos, key) {
     let y = TITLE_H;
     const chips = [];
     for (const r of group.rows || []) {
@@ -130,7 +137,7 @@ function initRoadmap() {
       y += CHIP_H + CHIP_GAP;
     }
     const height = Math.max(y + PAD, TITLE_H + 28);
-    return `<g class="roadmap-cluster" data-cluster="${esc(group.category)}" transform="translate(${pos.x} ${pos.y})">
+    return `<g class="roadmap-cluster" data-cluster="${esc(key)}" transform="translate(${pos.x} ${pos.y})">
       <rect class="roadmap-cluster-body" width="${CHECKPOINT_W}" height="${height}"/>
       <text class="roadmap-checkpoint-title" x="12" y="22">${esc(group.category)}</text>
       ${chips.join("")}
@@ -318,7 +325,8 @@ function initRoadmap() {
     const unassigned = unassignedResources(graph, state.resources || []);
     const groups = libraryGroups(unassigned);
     groups.forEach((group, index) => {
-      parts.push(clusterMarkup(group, clusterPos(group.category, index, layout)));
+      const key = clusterKey(group, group.rows);
+      parts.push(clusterMarkup(group, clusterPos(key, index, layout), key));
     });
     world.innerHTML = parts.join("");
     applyView(svg);

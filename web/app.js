@@ -3,7 +3,7 @@ const EVAL_KEY = "atlas_eval_log";
 const PAGE = document.body.dataset.page || "home";
 
 function atlasRoot(pathname = location.pathname) {
-  const pageStems = new Set(["index", "commute", "library"]);
+  const pageStems = new Set(["index", "commute", "library", "roadmap"]);
   let path = pathname || "/";
   if (!path.startsWith("/")) path = `/${path}`;
   let trimmed = path.replace(/\/+$/, "");
@@ -22,8 +22,35 @@ function dataHref(name) {
   return `${atlasRoot()}data/${name}`;
 }
 
+function isAuthor() {
+  return ["127.0.0.1", "localhost", "::1"].includes(location.hostname);
+}
+
+async function putJson(name, body) {
+  const res = await fetch(dataHref(name), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  return res.json();
+}
+
 async function load() {
-  const [graph, resources, progress, meta, placement, linkStatus, inbox] = await Promise.all([
+  const emptyLayout = { schema_version: 1, checkpoints: {}, clusters: {} };
+  const emptyAssignments = { schema_version: 1, placements: {} };
+  const [
+    graph,
+    resources,
+    progress,
+    meta,
+    placement,
+    linkStatus,
+    inbox,
+    layout,
+    assignments,
+    graphSeed,
+  ] = await Promise.all([
     fetch(dataHref("graph.json")).then((r) => r.json()),
     fetch(dataHref("resources.json")).then((r) => r.json()),
     fetch(dataHref("progress.json"))
@@ -41,6 +68,35 @@ async function load() {
     fetch(dataHref("inbox.json"))
       .then((r) => (r.ok ? r.json() : { commute_candidates: [] }))
       .catch(() => ({ commute_candidates: [] })),
+    fetch(dataHref("roadmap_layout.json"))
+      .then((r) => (r.ok ? r.json() : emptyLayout))
+      .then((data) =>
+        data && typeof data === "object"
+          ? {
+              schema_version: data.schema_version ?? 1,
+              checkpoints: data.checkpoints || {},
+              clusters: data.clusters || {},
+            }
+          : emptyLayout
+      )
+      .catch(() => emptyLayout),
+    fetch(dataHref("assignments.json"))
+      .then((r) => (r.ok ? r.json() : emptyAssignments))
+      .then((data) =>
+        data && typeof data === "object"
+          ? {
+              schema_version: data.schema_version ?? 1,
+              placements:
+                data.placements && typeof data.placements === "object" ? data.placements : {},
+            }
+          : emptyAssignments
+      )
+      .catch(() => emptyAssignments),
+    isAuthor()
+      ? fetch(dataHref("graph.seed.json"))
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)
+      : Promise.resolve(null),
   ]);
   const stored = JSON.parse(localStorage.getItem("atlas_progress") || "null");
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
@@ -53,6 +109,9 @@ async function load() {
     placement,
     linkStatus,
     inbox,
+    layout,
+    assignments,
+    graphSeed,
   };
 }
 
@@ -70,6 +129,63 @@ function isComplete(progress, id, byId) {
   const parent = parentOf(id, byId);
   if (parent && progress[parent.id] === "done") return true;
   return false;
+}
+
+function pinsOf(progress) {
+  const raw = progress && progress.pins;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (typeof k === "string" && typeof v === "string") out[k] = v;
+  }
+  return out;
+}
+
+function stationPrimary(station, progress, byId) {
+  const pin = pinsOf(progress)[station.id];
+  if (pin && byId[pin] && !isComplete(progress, pin, byId)) return pin;
+  return (station.do || [])[0] || null;
+}
+
+function doIdsForStation(station, progress, byId) {
+  const doIds = [...(station.do || [])];
+  const pin = pinsOf(progress)[station.id];
+  if (pin && byId[pin] && !isComplete(progress, pin, byId)) {
+    return [pin, ...doIds.filter((id) => id !== pin)];
+  }
+  return doIds;
+}
+
+function togglePin(progress, stationId, resourceId) {
+  const pins = { ...pinsOf(progress) };
+  if (pins[stationId] === resourceId) delete pins[stationId];
+  else pins[stationId] = resourceId;
+  return { ...progress, pins };
+}
+
+function votesOf(progress) {
+  const raw = progress && progress.votes;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (typeof k === "string" && (Number(v) === 1 || Number(v) === -1)) out[k] = Number(v);
+  }
+  return out;
+}
+
+function voteOf(progress, resourceId) {
+  return votesOf(progress)[resourceId] || 0;
+}
+
+function applyVote(progress, resourceId, value) {
+  const dir = Number(value);
+  const votes = { ...votesOf(progress) };
+  if (votes[resourceId] === dir) delete votes[resourceId];
+  else votes[resourceId] = dir;
+  const out = { ...progress };
+  if (Object.keys(votes).length) out.votes = votes;
+  else delete out.votes;
+  return out;
 }
 
 function applyStatus(progress, byId, id, status) {
@@ -90,9 +206,9 @@ function nextFocus(graph, resources, progress) {
   // Keep in sync with scripts/focus.py
   const byId = Object.fromEntries(resources.map((r) => [r.id, r]));
   for (const station of graph.nodes || []) {
-    const doIds = station.do || [];
-    if (!doIds.length) continue;
-    const rec = byId[doIds[0]];
+    const primaryId = stationPrimary(station, progress, byId);
+    if (!primaryId) continue;
+    const rec = byId[primaryId];
     if (!rec) continue;
     if (rec.parts && rec.parts.length) {
       for (const part of rec.parts) {
@@ -106,6 +222,14 @@ function nextFocus(graph, resources, progress) {
     if (!isComplete(progress, rec.id, byId)) return packFocus(station, rec, null);
   }
   return { done: true };
+}
+
+function pinStationForCard(explicitStationId) {
+  if (explicitStationId) return explicitStationId;
+  const drawer = document.getElementById("drawer");
+  if (PAGE !== "commute" && drawer && !drawer.hidden && active && active.id) return active.id;
+  const focus = nextFocus(state.graph, state.resources, state.progress);
+  return focus.done ? null : focus.stationId;
 }
 
 function packFocus(station, rec, part) {
@@ -200,7 +324,23 @@ function playButton(r) {
   return `<button type="button" data-commute-play="${r.id}" aria-label="Play ${r.title}">Play</button>`;
 }
 
-function renderResource(r, progress, { rank = 0, rail = "do" } = {}) {
+function voteButtons(r, progress) {
+  const v = voteOf(progress, r.id);
+  return `<span class="votes">
+    <button type="button" class="vote up ${v === 1 ? "on" : ""}" data-vote="${r.id}" data-vote-dir="1" aria-pressed="${v === 1}" aria-label="Upvote">▲</button>
+    <button type="button" class="vote down ${v === -1 ? "on" : ""}" data-vote="${r.id}" data-vote-dir="-1" aria-pressed="${v === -1}" aria-label="Downvote">▼</button>
+  </span>`;
+}
+
+function starButton(r, progress, stationId) {
+  const sid = pinStationForCard(stationId);
+  if (!sid) return "";
+  const on = pinsOf(progress)[sid] === r.id;
+  const label = on ? "Unpin start here" : "Pin as start here";
+  return `<button type="button" class="star ${on ? "on" : ""}" data-pin="${r.id}" data-pin-station="${sid}" aria-pressed="${on}" aria-label="${label}">★</button>`;
+}
+
+function renderResource(r, progress, { rank = 0, rail = "do", stationId = null } = {}) {
   const st = progress[r.id] || "todo";
   const byId = state.byId;
   const hitRail = r.audio_url ? "commute" : rail;
@@ -211,7 +351,7 @@ function renderResource(r, progress, { rank = 0, rail = "do" } = {}) {
       ${scoreLine(r)}
       <div class="prov">${doRankBadge(rail, rank)}${coveredBadge(r, progress, byId)}${staleBadge(r.url)}${accessBadge(r)}${r.kind} · ${r.provider} · ${r.level}${sittingMark(r.sitting)}</div>
     </div>
-    <div class="status">${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
+      <div class="status">${voteButtons(r, progress)}${starButton(r, progress, stationId)}${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
   </article>`;
 }
 
@@ -231,13 +371,17 @@ function renderParts(parent, progress) {
   return `<div class="parts"><h5>Lessons</h5>${rows}</div>`;
 }
 
-function rail(title, ids, byId, progress, kind, { open = true } = {}) {
-  if (!ids.length) return "";
-  const cards = ids
+function rail(title, ids, byId, progress, kind, { open = true, station = null } = {}) {
+  const list = kind === "do" && station ? doIdsForStation(station, progress, byId) : ids;
+  if (!list.length) return "";
+  const cards = list
     .map((id, i) => {
       const r = byId[id];
       if (!r) return "";
-      return renderResource(r, progress, { rank: i, rail: kind }) + (kind === "do" ? renderParts(r, progress) : "");
+      return (
+        renderResource(r, progress, { rank: i, rail: kind, stationId: station && station.id }) +
+        (kind === "do" ? renderParts(r, progress) : "")
+      );
     })
     .join("");
   if (open) return `<div class="rail-block"><h4>${title}</h4>${cards}</div>`;
@@ -264,6 +408,7 @@ function renderDrawer(node, byId, progress) {
             <div class="prov">${start}${showName(r)} · ${r.kind}${sittingMark(r.sitting)}</div>
           </div>
           <div class="status">
+            ${voteButtons(r, progress)}
             ${playButton(r)}
             ${statusButtons(r.id, progress[r.id] || "todo", ["doing", "done"])}
           </div>
@@ -286,10 +431,10 @@ function renderDrawer(node, byId, progress) {
     <h3>${node.title}</h3>
     <p class="why">${node.why}</p>
     ${skip}
-    ${rail("Do (ranked)", node.do, byId, progress, "do")}
-    ${rail("Build", node.project, byId, progress, "project")}
-    ${rail("Parallel style", node.parallel, byId, progress, "parallel", { open: false })}
-    ${rail("Skim — library, not homework", node.skim, byId, progress, "skim", { open: false })}
+    ${rail("Do (ranked)", node.do, byId, progress, "do", { station: node })}
+    ${rail("Build", node.project, byId, progress, "project", { station: node })}
+    ${rail("Parallel style", node.parallel, byId, progress, "parallel", { open: false, station: node })}
+    ${rail("Skim — library, not homework", node.skim, byId, progress, "skim", { open: false, station: node })}
   `;
 }
 
@@ -492,6 +637,8 @@ async function saveProgress(progress) {
 }
 
 const COMMUTE_POS_KEY = "atlas_commute_pos";
+const NOW_PLAYING_KEY = "atlas_now_playing";
+const PLAYER_SIZE_KEY = "atlas_player_size";
 
 function commuteStore() {
   try {
@@ -507,6 +654,66 @@ function saveCommutePos(id, time, speed) {
   if (id) store.positions[id] = time;
   if (speed != null) store.speed = speed;
   localStorage.setItem(COMMUTE_POS_KEY, JSON.stringify(store));
+}
+
+function readNowPlaying() {
+  try {
+    return JSON.parse(sessionStorage.getItem(NOW_PLAYING_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeNowPlaying(rec, playing) {
+  try {
+    if (!rec) {
+      sessionStorage.removeItem(NOW_PLAYING_KEY);
+      return;
+    }
+    sessionStorage.setItem(NOW_PLAYING_KEY, JSON.stringify({ id: rec.id, playing: !!playing }));
+  } catch {
+    /* private mode */
+  }
+}
+
+function pagePlayerDefaultSize() {
+  return PAGE === "commute" ? "deck" : "mini";
+}
+
+function playerSize() {
+  try {
+    const stored = localStorage.getItem(PLAYER_SIZE_KEY);
+    if (stored === "mini" || stored === "deck") return stored;
+  } catch {
+    /* ignore */
+  }
+  return pagePlayerDefaultSize();
+}
+
+function applyPlayerChrome() {
+  const box = $("player");
+  if (!box) return;
+  const size = playerSize();
+  box.classList.toggle("player-mini", size === "mini");
+  box.classList.toggle("player-deck", size !== "mini");
+  const sizeBtn = $("player-size");
+  if (sizeBtn) {
+    sizeBtn.textContent = size === "mini" ? "Expand" : "Mini";
+    sizeBtn.setAttribute("aria-label", size === "mini" ? "Expand player" : "Minimize player");
+  }
+}
+
+function dismissPlayer() {
+  const audio = $("player-audio");
+  const box = $("player");
+  if (audio) {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+  }
+  state.nowPlaying = null;
+  writeNowPlaying(null, false);
+  if (box) box.hidden = true;
 }
 
 const PURPOSES = {
@@ -570,7 +777,7 @@ function renderCommute() {
           <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
           <div class="prov">${showName(r)} · ${meta ? meta.title : ""}${sittingMark(r.sitting)}</div>
         </div>
-        <div class="status">${playButton(r)}</div>
+        <div class="status">${voteButtons(r, state.progress)}${playButton(r)}</div>
       </article>`;
     })
     .join("");
@@ -735,8 +942,14 @@ function bindPlayer() {
     audio.playbackRate = store.speed || 1;
     markSpeed(audio.playbackRate);
   });
-  audio.addEventListener("play", syncMediaSession);
-  audio.addEventListener("pause", syncMediaSession);
+  audio.addEventListener("play", () => {
+    writeNowPlaying(state.nowPlaying, !audio.paused);
+    syncMediaSession();
+  });
+  audio.addEventListener("pause", () => {
+    writeNowPlaying(state.nowPlaying, !audio.paused);
+    syncMediaSession();
+  });
   audio.addEventListener("ended", () => playCommuteRelative(1));
 }
 
@@ -772,7 +985,7 @@ function syncMediaSession() {
   navigator.mediaSession.playbackState = $("player-audio")?.paused ? "paused" : "playing";
 }
 
-function playCommute(id) {
+function playCommute(id, { autoplay = true } = {}) {
   const rec = state.byId[id];
   if (!rec || !rec.audio_url) return;
   const audio = $("player-audio");
@@ -782,6 +995,8 @@ function playCommute(id) {
   state.nowPlaying = rec;
   if (rec.purpose) activePurpose = rec.purpose;
   box.hidden = false;
+  writeNowPlaying(rec, autoplay);
+  applyPlayerChrome();
   bindPlayer();
   if (audio.getAttribute("src") !== rec.audio_url) {
     audio.src = rec.audio_url;
@@ -789,6 +1004,12 @@ function playCommute(id) {
   const store = commuteStore();
   audio.playbackRate = store.speed || 1;
   markSpeed(audio.playbackRate);
+  if (!autoplay) {
+    const t = store.positions && store.positions[rec.id];
+    if (typeof t === "number" && !Number.isNaN(t) && audio.readyState >= 1) {
+      audio.currentTime = t;
+    }
+  }
   if (title) title.textContent = rec.title;
   const show = $("player-show");
   const stLine = $("player-station");
@@ -801,7 +1022,7 @@ function playCommute(id) {
     art.textContent = meta ? meta.mark : "▶";
   }
   setupMediaSession(rec);
-  audio.play().catch(() => {});
+  if (autoplay) audio.play().catch(() => {});
   if (PAGE === "commute") redraw();
 }
 
@@ -906,6 +1127,46 @@ async function persistAndRedraw() {
   if (lastTopic) askShelf(lastTopic);
 }
 
+globalThis.atlas = {
+  get state() {
+    return state;
+  },
+  get active() {
+    return active;
+  },
+  set active(node) {
+    active = node;
+  },
+  $,
+  PAGE,
+  pinsOf,
+  votesOf,
+  applyVote,
+  doIdsForStation,
+  isComplete,
+  unassignedResources,
+  categoryOf: libraryCategory,
+  libraryGroups,
+  renderResource,
+  renderDrawer,
+  persistAndRedraw,
+  pinStationForCard,
+  togglePin,
+  saveLayout: async (layout) => {
+    const data = await putJson("roadmap_layout.json", layout);
+    state.layout = data && typeof data === "object" ? data : layout;
+    return data;
+  },
+  saveAssignments: async (blob) => {
+    const data = await putJson("assignments.json", blob);
+    if (data && data.graph) state.graph = data.graph;
+    if (data && data.assignments) state.assignments = data.assignments;
+    else if (blob) state.assignments = blob;
+    return data;
+  },
+  isAuthor,
+};
+
 function redraw() {
   const focus = nextFocus(state.graph, state.resources, state.progress);
   if (!focus.done) ensureStageOpen(stationById(focus.stationId));
@@ -918,6 +1179,8 @@ function redraw() {
   if (PAGE === "commute") {
     renderPurposeMap(state.progress, activePurpose, state.byId);
     renderDrawer(activePurpose, state.byId, state.progress);
+  } else if (PAGE === "roadmap") {
+    globalThis.renderRoadmap?.();
   } else {
     renderMap(state.graph, state.progress, active && active.id, expanded, state.byId);
     renderDrawer(active, state.byId, state.progress);
@@ -928,11 +1191,51 @@ function redraw() {
 }
 
 redraw();
+bindPlayer();
+const pending = readNowPlaying();
+if (pending && pending.id && state.byId[pending.id] && state.byId[pending.id].audio_url) {
+  playCommute(pending.id, { autoplay: !!pending.playing });
+}
 
 document.body.addEventListener("click", async (ev) => {
+  const pinBtn = ev.target.closest("[data-pin]");
+  if (pinBtn) {
+    const sid = pinBtn.dataset.pinStation;
+    const rid = pinBtn.dataset.pin;
+    if (!sid || !rid) return;
+    snapshot();
+    state.progress = togglePin(state.progress, sid, rid);
+    await persistAndRedraw();
+    return;
+  }
+  const voteBtn = ev.target.closest("[data-vote]");
+  if (voteBtn) {
+    const rid = voteBtn.dataset.vote;
+    const dir = Number(voteBtn.dataset.voteDir);
+    if (!rid || (dir !== 1 && dir !== -1)) return;
+    snapshot();
+    state.progress = applyVote(state.progress, rid, dir);
+    await persistAndRedraw();
+    return;
+  }
   const playBtn = ev.target.closest("[data-commute-play]");
   if (playBtn) {
     playCommute(playBtn.dataset.commutePlay);
+    return;
+  }
+  if (ev.target.id === "player-size") {
+    const next = playerSize() === "mini" ? "deck" : "mini";
+    try {
+      localStorage.setItem(PLAYER_SIZE_KEY, next);
+    } catch {
+      /* private mode */
+    }
+    applyPlayerChrome();
+    return;
+  }
+  if (ev.target.id === "player-dismiss") {
+    dismissPlayer();
+    redraw();
     return;
   }
   if (ev.target.id === "player-toggle") {

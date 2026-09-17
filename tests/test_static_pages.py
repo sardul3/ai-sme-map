@@ -25,17 +25,22 @@ class TestAtlasRoot(unittest.TestCase):
             "/commute.html": "/",
             "/library": "/",
             "/library.html": "/",
+            "/roadmap": "/",
+            "/roadmap.html": "/",
             "/web/index.html": "/",
             "/ai-sme-map": "/ai-sme-map/",
             "/ai-sme-map/": "/ai-sme-map/",
             "/ai-sme-map/commute": "/ai-sme-map/",
             "/ai-sme-map/commute.html": "/ai-sme-map/",
             "/ai-sme-map/library.html": "/ai-sme-map/",
+            "/ai-sme-map/roadmap.html": "/ai-sme-map/",
             "/ai-sme-map/web/index.html": "/ai-sme-map/",
         }
         for path, expected in cases.items():
             with self.subTest(path=path):
                 self.assertEqual(atlas_root(path), expected)
+        self.assertEqual(atlas_root("/roadmap.html"), "/")
+        self.assertEqual(atlas_root("/ai-sme-map/roadmap.html"), "/ai-sme-map/")
 
 
 class TestServePublicPaths(unittest.TestCase):
@@ -46,16 +51,21 @@ class TestServePublicPaths(unittest.TestCase):
         self.assertEqual(resolve_public_path("/commute.html"), "/web/commute.html")
         self.assertEqual(resolve_public_path("/library"), "/web/library.html")
         self.assertEqual(resolve_public_path("/library.html"), "/web/library.html")
+        self.assertEqual(resolve_public_path("/roadmap"), "/web/roadmap.html")
+        self.assertEqual(resolve_public_path("/roadmap.html"), "/web/roadmap.html")
         self.assertEqual(resolve_public_path("/styles.css"), "/web/styles.css")
         self.assertEqual(resolve_public_path("/app.js"), "/web/app.js")
+        self.assertEqual(resolve_public_path("/roadmap.js"), "/web/roadmap.js")
         self.assertEqual(resolve_public_path("/data/graph.json"), "/data/graph.json")
 
 
 class TestRelativeAssets(unittest.TestCase):
     def test_given_html_when_read_then_assets_are_relative(self):
-        for name in ("index.html", "commute.html", "library.html"):
-            html = (ROOT / "web" / name).read_text()
+        for name in ("index.html", "commute.html", "library.html", "roadmap.html"):
+            path = ROOT / "web" / name
             with self.subTest(name=name):
+                self.assertTrue(path.is_file(), name)
+                html = path.read_text()
                 self.assertIn('href="styles.css"', html)
                 self.assertIn('src="app.js"', html)
                 self.assertNotIn("/web/styles.css", html)
@@ -77,10 +87,15 @@ class TestExportStatic(unittest.TestCase):
             self.assertTrue((dest / "index.html").is_file())
             self.assertTrue((dest / "commute.html").is_file())
             self.assertTrue((dest / "library.html").is_file())
+            self.assertTrue((dest / "roadmap.html").is_file())
             self.assertTrue((dest / "app.js").is_file())
+            self.assertTrue((dest / "roadmap.js").is_file())
             self.assertTrue((dest / "styles.css").is_file())
             self.assertTrue((dest / "data" / "graph.json").is_file())
             self.assertTrue((dest / "data" / "resources.json").is_file())
+            self.assertTrue((dest / "data" / "assignments.json").is_file())
+            self.assertTrue((dest / "data" / "roadmap_layout.json").is_file())
+            self.assertFalse((dest / "data" / "graph.seed.json").exists())
             self.assertTrue((dest / ".nojekyll").is_file())
             progress = json.loads((dest / "data" / "progress.json").read_text())
             self.assertEqual(set(progress), {"schema_version"})

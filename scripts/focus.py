@@ -74,6 +74,60 @@ def rollup_all(progress: dict, resources_by_id: dict) -> dict:
     return out
 
 
+def pins_of(progress: dict) -> dict[str, str]:
+    raw = progress.get("pins")
+    if not isinstance(raw, dict):
+        return {}
+    return {k: v for k, v in raw.items() if isinstance(k, str) and isinstance(v, str)}
+
+
+def votes_of(progress: dict) -> dict[str, int]:
+    raw = progress.get("votes")
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for key, value in raw.items():
+        if isinstance(key, str) and value in (1, -1):
+            out[key] = value
+    return out
+
+
+def vote_of(progress: dict, resource_id: str) -> int:
+    return votes_of(progress).get(resource_id, 0)
+
+
+def apply_vote(progress: dict, resource_id: str, value: int) -> dict:
+    if value not in (1, -1):
+        raise ValueError(value)
+    votes = dict(votes_of(progress))
+    if votes.get(resource_id) == value:
+        votes.pop(resource_id, None)
+    else:
+        votes[resource_id] = value
+    out = dict(progress)
+    if votes:
+        out["votes"] = votes
+    else:
+        out.pop("votes", None)
+    return out
+
+
+def station_primary(station: dict, progress: dict, resources_by_id: dict) -> str | None:
+    pin = pins_of(progress).get(station["id"])
+    if pin and pin in resources_by_id and not is_complete(progress, pin, resources_by_id):
+        return pin
+    do = station.get("do") or []
+    return do[0] if do else None
+
+
+def do_ids_for_station(station: dict, progress: dict, resources_by_id: dict) -> list[str]:
+    do = list(station.get("do") or [])
+    pin = pins_of(progress).get(station["id"])
+    if pin and pin in resources_by_id and not is_complete(progress, pin, resources_by_id):
+        return [pin] + [i for i in do if i != pin]
+    return do
+
+
 def _focus(station: dict, rec: dict, part: dict | None) -> dict:
     title = (part or {}).get("title") or rec["title"]
     url = (part or {}).get("url") or rec.get("url")
@@ -95,10 +149,9 @@ def _focus(station: dict, rec: dict, part: dict | None) -> dict:
 def next_focus(graph: dict, resources: list[dict], progress: dict) -> dict:
     resources_by_id = by_id(resources)
     for station in graph.get("nodes") or []:
-        do = station.get("do") or []
-        if not do:
+        primary_id = station_primary(station, progress, resources_by_id)
+        if not primary_id:
             continue
-        primary_id = do[0]
         rec = resources_by_id.get(primary_id)
         if not rec:
             continue

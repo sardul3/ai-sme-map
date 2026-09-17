@@ -18,6 +18,7 @@
         <a href="index.html" aria-current="page">Tonight</a>
         <a href="commute.html">Commute · eyes-off</a>
         <a href="library.html">Library · unassigned</a>
+        <a href="roadmap.html">Roadmap</a>
       </nav>
     </div>
     <dl class="counts" id="counts"></dl>
@@ -27,7 +28,7 @@
     Do the first link. <span class="swatch theory">theory</span> is orange,
     <span class="swatch practice">practice</span> is blue.
     Parallel and Skim are a library, not tonight’s queue.
-    Software-first path: T0 practice <em>Ship code with a model</em> — Claude Code, then LangGraph and MCP. No linear algebra required.
+    Builder path: T3 practice <em>Ship code with a model</em> — Claude Code, then LangGraph and MCP — after classical ML.
   </p>
 
   <section class="focus" id="focus"></section>
@@ -62,6 +63,10 @@
       <p class="kicker" id="player-show">Now playing</p>
       <p id="player-title"></p>
       <p class="player-station" id="player-station"></p>
+      <div class="player-chrome">
+        <button type="button" id="player-size" aria-label="Minimize player">Mini</button>
+        <button type="button" id="player-dismiss" aria-label="Dismiss player">Dismiss</button>
+      </div>
     </div>
     <audio id="player-audio"></audio>
     <div class="player-controls">

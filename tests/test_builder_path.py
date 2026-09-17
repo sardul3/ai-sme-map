@@ -6,16 +6,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TestBuilderPath(unittest.TestCase):
-    def test_given_compiled_graph_when_read_then_t0_builder_stations_exist(self):
+    def test_given_compiled_graph_when_read_then_builder_stations_follow_core_ml(self):
         graph = json.loads((ROOT / "data" / "graph.json").read_text())
         by_id = {n["id"]: n for n in graph["nodes"]}
+        ids = [n["id"] for n in graph["nodes"]]
         code = by_id["s-code-agents"]
         graphs = by_id["s-agent-graphs"]
-        self.assertEqual(code["stage"], 0)
+        self.assertEqual(code["stage"], 3)
         self.assertEqual(code["rail"], "practice")
-        self.assertEqual(code["prereqs"], [])
-        self.assertEqual(graphs["stage"], 0)
+        self.assertEqual(code["prereqs"], ["s-ml-do"])
+        self.assertEqual(graphs["stage"], 3)
         self.assertEqual(graphs["rail"], "practice")
+        self.assertEqual(graphs["prereqs"], ["s-code-agents"])
+        self.assertGreater(ids.index("s-code-agents"), ids.index("s-ml-do"))
+        self.assertGreater(ids.index("s-code-agents"), ids.index("s-eval"))
+        self.assertGreater(ids.index("s-code-agents"), ids.index("s-gnn"))
         self.assertTrue(code["do"])
         self.assertTrue(graphs["do"])
 

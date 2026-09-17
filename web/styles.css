@@ -189,6 +189,44 @@ h1 {
   margin: 28px -32px -80px;
   box-shadow: 0 -12px 32px rgba(28, 42, 74, 0.28);
 }
+.player[hidden] {
+  display: none;
+}
+.player.player-mini {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: auto;
+  width: min(22rem, calc(100vw - 32px));
+  grid-template-columns: auto 1fr auto;
+  margin: 0;
+}
+.player-mini .player-controls {
+  grid-column: auto;
+}
+.player-mini .player-seek-label,
+.player-mini .speeds,
+.player-mini [data-skip],
+.player-mini #player-prev,
+.player-mini #player-next {
+  display: none;
+}
+.player-chrome {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.player-chrome button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--ticket);
+  background: transparent;
+  color: var(--ticket);
+  padding: 4px 8px;
+  cursor: pointer;
+}
 .player-art {
   width: 56px;
   height: 56px;
@@ -486,6 +524,28 @@ h1 {
   color: var(--ticket);
   border-color: var(--ink);
 }
+.status .star {
+  font-size: 16px;
+  line-height: 1;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--rule);
+}
+.status .star.on { color: var(--theory); border-color: var(--theory); background: transparent; }
+.status .votes {
+  display: inline-flex;
+  gap: 2px;
+}
+.status .vote {
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 6px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--rule);
+}
+.status .vote.up.on { color: var(--done); border-color: var(--done); background: transparent; }
+.status .vote.down.on { color: var(--practice); border-color: var(--practice); background: transparent; }
 
 .hits h3 { font-family: "Fraunces", serif; font-weight: 500; margin-top: 0; }
 .badge {
@@ -529,6 +589,115 @@ h1 {
   margin: 8px 0 4px;
 }
 .card.part { grid-template-columns: 1fr auto; }
+
+.roadmap-board {
+  position: relative;
+  margin: 22px 0;
+}
+.roadmap-board svg {
+  width: 100%;
+  height: calc(100vh - 12rem);
+  background: var(--ticket);
+  border: 1px solid var(--ink);
+  cursor: grab;
+  display: block;
+  touch-action: none;
+}
+.roadmap-board svg.panning { cursor: grabbing; }
+.roadmap-zoom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.roadmap-zoom button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background: var(--ticket);
+  color: var(--ink);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+#roadmap-zoom-pct {
+  min-width: 3.4em;
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--ink);
+}
+.roadmap-lane-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--muted);
+  letter-spacing: 0.06em;
+}
+.roadmap-checkpoint-body {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+.roadmap-checkpoint-rail { fill: var(--rule); }
+.roadmap-checkpoint.theory .roadmap-checkpoint-rail { fill: var(--theory); }
+.roadmap-checkpoint.practice .roadmap-checkpoint-rail { fill: var(--practice); }
+.roadmap-checkpoint-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+.roadmap-checkpoint-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  fill: var(--muted);
+  letter-spacing: 0.06em;
+}
+.roadmap-cluster-body {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-dasharray: 5 4;
+}
+.roadmap-chip { cursor: pointer; }
+.roadmap-chip-link { cursor: pointer; }
+.roadmap-edge {
+  stroke: var(--ink);
+  stroke-opacity: 0.4;
+  stroke-width: 1.6;
+  fill: none;
+}
+.roadmap-edge-side {
+  stroke-opacity: 0.2;
+  stroke-dasharray: 4 3;
+}
+.roadmap-edge-prereq { stroke-opacity: 0.5; }
+.roadmap-arrow { fill: var(--ink); }
+.roadmap-chip rect {
+  fill: var(--ticket);
+  stroke: var(--ink);
+}
+.roadmap-chip-title {
+  font-family: "Figtree", system-ui, sans-serif;
+  font-size: 11px;
+  fill: var(--ink);
+  pointer-events: none;
+}
+.roadmap-mark {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--done);
+  pointer-events: none;
+}
+.roadmap-star {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  fill: var(--theory);
+  pointer-events: none;
+}
+
 button.skip {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11px;

@@ -139,62 +139,6 @@
       ]
     },
     {
-      "id": "s-code-agents",
-      "title": "Ship code with a model",
-      "stage": 0,
-      "rail": "practice",
-      "branch": "code-llm",
-      "prereqs": [],
-      "why": "A coding agent is tonight\u2019s sitting. No linear algebra required.",
-      "do": [
-        "r-4d17281029",
-        "r-34eb71ab7d"
-      ],
-      "parallel": [
-        "r-8a977528ce",
-        "r-d57801422b",
-        "r-4196a8dc1f"
-      ],
-      "skim": [
-        "r-fb8dc53be9",
-        "r-9c241fb43b"
-      ],
-      "project": [
-        "r-4d17281029"
-      ]
-    },
-    {
-      "id": "s-agent-graphs",
-      "title": "Loops, tools, other agents",
-      "stage": 0,
-      "rail": "practice",
-      "branch": "agents",
-      "prereqs": [
-        "s-code-agents"
-      ],
-      "why": "LangGraph, MCP, multi-agent. Still no backprop required.",
-      "do": [
-        "r-46d288b663",
-        "r-abff9fb09f"
-      ],
-      "parallel": [
-        "r-d08dc0bc77",
-        "r-edae69a01e",
-        "r-e73cd795c4"
-      ],
-      "skim": [
-        "r-1056111271",
-        "r-edc8ba5f12",
-        "r-fd26f592f2",
-        "r-10269d4871",
-        "r-ba7749319b",
-        "r-c0386a1e9f"
-      ],
-      "project": [
-        "r-2046e661ad"
-      ]
-    },
-    {
       "id": "s-ml-intuit",
       "title": "Algorithms in English",
       "stage": 1,
@@ -592,6 +536,64 @@
       ],
       "project": [
         "r-89e72fece6"
+      ]
+    },
+    {
+      "id": "s-code-agents",
+      "title": "Ship code with a model",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "code-llm",
+      "prereqs": [
+        "s-ml-do"
+      ],
+      "why": "Coding agents after classical ML: Claude Code, then LangGraph and MCP.",
+      "do": [
+        "r-4d17281029",
+        "r-34eb71ab7d"
+      ],
+      "parallel": [
+        "r-8a977528ce",
+        "r-d57801422b",
+        "r-4196a8dc1f"
+      ],
+      "skim": [
+        "r-fb8dc53be9",
+        "r-9c241fb43b"
+      ],
+      "project": [
+        "r-4d17281029"
+      ]
+    },
+    {
+      "id": "s-agent-graphs",
+      "title": "Loops, tools, other agents",
+      "stage": 3,
+      "rail": "practice",
+      "branch": "agents",
+      "prereqs": [
+        "s-code-agents"
+      ],
+      "why": "LangGraph, MCP, multi-agent. After you can train a classical model.",
+      "do": [
+        "r-46d288b663",
+        "r-abff9fb09f"
+      ],
+      "parallel": [
+        "r-d08dc0bc77",
+        "r-edae69a01e",
+        "r-e73cd795c4"
+      ],
+      "skim": [
+        "r-1056111271",
+        "r-edc8ba5f12",
+        "r-fd26f592f2",
+        "r-10269d4871",
+        "r-ba7749319b",
+        "r-c0386a1e9f"
+      ],
+      "project": [
+        "r-2046e661ad"
       ]
     },
     {

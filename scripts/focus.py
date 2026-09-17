@@ -81,6 +81,37 @@ def pins_of(progress: dict) -> dict[str, str]:
     return {k: v for k, v in raw.items() if isinstance(k, str) and isinstance(v, str)}
 
 
+def votes_of(progress: dict) -> dict[str, int]:
+    raw = progress.get("votes")
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for key, value in raw.items():
+        if isinstance(key, str) and value in (1, -1):
+            out[key] = value
+    return out
+
+
+def vote_of(progress: dict, resource_id: str) -> int:
+    return votes_of(progress).get(resource_id, 0)
+
+
+def apply_vote(progress: dict, resource_id: str, value: int) -> dict:
+    if value not in (1, -1):
+        raise ValueError(value)
+    votes = dict(votes_of(progress))
+    if votes.get(resource_id) == value:
+        votes.pop(resource_id, None)
+    else:
+        votes[resource_id] = value
+    out = dict(progress)
+    if votes:
+        out["votes"] = votes
+    else:
+        out.pop("votes", None)
+    return out
+
+
 def station_primary(station: dict, progress: dict, resources_by_id: dict) -> str | None:
     pin = pins_of(progress).get(station["id"])
     if pin and pin in resources_by_id and not is_complete(progress, pin, resources_by_id):

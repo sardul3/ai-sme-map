@@ -109,3 +109,47 @@ class TestRoadmapView(unittest.TestCase):
         self.assertIn('setRoadmapNote("")', after_lay[:catch_lay])
         snap = self._fn_block(js, "snapBack")
         self.assertIn("Assignments are localhost-only.", snap)
+
+    def test_given_roadmap_js_when_read_then_listing_arrows(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("roadmap-edge", js)
+        self.assertIn("<line", js)
+        self.assertIn("listingAnchors", js)
+        self.assertIn("listingEdges", js)
+        self.assertIn("marker-end", js)
+        edges = self._fn_block(js, "listingEdges")
+        self.assertIn("must", edges)
+        self.assertIn("prereqs", edges)
+
+    def test_given_roadmap_js_when_read_then_on_screen_zoom_controls(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("roadmap-zoom-in", js)
+        self.assertIn("roadmap-zoom-out", js)
+        self.assertIn("roadmap-zoom-pct", js)
+        self.assertTrue("SCALE_MAX" in js or "8" in js)
+        self.assertIn("zoomBy", js)
+
+    def test_given_chip_when_read_then_course_url_is_openable(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        chip = self._fn_block(js, "chipMarkup")
+        self.assertIn("data-url", chip)
+        self.assertIn("<a", chip)
+        self.assertIn("href=", chip)
+        self.assertIn("target=\"_blank\"", chip)
+        finish = js[js.index("async function finishChipDrag") : js.index("async function finishGroupDrag")]
+        self.assertIn("window.open", finish)
+        self.assertIn("!drag.moved", finish)
+
+    def test_given_layout_constants_when_read_then_columns_are_not_tight(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("STAGE_GAP", js)
+        self.assertIn("CHECKPOINT_W +", js)
+        self.assertRegex(js, r"CHIP_W\s*=\s*(2[5-9]\d|[3-9]\d{2})")
+        self.assertIn("laneX", js)
+        self.assertIn("CLUSTER_COLS", js)
+
+    def test_given_roadmap_js_when_read_then_viewbox_tracks_viewport(self):
+        js = (ROOT / "web" / "roadmap.js").read_text()
+        self.assertIn("syncViewBox", js)
+        self.assertIn("getBoundingClientRect", js)
+        self.assertNotIn("0 0 ${VIEW_W} ${VIEW_H}", js)

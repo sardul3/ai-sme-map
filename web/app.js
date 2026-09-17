@@ -163,6 +163,31 @@ function togglePin(progress, stationId, resourceId) {
   return { ...progress, pins };
 }
 
+function votesOf(progress) {
+  const raw = progress && progress.votes;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (typeof k === "string" && (Number(v) === 1 || Number(v) === -1)) out[k] = Number(v);
+  }
+  return out;
+}
+
+function voteOf(progress, resourceId) {
+  return votesOf(progress)[resourceId] || 0;
+}
+
+function applyVote(progress, resourceId, value) {
+  const dir = Number(value);
+  const votes = { ...votesOf(progress) };
+  if (votes[resourceId] === dir) delete votes[resourceId];
+  else votes[resourceId] = dir;
+  const out = { ...progress };
+  if (Object.keys(votes).length) out.votes = votes;
+  else delete out.votes;
+  return out;
+}
+
 function applyStatus(progress, byId, id, status) {
   const out = { ...progress, [id]: status };
   const rec = byId[id] || {};
@@ -299,6 +324,14 @@ function playButton(r) {
   return `<button type="button" data-commute-play="${r.id}" aria-label="Play ${r.title}">Play</button>`;
 }
 
+function voteButtons(r, progress) {
+  const v = voteOf(progress, r.id);
+  return `<span class="votes">
+    <button type="button" class="vote up ${v === 1 ? "on" : ""}" data-vote="${r.id}" data-vote-dir="1" aria-pressed="${v === 1}" aria-label="Upvote">▲</button>
+    <button type="button" class="vote down ${v === -1 ? "on" : ""}" data-vote="${r.id}" data-vote-dir="-1" aria-pressed="${v === -1}" aria-label="Downvote">▼</button>
+  </span>`;
+}
+
 function starButton(r, progress, stationId) {
   const sid = pinStationForCard(stationId);
   if (!sid) return "";
@@ -318,7 +351,7 @@ function renderResource(r, progress, { rank = 0, rail = "do", stationId = null }
       ${scoreLine(r)}
       <div class="prov">${doRankBadge(rail, rank)}${coveredBadge(r, progress, byId)}${staleBadge(r.url)}${accessBadge(r)}${r.kind} · ${r.provider} · ${r.level}${sittingMark(r.sitting)}</div>
     </div>
-    <div class="status">${starButton(r, progress, stationId)}${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
+      <div class="status">${voteButtons(r, progress)}${starButton(r, progress, stationId)}${playButton(r)}${statusButtons(r.id, st, statusKinds(hitRail))}</div>
   </article>`;
 }
 
@@ -375,6 +408,7 @@ function renderDrawer(node, byId, progress) {
             <div class="prov">${start}${showName(r)} · ${r.kind}${sittingMark(r.sitting)}</div>
           </div>
           <div class="status">
+            ${voteButtons(r, progress)}
             ${playButton(r)}
             ${statusButtons(r.id, progress[r.id] || "todo", ["doing", "done"])}
           </div>
@@ -743,7 +777,7 @@ function renderCommute() {
           <div class="title"><a href="${r.url}" target="_blank" rel="noreferrer">${r.title}</a></div>
           <div class="prov">${showName(r)} · ${meta ? meta.title : ""}${sittingMark(r.sitting)}</div>
         </div>
-        <div class="status">${playButton(r)}</div>
+        <div class="status">${voteButtons(r, state.progress)}${playButton(r)}</div>
       </article>`;
     })
     .join("");
@@ -1106,6 +1140,8 @@ globalThis.atlas = {
   $,
   PAGE,
   pinsOf,
+  votesOf,
+  applyVote,
   doIdsForStation,
   isComplete,
   unassignedResources,
@@ -1169,6 +1205,16 @@ document.body.addEventListener("click", async (ev) => {
     if (!sid || !rid) return;
     snapshot();
     state.progress = togglePin(state.progress, sid, rid);
+    await persistAndRedraw();
+    return;
+  }
+  const voteBtn = ev.target.closest("[data-vote]");
+  if (voteBtn) {
+    const rid = voteBtn.dataset.vote;
+    const dir = Number(voteBtn.dataset.voteDir);
+    if (!rid || (dir !== 1 && dir !== -1)) return;
+    snapshot();
+    state.progress = applyVote(state.progress, rid, dir);
     await persistAndRedraw();
     return;
   }

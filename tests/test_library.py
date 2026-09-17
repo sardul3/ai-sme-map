@@ -193,5 +193,17 @@ class TestPinUiContract(unittest.TestCase):
         self.assertIn(".hidden", pin_fn)
 
 
+class TestVoteUiContract(unittest.TestCase):
+    def test_given_app_js_when_read_then_vote_helpers_and_controls(self):
+        js = (ROOT / "web" / "app.js").read_text()
+        self.assertIn("function votesOf", js)
+        self.assertIn("function applyVote", js)
+        self.assertIn("data-vote", js)
+        self.assertIn("data-vote-dir", js)
+        self.assertIn("progress.votes", js)
+        resource = js[js.index("function renderResource") : js.index("function renderParts")]
+        self.assertIn("voteButtons", resource)
+
+
 if __name__ == "__main__":
     unittest.main()

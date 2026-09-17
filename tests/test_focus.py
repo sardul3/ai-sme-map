@@ -131,6 +131,41 @@ class TestPins(unittest.TestCase):
         self.assertEqual(len(ids), 2)
 
 
+class TestVotes(unittest.TestCase):
+    def test_given_upvote_when_apply_then_stored(self):
+        from focus import apply_vote, vote_of, votes_of
+
+        out = apply_vote({}, "r-3b1b", 1)
+        self.assertEqual(vote_of(out, "r-3b1b"), 1)
+        self.assertEqual(votes_of(out)["r-3b1b"], 1)
+
+    def test_given_same_vote_when_apply_again_then_cleared(self):
+        from focus import apply_vote, vote_of
+
+        once = apply_vote({}, "r-3b1b", 1)
+        out = apply_vote(once, "r-3b1b", 1)
+        self.assertEqual(vote_of(out, "r-3b1b"), 0)
+        self.assertNotIn("r-3b1b", out.get("votes") or {})
+
+    def test_given_upvote_when_downvote_then_switches(self):
+        from focus import apply_vote, vote_of
+
+        out = apply_vote(apply_vote({}, "r-3b1b", 1), "r-3b1b", -1)
+        self.assertEqual(vote_of(out, "r-3b1b"), -1)
+
+    def test_given_votes_when_status_then_votes_survive(self):
+        from focus import apply_status, apply_vote
+
+        start = apply_vote({}, "r-3b1b", 1)
+        out = apply_status(start, by_id(RES), "r-imperial", "done")
+        self.assertEqual(out["votes"]["r-3b1b"], 1)
+        self.assertEqual(out["r-imperial"], "done")
+
+    def test_given_votes_when_focus_then_still_do0(self):
+        f = next_focus(GRAPH, RES, {"votes": {"r-strang": 1, "r-3b1b": -1}})
+        self.assertEqual(f["resource_id"], "r-3b1b")
+
+
 class TestCatalogFocus(unittest.TestCase):
     def test_empty_atlas_focuses_essence_path(self):
         import json

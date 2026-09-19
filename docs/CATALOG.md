@@ -2,6 +2,10 @@
 
 Do-rail edits are human-gated. Harvest may add Skim URLs.
 
+## 2026-09-20
+
+- Agent feed: compile writes `data/links.json` (`atlas.links.v1`, title + url, unique URLs including lesson parts). Shipped on Pages. Homepage link “Agent links”. Inbox stays out.
+
 ## 2026-09-12 (evening)
 
 - Do-rail URL repairs (human-gated): Eugene Yan `/writing/evals/`, Brady Neal causal-inference course, Lattimore & Szepesvári author PDF, sktime keeps `www`.

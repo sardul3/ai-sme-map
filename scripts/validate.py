@@ -59,12 +59,45 @@ MIN_STATIONS = 40
 RAILS = ("do", "parallel", "skim", "project")
 
 
+def validate_links(resources: list[dict], doc: object) -> list[str]:
+    from compile_catalog import lean_links
+
+    errors: list[str] = []
+    if not isinstance(doc, dict):
+        return ["links.json missing or not an object"]
+    if doc.get("schema") != "atlas.links.v1":
+        errors.append("links.json schema must be atlas.links.v1")
+    items = doc.get("items")
+    if not isinstance(items, list):
+        errors.append("links.json items must be a list")
+        return errors
+    if doc.get("count") != len(items):
+        errors.append("links.json count mismatch")
+    for i, row in enumerate(items):
+        if not isinstance(row, dict) or set(row) != {"title", "url"}:
+            errors.append(f"links.json item {i} must have exactly title and url")
+            continue
+        if not str(row.get("url") or "").startswith("http"):
+            errors.append(f"links.json item {i} non-http url")
+    urls = [row["url"] for row in items if isinstance(row, dict) and "url" in row]
+    if len(urls) != len(set(urls)):
+        errors.append("links.json duplicate URLs")
+    expected = {row["url"] for row in lean_links(resources)}
+    if set(urls) != expected:
+        errors.append("links.json URLs do not match catalog flatten")
+    return errors
+
+
 def main() -> None:
     resources = json.loads((DATA / "resources.json").read_text())
     graph = json.loads((DATA / "graph.json").read_text())
+    links_path = DATA / "links.json"
+    if not links_path.exists():
+        errors = ["missing data/links.json"]
+    else:
+        errors = validate_links(resources, json.loads(links_path.read_text()))
     urls = [r["url"] for r in resources]
     ids = {r["id"] for r in resources}
-    errors = []
     if len(resources) < 500:
         errors.append(f"need ≥500 resources, have {len(resources)}")
     if len(set(urls)) != len(urls):

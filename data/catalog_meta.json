@@ -1,8 +1,9 @@
 {
-  "compiled_at": "2026-09-17T02:17:22Z",
-  "git_sha": "78ab880",
+  "compiled_at": "2026-09-19T19:01:45Z",
+  "git_sha": "602c6f5",
   "ranking_pass": "2026-09-12",
   "resource_count": 1453,
+  "links_count": 1453,
   "featured_count": 205,
   "station_count": 61,
   "do_rail_human_gate": true,

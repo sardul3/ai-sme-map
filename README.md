@@ -6,7 +6,7 @@ Resources are ranked by **intuition, exercises, modern stack, leftover SME depth
 
 **This is not** a degree, not 1,242 homework items, not dealradar, and not a hosted app. Progress is a local file. Do not put the PUT endpoint on a public IP.
 
-**61 stations** across T0–T7. The builder fork (Claude Code, LangGraph, MCP) sits at T3 after classical ML so those prereqs are met. Local: [http://127.0.0.1:7432](http://127.0.0.1:7432). Public static copy: [https://sardul3.github.io/ai-sme-map/](https://sardul3.github.io/ai-sme-map/) (progress in `localStorage`; no public PUT).
+**61 stations** across T0–T7. The builder fork (Claude Code, LangGraph, MCP) sits at T3 after classical ML so those prereqs are met. Local: [http://127.0.0.1:7432](http://127.0.0.1:7432). Public static copy: [https://sardul3.github.io/ai-sme-map/](https://sardul3.github.io/ai-sme-map/) (progress in `localStorage`; no public PUT). Agent catalog (title + url, every unique learning URL including lesson parts): [data/links.json](https://sardul3.github.io/ai-sme-map/data/links.json).
 
 ## Run (supported path)
 

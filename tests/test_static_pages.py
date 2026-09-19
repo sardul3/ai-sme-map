@@ -93,6 +93,7 @@ class TestExportStatic(unittest.TestCase):
             self.assertTrue((dest / "styles.css").is_file())
             self.assertTrue((dest / "data" / "graph.json").is_file())
             self.assertTrue((dest / "data" / "resources.json").is_file())
+            self.assertTrue((dest / "data" / "links.json").is_file())
             self.assertTrue((dest / "data" / "assignments.json").is_file())
             self.assertTrue((dest / "data" / "roadmap_layout.json").is_file())
             self.assertFalse((dest / "data" / "graph.seed.json").exists())

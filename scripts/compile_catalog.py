@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile harvest markdown + curated winners into resources.json and graph.json."""
+"""Compile harvest markdown + curated winners into resources.json, links.json, and graph.json."""
 
 from __future__ import annotations
 
@@ -221,6 +221,41 @@ def normalize(url: str) -> str:
         path = p.path.replace("/pdf/", "/abs/").replace(".pdf", "")
         return f"https://arxiv.org{path}"
     return urlunparse(("https", host, p.path.rstrip("/"), "", query, ""))
+
+
+def lean_links(resources: list[dict]) -> list[dict]:
+    """Unique title+url rows: each resource URL plus nested parts with a URL."""
+    seen: dict[str, str] = {}
+
+    def consider(title: object, url: object) -> None:
+        if not isinstance(url, str) or not url.strip():
+            return
+        try:
+            nurl = normalize(url)
+        except Exception:
+            return
+        if not nurl.startswith("http") or nurl in seen:
+            return
+        seen[nurl] = str(title or "").strip()[:180]
+
+    for rec in resources:
+        consider(rec.get("title"), rec.get("url"))
+        for part in rec.get("parts") or []:
+            consider(part.get("title"), part.get("url"))
+    items = [{"title": title, "url": url} for url, title in seen.items()]
+    items.sort(key=lambda row: (row["title"].lower(), row["url"]))
+    return items
+
+
+def links_document(resources: list[dict], compiled_at: str, git_sha: str) -> dict:
+    items = lean_links(resources)
+    return {
+        "schema": "atlas.links.v1",
+        "compiled_at": compiled_at,
+        "git_sha": git_sha,
+        "count": len(items),
+        "items": items,
+    }
 
 
 def kind_of(url: str, title: str) -> str:
@@ -1750,6 +1785,8 @@ def main() -> None:
 
     (DATA / "resources.json").write_text(json.dumps(resources, indent=2) + "\n")
     (DATA / "graph.json").write_text(json.dumps(graph, indent=2) + "\n")
+    links = links_document(resources, compiled_at, git_sha)
+    (DATA / "links.json").write_text(json.dumps(links, indent=2) + "\n")
     hashes = harvest_hashes()
     (DATA / "harvest.hashes.json").write_text(json.dumps(hashes, indent=2) + "\n")
     meta = {
@@ -1757,6 +1794,7 @@ def main() -> None:
         "git_sha": git_sha,
         "ranking_pass": "2026-09-12",
         "resource_count": len(resources),
+        "links_count": links["count"],
         "featured_count": sum(1 for r in resources if r.get("featured")),
         "station_count": len(nodes),
         "do_rail_human_gate": True,

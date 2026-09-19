@@ -14,6 +14,7 @@ WEB_FILES = ("index.html", "commute.html", "library.html", "roadmap.html", "app.
 DATA_FILES = (
     "graph.json",
     "resources.json",
+    "links.json",
     "catalog_meta.json",
     "placement.json",
     "link_status.json",

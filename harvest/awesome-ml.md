@@ -727,6 +727,7 @@ Read the paper [here](https://arxiv.org/abs/1902.06714).
 * [WebDNN](https://github.com/mil-tokyo/webdnn) - Fast Deep Neural Network JavaScript Framework. WebDNN uses next generation JavaScript API, WebGPU for GPU execution, and WebAssembly for CPU execution.
 * [WebNN](https://webnn.dev) - A new web standard that allows web apps and frameworks to accelerate deep neural networks with on-device hardware such as GPUs, CPUs, or purpose-built AI accelerators.
 * [Kandle](https://github.com/final-kk/kandle) - A JavaScript Native PyTorch-aligned Machine Learning Framework, built from scratch on WebGPU.
+* [AI on Browser](https://github.com/ai-on-browser/ai-on-browser.github.io) - An educational, pure JavaScript library designed to help developers and students understand the inner workings of ML algorithms without the magic of external libraries.
 
 <a name="javascript-speech-recognition"></a>
 #### Speech Recognition
@@ -1895,6 +1896,7 @@ be
 <a name="tools-educational-tools"></a>
 #### Educational Tools
 * [NN Visual](https://nn-visual.com) - Interactive visualizations explaining neural networks, backpropagation, attention mechanisms, and transformers.
+* [QuiddityML](https://quiddityml.com/?utm_source=github&utm_medium=awesome&utm_campaign=awesome-machine-learning) - The Duolingo of machine learning: short lessons, 11 types of hands-on exercises on the skills the job needs, spaced repetition so you don't forget what you learned, and a clear beginner-to-advanced roadmap covering Python, PyTorch, math for ML, ML foundations, NLP, vision, and more.
 
 <a name="tools-neural-networks"></a>
 #### Neural Networks

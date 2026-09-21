@@ -1,14 +1,9 @@
 {
-  "fetched_at": "2026-09-14T14:58:30Z",
+  "fetched_at": "2026-09-21T15:03:46Z",
   "human_gate": true,
   "note": "Harvest URLs compile to Library \u00b7 unassigned. Copy commute candidates into scripts/commute.py by purpose/rank. Never auto-edit Do rails.",
   "harvested": [
-    "awesome-ml.md",
-    "awesome-dl.md",
-    "awesome-nlp.md",
-    "awesome-rl.md",
-    "ml-youtube-courses.md",
-    "dl-papers-roadmap.md"
+    "awesome-ml.md"
   ],
   "commute_candidates": [
     {
@@ -4646,6 +4641,13 @@
       "provider": "dataskeptic"
     },
     {
+      "title": "How to get discovered in AI search",
+      "url": "https://share.transistor.fm/s/66185604",
+      "audio_url": "https://media.transistor.fm/66185604/d94b5158.mp3",
+      "sitting_min": 55,
+      "provider": "practical-ai"
+    },
+    {
       "title": "Surviving the New Economics of a Post-Agentic World",
       "url": "https://share.transistor.fm/s/8a2e4fc0",
       "audio_url": "https://media.transistor.fm/8a2e4fc0/e08735dd.mp3",
@@ -7115,6 +7117,13 @@
       "audio_url": "https://media.transistor.fm/7565e5bb/934eb426.mp3",
       "sitting_min": 35,
       "provider": "practical-ai"
+    },
+    {
+      "title": "From Voice Agents to AI Avatars with Alexander Smola - #777",
+      "url": "https://twimlai.com/podcast/twimlai/voice-agents-ai-avatars",
+      "audio_url": "https://pscrb.fm/rss/p/traffic.megaphone.fm/MLN7382779687.mp3",
+      "sitting_min": 64,
+      "provider": "twiml"
     },
     {
       "title": "Do AI Tokenomics Matter More Than Model Benchmarks? with Chris Potts - #776",

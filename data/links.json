@@ -1,8 +1,8 @@
 {
   "schema": "atlas.links.v1",
-  "compiled_at": "2026-09-19T19:01:45Z",
-  "git_sha": "602c6f5",
-  "count": 1453,
+  "compiled_at": "2026-10-12T17:47:43Z",
+  "git_sha": "9ec7d4a",
+  "count": 1457,
   "items": [
     {
       "title": "(Convolutional) Neural Networks for Visual Recognition",
@@ -398,6 +398,10 @@
     },
     {
       "title": "2026",
+      "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_acl26/README.md"
+    },
+    {
+      "title": "2026",
       "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_cvpr26/README.md"
     },
     {
@@ -410,7 +414,19 @@
     },
     {
       "title": "2026",
+      "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_ijcai26/README.md"
+    },
+    {
+      "title": "2026",
+      "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_neurips26/README.md"
+    },
+    {
+      "title": "2026",
       "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_webconf26/README.md"
+    },
+    {
+      "title": "2026",
+      "url": "https://github.com/naganandy/graph-based-deep-learning-literature/tree/master/conference-publications/folders/years/2026/publications_kdd26/README.md"
     },
     {
       "title": "3D Computer Vision: Past, Present, and Future",

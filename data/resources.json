@@ -6784,6 +6784,23 @@
     "rank": 2
   },
   {
+    "id": "r-77881d40b1",
+    "title": "2026",
+    "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_neurips26/README.md",
+    "kind": "repo",
+    "provider": "github",
+    "access": "free",
+    "level": "unspecified",
+    "pedagogy": [],
+    "branches": [
+      "deep-learning",
+      "generative"
+    ],
+    "evidence": "Harvested from graph-dl.md",
+    "featured": false,
+    "source": "graph-dl.md"
+  },
+  {
     "id": "r-71d26396f9",
     "title": "2026",
     "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_icml26/README.md",
@@ -6810,6 +6827,24 @@
     "level": "unspecified",
     "pedagogy": [],
     "branches": [
+      "deep-learning",
+      "generative"
+    ],
+    "evidence": "Harvested from graph-dl.md",
+    "featured": false,
+    "source": "graph-dl.md"
+  },
+  {
+    "id": "r-d2e1744486",
+    "title": "2026",
+    "url": "https://github.com/naganandy/graph-based-deep-learning-literature/tree/master/conference-publications/folders/years/2026/publications_kdd26/README.md",
+    "kind": "repo",
+    "provider": "github",
+    "access": "free",
+    "level": "unspecified",
+    "pedagogy": [],
+    "branches": [
+      "classical-ml",
       "deep-learning",
       "generative"
     ],
@@ -6852,6 +6887,23 @@
     "source": "graph-dl.md"
   },
   {
+    "id": "r-fd51b79b7a",
+    "title": "2026",
+    "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_ijcai26/README.md",
+    "kind": "repo",
+    "provider": "github",
+    "access": "free",
+    "level": "unspecified",
+    "pedagogy": [],
+    "branches": [
+      "deep-learning",
+      "generative"
+    ],
+    "evidence": "Harvested from graph-dl.md",
+    "featured": false,
+    "source": "graph-dl.md"
+  },
+  {
     "id": "r-aaa9ddaeff",
     "title": "2026",
     "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_cvpr26/README.md",
@@ -6863,6 +6915,23 @@
     "branches": [
       "deep-learning",
       "computer-vision",
+      "generative"
+    ],
+    "evidence": "Harvested from graph-dl.md",
+    "featured": false,
+    "source": "graph-dl.md"
+  },
+  {
+    "id": "r-4829a4e4ea",
+    "title": "2026",
+    "url": "https://github.com/naganandy/graph-based-deep-learning-literature/blob/master/conference-publications/folders/years/2026/publications_acl26/README.md",
+    "kind": "repo",
+    "provider": "github",
+    "access": "free",
+    "level": "unspecified",
+    "pedagogy": [],
+    "branches": [
+      "deep-learning",
       "generative"
     ],
     "evidence": "Harvested from graph-dl.md",

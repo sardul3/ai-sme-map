@@ -727,6 +727,7 @@ Read the paper [here](https://arxiv.org/abs/1902.06714).
 * [WebDNN](https://github.com/mil-tokyo/webdnn) - Fast Deep Neural Network JavaScript Framework. WebDNN uses next generation JavaScript API, WebGPU for GPU execution, and WebAssembly for CPU execution.
 * [WebNN](https://webnn.dev) - A new web standard that allows web apps and frameworks to accelerate deep neural networks with on-device hardware such as GPUs, CPUs, or purpose-built AI accelerators.
 * [Kandle](https://github.com/final-kk/kandle) - A JavaScript Native PyTorch-aligned Machine Learning Framework, built from scratch on WebGPU.
+* [AI on Browser](https://github.com/ai-on-browser/ai-on-browser.github.io) - An educational, pure JavaScript library designed to help developers and students understand the inner workings of ML algorithms without the magic of external libraries.
 
 <a name="javascript-speech-recognition"></a>
 #### Speech Recognition
@@ -976,6 +977,7 @@ on MNIST digits[DEEP LEARNING].
 #### Natural Language Processing
 
 * [Stanford.NLP for .NET](https://github.com/sergey-tihon/Stanford.NLP.NET/) - A full port of Stanford NLP packages to .NET and also available precompiled as a NuGet package.
+* [Fuuga](https://bitbucket.org/thorium/fuuga) - LLM pipeline built from scratch in F# on TorchSharp: BPE tokenizer training, pre-training, LoRA/QLoRA/DPO fine-tuning, weight import from Hugging Face and GGUF models, RAG-grounded generation and an OpenAI-compatible server. GPU or CPU, no Python.
 
 <a name="net-general-purpose-machine-learning"></a>
 #### General-Purpose Machine Learning
@@ -1133,6 +1135,7 @@ be
 * [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch) - A PyTorch-based toolkit that offers pre-trained segmentation models for computer vision tasks. It simplifies the development of image segmentation applications by providing a collection of popular architecture implementations, such as UNet and PSPNet, along with pre-trained weights, making it easier for researchers and developers to achieve high-quality pixel-level object segmentation in images.
 * [segmentation_models](https://github.com/qubvel/segmentation_models) - A TensorFlow Keras-based toolkit that offers pre-trained segmentation models for computer vision tasks. It simplifies the development of image segmentation applications by providing a collection of popular architecture implementations, such as UNet and PSPNet, along with pre-trained weights, making it easier for researchers and developers to achieve high-quality pixel-level object segmentation in images.
 * [MLX](https://github.com/ml-explore/mlx)- MLX is an array framework for machine learning on Apple silicon, developed by Apple machine learning research.
+* [YOLO Annotator](https://github.com/ILYAGRISH/yolo-annotator) - Offline desktop tool (PyQt6) for labeling images: boxes, polygons, oriented boxes, keypoints, brush masks and semantic/panoptic regions. Exports YOLO, COCO (incl. RLE and Panoptic), Pascal VOC, LabelMe and PNG masks.
 
 <a name="python-natural-language-processing"></a>
 #### Natural Language Processing
@@ -1185,6 +1188,7 @@ be
 * [Transformers](https://github.com/huggingface/transformers) - A deep learning library containing thousands of pre-trained models on different tasks. The goto place for anything related to Large Language Models.
 * [TextCL](https://github.com/alinapetukhova/textcl) - Text preprocessing package for use in NLP tasks.
 * [VeritasGraph](https://github.com/bibinprathap/VeritasGraph) - Enterprise-Grade Graph RAG for Secure, On-Premise AI with Verifiable Attribution.
+* [yasbd-lib](https://github.com/speedyk-005/yasbd-lib) - High-accuracy, rule-based sentence boundary detector (SBD) with drop-in pysbd adapter, streaming APIs, CLI, and a spaCy component across 39+ languages.
 
 <a name="python-general-purpose-machine-learning"></a>
 #### General-Purpose Machine Learning
@@ -1582,6 +1586,7 @@ be
 #### Speech Recognition
 * [EspNet](https://github.com/espnet/espnet) - ESPnet is an end-to-end speech processing toolkit for tasks like speech recognition, translation, and enhancement, using PyTorch and Kaldi-style data processing.
 * [VoxRT](https://github.com/VoxRT/voxrt-asr-linux) - On-device streaming speech recognition toolkit with Python bindings. Based on NVIDIA NeMo FastConformer (80 ms cache-aware lookahead). Ships companion VAD (Silero), wake-word, and 14-command keyword spotting via same runtime.
+* [tiny-audio](https://github.com/alexkroman/tiny-audio) - Minimal, hackable PyTorch/Hugging Face codebase for training LLM-based speech recognition by connecting a frozen pretrained speech encoder to a pretrained LLM through a small trained projector, with word timestamps, speaker diarization and a free course.
 
 <a name="python-development tools"></a>
 #### Development Tools 
@@ -1895,6 +1900,7 @@ be
 <a name="tools-educational-tools"></a>
 #### Educational Tools
 * [NN Visual](https://nn-visual.com) - Interactive visualizations explaining neural networks, backpropagation, attention mechanisms, and transformers.
+* [QuiddityML](https://quiddityml.com/?utm_source=github&utm_medium=awesome&utm_campaign=awesome-machine-learning) - The Duolingo of machine learning: short lessons, 11 types of hands-on exercises on the skills the job needs, spaced repetition so you don't forget what you learned, and a clear beginner-to-advanced roadmap covering Python, PyTorch, math for ML, ML foundations, NLP, vision, and more.
 
 <a name="tools-neural-networks"></a>
 #### Neural Networks
